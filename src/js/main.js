@@ -21,20 +21,35 @@ function preload() {
     
     game.load.image('player', 'images/dude.png');
     game.load.image('flyer', 'images/ball.png');
-    //game.load.spritesheet('dude', 'assets/games/starstruck/dude.png', 32, 48);
     game.load.image('platform', 'images/platform.png');
+    game.load.image('bullet', 'images/bullet.png');
 }
 
-
-//var image;
+var weapon;
 var player;
-var jumpTimer = 0;
 var cursors;
-var jumpButton;
+var fireButton;
 
 function create() {
+
   
     game.physics.startSystem(Phaser.Physics.ARCADE);
+
+
+    //  Creates 1 single bullet, using the 'bullet' graphic
+    weapon = game.add.weapon(1, 'bullet');
+
+     //  The bullet will be automatically killed when it leaves the world bounds
+    weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
+
+    //  Because our bullet is drawn facing up, we need to offset its rotation:
+    weapon.bulletAngleOffset = 90;
+
+    //  The speed at which the bullet is fired
+    weapon.bulletSpeed = 400;
+
+    
+
     //  This creates a simple sprite that is using our loaded image and displays it on-screen and assign it to a variable
     ball = game.add.sprite(400, 500, 'flyer');
     ball.scale.setTo(0.15,0.15);
@@ -52,7 +67,7 @@ function create() {
     //  This sets the image bounce energy for the horizontal  and vertical vectors (as an x,y point). "1" is 100% energy return
     ball.body.bounce.set(1);
 
-    ball.body.gravity.set(0, 201);
+    ball.body.gravity.set(0, 201); 
     
     
     player = game.add.sprite(100, 200, 'player');
@@ -71,8 +86,11 @@ function create() {
 
     platforms.setAll('body.immovable', true);
 
+    //  Tell the Weapon to track the 'player' Sprite, offset by 14px horizontally, 0 vertically
+    weapon.trackSprite(player, 14, 0);
+
     cursors = game.input.keyboard.createCursorKeys();
-    jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+    fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
 
 }
  
@@ -94,10 +112,10 @@ function update () {
         player.body.velocity.x = 250;
     }
 
-    if (jumpButton.isDown && (player.body.onFloor() || player.body.touching.down))
+    if (fireButton.isDown)
     {
-        player.body.velocity.y = -400;
-    }
+        weapon.fire();
+    }       
     
 
     
