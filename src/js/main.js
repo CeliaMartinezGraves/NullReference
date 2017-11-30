@@ -18,6 +18,9 @@ function preload() {
     
     //game.load.baseURL = 'http://examples.phaser.io/assets/';
     //game.load.crossOrigin = 'anonymous';
+    game.load.baseURL = 'https://celiamartinezgraves.github.io/NullReference/src/';
+
+    game.load.crossOrigin = 'anonymous';
     
     game.load.image('player', 'images/dude.png');
     game.load.image('flyer', 'images/ball.png');
