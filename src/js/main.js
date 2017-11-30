@@ -15,17 +15,16 @@ function preload() {
     //  string by which we'll identify the image later in our code.
 
     //  The second parameter is the URL of the image (relative)
-    
-    //game.load.baseURL = 'http://examples.phaser.io/assets/';
-    //game.load.crossOrigin = 'anonymous';
+
     game.load.baseURL = 'https://celiamartinezgraves.github.io/NullReference/src/';
 
     game.load.crossOrigin = 'anonymous';
+
     
     game.load.image('player', 'images/dude.png');
     game.load.image('flyer', 'images/ball.png');
     game.load.image('platform', 'images/platform.png');
-    game.load.image('bullet', 'images/bullet.png');
+    game.load.image('bullet', 'images/hook.png');
 }
 
 var weapon;
@@ -34,19 +33,18 @@ var cursors;
 var fireButton;
 
 function create() {
-
-  
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-
-
     //  Creates 1 single bullet, using the 'bullet' graphic
     weapon = game.add.weapon(1, 'bullet');
 
      //  The bullet will be automatically killed when it leaves the world bounds
-    weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
+    //weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
 
     //  Because our bullet is drawn facing up, we need to offset its rotation:
     weapon.bulletAngleOffset = 90;
+
+    weapon.bulletLifespan = 3000;
+
+    weapon.bulletKillType = Phaser.Weapon.KILL_LIFESPAN;
 
     //  The speed at which the bullet is fired
     weapon.bulletSpeed = 400;
@@ -90,7 +88,7 @@ function create() {
     platforms.setAll('body.immovable', true);
 
     //  Tell the Weapon to track the 'player' Sprite, offset by 14px horizontally, 0 vertically
-    weapon.trackSprite(player, 14, 0);
+    weapon.trackSprite(player, 50, 500);
 
     cursors = game.input.keyboard.createCursorKeys();
     fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
@@ -98,9 +96,6 @@ function create() {
 }
  
 function update () {
-
-    //game.physics.arcade.collide(knocker, ball);
-    //game.physics.arcade.collide(knocker, player);
     game.physics.arcade.collide(player, platforms);
     game.physics.arcade.collide(ball, platforms);
     
