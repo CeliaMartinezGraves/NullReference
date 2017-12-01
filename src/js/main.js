@@ -34,7 +34,7 @@ var fireButton;
 
 function create() {
     //  Creates 1 single bullet, using the 'bullet' graphic
-    weapon = game.add.weapon(1, 'bullet');
+    weapon = game.add.weapon(2, 'bullet');
 
      //  The bullet will be automatically killed when it leaves the world bounds
     //weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
@@ -110,7 +110,7 @@ function update () {
         player.body.velocity.x = 250;
     }
 
-    if (fireButton.isDown)
+    if (fireButton.downDuration(0.2))
     {
         weapon.fire();
     }       
