@@ -113,10 +113,7 @@ function update () {
     if (fireButton.downDuration(0.2))
     {
         weapon.fire();
-    }       
-    
-
-    
+    }           
 }
 
 function render () {
