@@ -42,7 +42,7 @@ function create() {
     //  Because our bullet is drawn facing up, we need to offset its rotation:
     weapon.bulletAngleOffset = 90;
 
-    weapon.bulletLifespan = 2000;
+    weapon.bulletLifespan = 1700;
 
     weapon.bulletKillType = Phaser.Weapon.KILL_LIFESPAN;
 
@@ -72,7 +72,7 @@ function create() {
     
     
     player = game.add.sprite(100, 200, 'player');
-    player.scale.setTo(0.15,0.15);
+    //player.scale.setTo(0.15,0.15);
 
     game.physics.arcade.enable(player);
 
@@ -88,7 +88,7 @@ function create() {
     platforms.setAll('body.immovable', true);
 
     //  Tell the Weapon to track the 'player' Sprite, offset by 14px horizontally, 0 vertically
-    weapon.trackSprite(player, 50, 500);
+    weapon.trackSprite(player, 10, 400);
 
     cursors = game.input.keyboard.createCursorKeys();
     fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
