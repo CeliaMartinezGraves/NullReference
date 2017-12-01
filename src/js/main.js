@@ -42,7 +42,7 @@ function create() {
     //  Because our bullet is drawn facing up, we need to offset its rotation:
     weapon.bulletAngleOffset = 90;
 
-    weapon.bulletLifespan = 3000;
+    weapon.bulletLifespan = 2000;
 
     weapon.bulletKillType = Phaser.Weapon.KILL_LIFESPAN;
 
