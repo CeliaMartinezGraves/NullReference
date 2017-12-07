@@ -1,7 +1,8 @@
 
-var objects = require('./objects.js');
+var objects = require('objects.js');
 
-var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
+// Deberia utilizar el game que esta en "object.js"
+//var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
 
 function preload() {
     //  You can fill the preloader with as many assets as your game requires
@@ -11,15 +12,15 @@ function preload() {
 
     //  The second parameter is the URL of the image (relative)
 
-    game.load.baseURL = 'https://celiamartinezgraves.github.io/NullReference/src/';
+    objects.game.load.baseURL = 'https://celiamartinezgraves.github.io/NullReference/src/';
 
-    game.load.crossOrigin = 'anonymous';
+    objects.game.load.crossOrigin = 'anonymous';
 
     
-    game.load.image('player', 'images/dude.png');
-    game.load.image('flyer', 'images/ball.png');
-    game.load.image('platform', 'images/platform.png');
-    game.load.image('bullet', 'images/hook.png');
+    objects.game.load.image('player', 'images/dude.png');
+    objects.ame.load.image('flyer', 'images/ball.png');
+    objects.game.load.image('platform', 'images/platform.png');
+    objects.game.load.image('bullet', 'images/hook.png');
 }
 
 var weapon;
@@ -51,7 +52,7 @@ function create() {
     ball.scale.setTo(0.15,0.15);
     //knocker = game.add.sprite(400, 500, 'dude');
 
-    game.physics.enable(ball, Phaser.Physics.ARCADE);
+    objects.game.physics.enable(ball, Phaser.Physics.ARCADE);
     //knocker.body.immovable = true;
     
     //  This gets it moving
@@ -69,7 +70,7 @@ function create() {
     player = game.add.sprite(100, 200, 'player');
     //player.scale.setTo(0.15,0.15);
 
-    game.physics.arcade.enable(player);
+    objects.game.physics.arcade.enable(player);
 
     player.body.collideWorldBounds = true;
     player.body.gravity.y = 500;
@@ -91,8 +92,8 @@ function create() {
 }
  
 function update () {
-    game.physics.arcade.collide(player, platforms);
-    game.physics.arcade.collide(ball, platforms);
+    objects.game.physics.arcade.collide(player, platforms);
+    objects.game.physics.arcade.collide(ball, platforms);
     
     player.body.velocity.x = 0;
 
