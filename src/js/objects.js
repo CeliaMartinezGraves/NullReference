@@ -5,3 +5,4 @@ var gameObject = {
         
     }
 }
+module.exports = objects;
