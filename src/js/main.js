@@ -1,10 +1,5 @@
-/**
- * Generated from the Phaser Sandbox
- *
- * //phaser.io/sandbox/akDNOqwc
- *
- * This source requires Phaser 2.6.2
- */
+
+var objects = require('./objects.js');
 
 var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
 
