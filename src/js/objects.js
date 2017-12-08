@@ -1,8 +1,7 @@
-var game = new Phaser.Game(800, 600, Phaser.AUTO, '', { preload: preload, create: create, update: update, render: render });
+'use strict';
 
-var gameObject = {
-    constructor (posX, posY, imageName) {
-        
-    }
-}
-module.exports = objects;
+var GameObject{
+
+};
+
+module.exports = GameObject;
