@@ -1,7 +1,18 @@
-'use strict';
+//'use strict';
 
-var GameObject{
+var bublleSmall = 0.10;
+
+var Player = {
+	vidas = 3;
 
 };
+var Bubble = {
+	nivel;
 
-module.exports = GameObject;
+	constructor (lvl, posX, posY, image){
+		nivel = lvl;
+		game.load.image('ballImage', image);
+		game.add.sprite(posY, posY, 'ballImage');
+		this.scale.setTo(bublleSmall * nivel, bublleSmall*nivel);
+	}
+};
