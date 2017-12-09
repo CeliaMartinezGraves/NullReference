@@ -1,14 +1,12 @@
 
-var bublleSmall = 0.10;
-
-var Player = {
-};
 var Bubble = {
 	
 	constructor (lvl, posX, posY, image){
 		var nivel = lvl;
 		var imagen = image;
 	},
+
+	constructor(){},
 
 	preload: function () {
 		game.load.image('ballImage', imagen);
@@ -19,10 +17,10 @@ var Bubble = {
 
 		this.body.bounce.set(1);
 
-    	this.body.gravity.set(0, 201);
+   		this.body.gravity.set(0, 201);
 	},
 
 	render: function(){
-		game.add.sprite(posY, posY, 'ballImage');
+			game.add.sprite(posY, posY, 'ballImage');
 	}
 };
