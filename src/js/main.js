@@ -8,26 +8,40 @@ function importarScript(nombre, callback) {
     var s = document.createElement("script");
     s.onload = callback;
     s.src = nombre;
-   // document.querySelector("head").appendChild(s);
+    return s;
+    document.querySelector("head").appendChild(s);
+
 }
 
 function scriptCargado(){
-	Console.log("33");
-	burbuja = new Bubble(3, 400, 500, 'images/ball.png');
-	burbuja.preload();
-
+	
 }
-
 
 
 function preload(){
 
-	var objects = importarScript("./objects.js", scriptCargado);
+	var objects = importarScript("./js/objects.js");
+
+	console.log('33');
+	if (objects === undefined)
+		{console.log('objetos de M');}
+	else if (objects.Bubble === undefined)
+		{
+			console.log(Object.keys(objects));
+			console.log(typeof objects);
+			console.log('Bubble');}
+	else {
+		burbuja = objects.Bubble.constructor(3, 400, 500, 'images/ball.png');
+		burbuja.preload();
+		burbuja.render();
+		console.log('sacabo');
+	}
+	
 }
 
 function create() {
 	if (typeof burbuja !== 'undefined'){
-		burbuja.render(); 
+		
 	}
 }
 
@@ -36,7 +50,7 @@ function update(){
 }
 
 function render() {
-
+	//game.debug.spriteInfo(burbuja, 32, 32);
 }
 
 
