@@ -1,5 +1,48 @@
 
+class GameObject {
+
+	constructor (posX, posY, image){
+		this.posX = posX;
+		this.posY = posY;
+		this.image = image;
+		console.log(image);
+		game.load.image('flyer', image);
+		console.log('carga imagen');
+
+	}
+
+	preload(){
+		
+	}
+
+	create(){
+		var ball = game.add.sprite(this.posX, this.posY, 'flyer');
+		console.log('colocado go');
+	}
+}
+
+class Movable extends GameObject {
+	constructor(posX, posY, image, speedX, speedY){
+		super(posX, posY, image);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var Bubble = {
+	nivel : 8,
 	
 	constructor (lvl, posX, posY, image){
 		var nivel = lvl;
