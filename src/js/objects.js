@@ -7,6 +7,7 @@ class GameObject {
 		this.posX = posX;
 		this.posY = posY;
 		this.image = image;
+		this.obj = this; // Para que en los hijos se pueda utilizar obj
 	}
 
 // RESTO DE FUNCIONES
@@ -40,7 +41,22 @@ class GameObject {
 class Movable extends GameObject {
 	constructor(posX, posY, image, speedX, speedY){
 		super(posX, posY, image);
+		this.speedX = speedX;
+		this.speedY = speedY;
+
+		
 	}
+
+	create(){
+		super.create();
+		game.physics.arcade.enable(this.obj);
+		this.obj.body.bounce.y = 0.95;
+		this.obj.body.collideWorldBounds = true;
+	}
+	update(){
+
+	}
+
 }
 
 
