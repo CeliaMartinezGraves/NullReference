@@ -12,7 +12,7 @@ function preload(){
 	go2.setLabel('platform');
 	go.preload();
 
-	ball = new Movable(300, 100, 'images/ball.png', 50, 50);
+	ball = new Movable(300, 100, 'images/ball.png', -50, 50);
 	ball.setLabel('ball');
 	ball.preload();
 
@@ -22,7 +22,7 @@ function create() {
 
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	game.physics.arcade.gravity.y = 200;
-		
+
 	go.create();
 	go2.create();
 	ball.create();
@@ -36,7 +36,7 @@ function create() {
 }
 
 function update(){
-
+	ball.update();
 }
 
 function render() {
