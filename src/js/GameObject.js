@@ -50,7 +50,7 @@ class GameObject {
 
 
 
-var Bubble = {
+/*var Bubble = {
 	nivel : 8,
 	
 	constructor (lvl, posX, posY, image){
@@ -75,4 +75,4 @@ var Bubble = {
 	render: function(){
 			game.add.sprite(posY, posY, 'ballImage');
 	}
-};
+};*/
