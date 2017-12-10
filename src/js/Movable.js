@@ -16,6 +16,8 @@ class Movable extends GameObject {
 	changeSpeed(speedX, speedY){
 		this.speedX = speedX;
 		this.speedY = speedY;
+		this.obj.body.velocity.x = this.speedX;
+		this.obj.body.velocity.y = this.speedY;
 	}
 
 	update(){

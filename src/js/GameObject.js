@@ -30,8 +30,8 @@ class GameObject {
 	}
 
 // cambia el tamaño a widthXheigth
-	resize(width, heigth){
-		this.obj.scale.setTo(width, heigth); //funciona
+	resize(width, height){
+		this.obj.scale.setTo(width, height); //funciona
 	}
 
 }
