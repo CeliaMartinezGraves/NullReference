@@ -62,6 +62,8 @@ function create() {
 
 
 	cursors = game.input.keyboard.createCursorKeys();
+
+	alert('las azules son sin gravedad y las rojas, con gravedad');
 	
 }
 
