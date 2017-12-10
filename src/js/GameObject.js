@@ -3,10 +3,12 @@ class GameObject {
 
 // Se llama con new GameObject(x, y, img)
 // asigana los valores al gameObject para luego poder utilizarlos más adelante
-	constructor (posX, posY, image){
+	constructor (posX, posY, image, label){
 		this.posX = posX;
 		this.posY = posY;
 		this.image = image;
+		this.label = label;// IMPORTANTE ASIGNAR ETIQUETA ANTES DE CREAR O CARGAR
+
 		this.obj = this; // Para que en los hijos se pueda utilizar obj
 	}
 
@@ -14,10 +16,6 @@ class GameObject {
 // Aunque sean preload, create, etc, hay que hacer llamadas para que se activen
 // ya que esto es js no phaser (al ir por clases)
 
-// IMPORTANTE ASIGNAR ETIQUETA ANTES DE CREAR O CARGAR
-	setLabel(label){
-		this.label = label
-	}
 
 // carga la imagen con la etiqueta que sea
 // Si varios objetos utilizan la misma imagen, no es necesario cargarla en todos, 
@@ -35,6 +33,7 @@ class GameObject {
 	resize(width, heigth){
 		this.obj.scale.setTo(width, heigth); //funciona
 	}
+
 }
 
 
