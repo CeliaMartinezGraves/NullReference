@@ -1,6 +1,6 @@
 class Movable extends GameObject {
-	constructor(posX, posY, image, speedX, speedY){
-		super(posX, posY, image);
+	constructor(posX, posY, image, label, speedX, speedY){
+		super(posX, posY, image, label);
 		this.speedX = speedX;
 		this.speedY = speedY;
 	}

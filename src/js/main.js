@@ -6,14 +6,12 @@ var go, go2, ball;
 
 function preload(){
 
-	go = new GameObject(200,200, 'images/platform.png');
-	go2 = new GameObject(300,300, 'images/platform.png');
-	go.setLabel('platform');
-	go2.setLabel('platform');
+	go = new GameObject(200,200, 'images/platform.png','platform');
+	go2 = new GameObject(300,300, 'images/platform.png', 'platform');
+
 	go.preload();
 
-	ball = new Movable(300, 100, 'images/ball.png', -50, 50);
-	ball.setLabel('ball');
+	ball = new Movable(300, 100, 'images/ball.png', 'ball', -50, 50);
 	ball.preload();
 
 }
