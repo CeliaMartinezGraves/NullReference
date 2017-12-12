@@ -1,6 +1,6 @@
 'use strict';
 
-var PlayScene = require('./play_scene.js');
+var Objects = require('./playSceneCopia.js');
 
 
 var BootScene = {
@@ -22,7 +22,7 @@ var PreloaderScene = {
     this.load.setPreloadSprite(this.loadingBar);
 
     // TODO: load here the assets for the game
-    this.game.load.image('logo', 'images/phaser.png');
+    this.game.load.image('logo', 'images/ball.png');
   },
 
   create: function () {
@@ -36,7 +36,7 @@ window.onload = function () {
 
   game.state.add('boot', BootScene);
   game.state.add('preloader', PreloaderScene);
-  game.state.add('play', PlayScene);
+  game.state.add('play', Objects);
 
   game.state.start('boot');
 };
