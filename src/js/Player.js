@@ -13,7 +13,7 @@ class Player extends collideWorld{
 	}
 
 	update(){
-		if (this.cursors.left.isDown)
+		if (this.cursors..isDown)
     	{
        	 	player.changeSpeedX(-250);
     	}
