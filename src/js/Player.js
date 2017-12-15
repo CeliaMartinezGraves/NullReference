@@ -1,6 +1,7 @@
 class Player extends collideWorld{
-	constructor(image, label,speedX, speedY){
+	constructor(image, label,speedX, speedY, cursors){
 		super(game.width/2, game.height, image, label, speedX, speedY);
+		this.cursors = cursors;
 	}
 
 	changeSpeedX(speedX){
@@ -12,11 +13,11 @@ class Player extends collideWorld{
 	}
 
 	update(){
-		if (cursors.left.isDown)
+		if (this.cursors.left.isDown)
     	{
        	 	player.changeSpeedX(-250);
     	}
-    	else if (cursors.right.isDown)
+    	else if (this.cursors.right.isDown)
     	{
         	player.changeSpeedX(250);
     	}
