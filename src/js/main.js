@@ -29,7 +29,7 @@ function preload(){
 	fall = new VerticalMovable(500, 100, 'images/phaser.png', 'fall', 50);
 	fall.preload();
 
-	player = new Player('images/dude.png','dude', 0, 0);
+	player = new Player('images/dude.png','dude', 0, 0, cursorsWASD);
 	player.preload();
 }
 
@@ -62,6 +62,7 @@ function create() {
 
 
 	cursors = game.input.keyboard.createCursorKeys();
+	cursorsWASD = game.input.keyboard.addKeys({'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D}); 
 
 	alert('las azules son sin gravedad y las rojas, con gravedad');
 	
