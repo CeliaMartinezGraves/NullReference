@@ -1,15 +1,21 @@
-class Gancho extends GameObject{
-	constructor(numBullets, image, label){
-		super(1,1,image, label);
-		this.numBullets = numBullets;		
+class Gancho extends VerticalMovable{
+
+	constructor(numBullets, image, label, player){
+
+		super(player.posX, player.posY, image, label, -70);
+		
+		this.player = player;
+
+		this.numBullets = numBullets;
+		super.preload();	
 	}
 
+	
 
 	fire(){
-		//this.carga();
-		
-		this.weapon.fire(player);
 		super.create();
+		this.weapon.fire(this.player);
+		
 	}
 
 	carga(){
@@ -18,9 +24,7 @@ class Gancho extends GameObject{
 
 		this.weapon.bulletAngleOffset = 90;
 		this.weapon.bulletSpeed = 400;
-		this.weapon.trackSprite(player, 10, 400);
+		this.weapon.trackSprite(this.player, 10, 400);
 	}
-
-
 
 }
