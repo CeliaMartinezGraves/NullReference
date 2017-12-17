@@ -2,24 +2,28 @@ class Gancho extends VerticalMovable{
 
 	constructor(numBullets, image, label, player){
 
-		super(player.posX, player.posY, image, label, -70);
+		super(player.posX, player.posY-50, image, label, -70);
 		
+
 		this.player = player;
 
 		this.numBullets = numBullets;
 		super.preload();	
 	}
 
+	create(){
+		super.create();
+		this.changeSpeed(0,-70);
+	}
 	
 
 	fire(){
-		super.create();
-		this.weapon.fire(this.player);
-		
+		this.create();		
 	}
 
 	carga(){
-		//super.preload();
+
+
 		this.weapon = game.add.weapon(this.numBullets, this.label);
 
 		this.weapon.bulletAngleOffset = 90;
