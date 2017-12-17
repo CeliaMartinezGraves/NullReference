@@ -8,6 +8,7 @@ class Gancho extends VerticalMovable{
 		this.player = player;
 
 		this.numBullets = numBullets;
+		this.numBulletsRest = numBullets;
 		super.preload();	
 		var line1;
 		var x,y;
@@ -16,31 +17,37 @@ class Gancho extends VerticalMovable{
 
 	create(){
 		super.create();
-		this.changeSpeed(0,-80);
+		this.changeSpeed(0,-100);
 		this.line1 = new Phaser.Line(200, 200, 100, 100);
 		this.x = this.player.obj.body.x;
 		this.y = this.player.obj.body.y;
 		this.moveTo(this.x,this.y);
-		
+		this.obj.body.collideWorldBounds = false;
+		this.obj.checkWorldBounds = true;
+		this.obj.outOfBoundsKill = true;
 	}
-	
+
+	onKill(){
+		this.obj.kill();
+		this.numBulletsRest++;
+		console.log(this.numBulletsRest);
+	}
 
 	fire(){
-		this.create();	
+		if (this.numBulletsRest > 0){
+				this.create();
+				this.numBulletsRest--;
+		}
+		console.log(this.numBulletsRest);
 	}
 
-	carga(){
-
-
-		this.weapon = game.add.weapon(this.numBullets, this.label);
-
-		this.weapon.bulletAngleOffset = 90;
-		this.weapon.bulletSpeed = 400;
-		this.weapon.trackSprite(this.player, 10, 400);
-	}
 
 	update(){
-		this.line1.setTo(this.x+9,this.y, this.obj.body.x+9,this.obj.body.y+5)
+		if (this.obj.inWorld === false && this.numBulletsRest < this.numBullets)
+			this.onKill();
+
+		this.line1.setTo(this.x+9,this.y, this.obj.body.x+9,this.obj.body.y+5);
+
 	}
 
 	render(){

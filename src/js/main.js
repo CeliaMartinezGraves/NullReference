@@ -12,7 +12,7 @@ function preload(){
 	fireButton = game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
 
 	go = new GameObject(200,200, 'images/platform.png','platform');
-	go2 = new GameObject(300,300, 'images/platform.png', 'platform');
+	go2 = new Platform(300,300, 'images/platform.png', 'platform');
 
 	go.preload();
 
@@ -77,6 +77,7 @@ function create() {
 }
 
 function update(){
+	this.game.physics.arcade.collide(ball, go2);
 	player.update();
 	//y = y -1;
 	//line1.setTo(400, 600, x,y);
