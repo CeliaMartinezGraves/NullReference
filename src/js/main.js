@@ -37,10 +37,11 @@ function preload(){
 	player = new Player('images/dude.png','dude', 0, 0, cursorsWASD);
 	player.preload();
 
+	
+
 }
 
 function create() {
-
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 	//game.physics.arcade.gravity.y = 200;
 
@@ -66,16 +67,25 @@ function create() {
 	go.resize(1, 0.5);
 	go2.resize(1, 0.5);	 
 
+
+	//line1 = new Phaser.Line(200, 200, 100, 100);
+	//y=600;
+	//x = player.posX;
+
 	alert('las azules son sin gravedad y las rojas, con gravedad');
 	
 }
 
 function update(){
 	player.update();
+	//y = y -1;
+	//line1.setTo(400, 600, x,y);
+	
 }
 
 function render() {
-	
+	player.render();
+	//game.debug.geom(line1,'#0fffff');
 }
 
 
