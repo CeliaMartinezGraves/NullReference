@@ -27,11 +27,11 @@ class Movable extends GameObject {
 }
 
 
-//this.obj.body.bounce.y = 1.001; para los rebotes en y
-// ESTO NO VA EN ESTA CLASE; ES POR DEBUG
-		//this.obj.body.bounce.y = 1.001;
-		//this.obj.body.bounce.x = 1.001;
-//this.obj.body.collideWorldBounds = true; esto en todo menos animales
+//this.obj.body.bounce.y = 1.001; para los rebotes en y 
+// ESTO NO VA EN ESTA CLASE; ES POR DEBUG 
+    //this.obj.body.bounce.y = 1.001; 
+    //this.obj.body.bounce.x = 1.001; 
+//this.obj.body.collideWorldBounds = true; esto en todo menos animales 
 
 // Añade la funcionalidad de chocar con los bordes del mundo,
 // ya que los enemigos no lo tienen, para que de aqui hereden 
