@@ -48,10 +48,12 @@ function create() {
 	go.create();
 	go2.create();
 
+	balls = game.add.group();
 	ball.create();
 	ball2.create();
 	ball3.create();
 	ball4.create();
+	
 
 	grvball.create();
 	grvball2.create();
@@ -79,6 +81,23 @@ function create() {
 function update(){
 	this.game.physics.arcade.collide(ball, go2);
 	player.update();
+
+	if(checkOverlap(player.gancho,ball))
+		collisionHandler(player.gancho,ball);
+	if(checkOverlap(player.gancho,ball2))
+		collisionHandler(player.gancho,ball2);
+	if(checkOverlap(player.gancho,ball3))
+		collisionHandler(player.gancho,ball3);
+	if(checkOverlap(player.gancho,ball4))
+		collisionHandler(player.gancho,ball4);
+	if(checkOverlap(player.gancho,grvball))
+		collisionHandler(player.gancho,grvball);
+	if(checkOverlap(player.gancho,grvball2))
+		collisionHandler(player.gancho,grvball2);
+	if(checkOverlap(player.gancho,grvball3))
+		collisionHandler(player.gancho,grvball3);
+	if(checkOverlap(player.gancho,grvball4))
+		collisionHandler(player.gancho,grvball4);
 	//y = y -1;
 	//line1.setTo(400, 600, x,y);
 	
@@ -89,6 +108,21 @@ function render() {
 	//game.debug.geom(line1,'#0fffff');
 }
 
+function collisionHandler(gancho,pelota){
+	
+	console.log('ouchie');
+	pelota.obj.kill();
+
+}
+
+function checkOverlap(spriteA, spriteB) {
+
+    var boundsA = spriteA.obj.getBounds();
+    var boundsB = spriteB.obj.getBounds();
+
+    return Phaser.Rectangle.intersects(boundsA, boundsB);
+
+}
 
 
 

@@ -18,6 +18,10 @@ class Bubble extends collideWorld{
 		ballSon2 = new parent(this.posX, this.posY, 'images/pokemonicon.png', 'ball', 100, 150, this.level-1);
 		this.obj.kill();
 	}
+
+	getLevel(){
+		return this.level;
+	}
 }
 
 class GravityBubble extends Bubble{

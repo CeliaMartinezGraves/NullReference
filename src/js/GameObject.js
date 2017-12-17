@@ -1,4 +1,3 @@
-
 class GameObject extends Phaser.Sprite{
 
 // Se llama con new GameObject(x, y, img)
