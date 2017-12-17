@@ -1,9 +1,10 @@
 
-class GameObject {
+class GameObject extends Phaser.Sprite{
 
 // Se llama con new GameObject(x, y, img)
 // asigana los valores al gameObject para luego poder utilizarlos más adelante
 	constructor (posX, posY, image, label){
+		super(game, posX, posY, label);
 		this.posX = posX;
 		this.posY = posY;
 		this.image = image;
