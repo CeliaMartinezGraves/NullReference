@@ -3,12 +3,13 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, null, { preload: preload, create: create, update: update, render: render });
 
 
-var go, go2, ball, ball2, ball3, ball4, grvball, grvball2, grvball3, grvball4, fall, player, p2, cursors;
+var go, go2, ball, ball2, ball3, ball4, grvball, grvball2, grvball3, grvball4, fall, player, gancho, cursors;
 
 function preload(){
 
 	cursors = game.input.keyboard.createCursorKeys();
 	cursorsWASD = game.input.keyboard.addKeys({'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'fire': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D});
+	fireButton = game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
 
 	go = new GameObject(200,200, 'images/platform.png','platform');
 	go2 = new GameObject(300,300, 'images/platform.png', 'platform');
@@ -36,7 +37,6 @@ function preload(){
 	player = new Player('images/dude.png','dude', 0, 0, cursorsWASD);
 	player.preload();
 
-	//p2 = new Player('images/dude.png','dude', 0, 0, cursors);
 }
 
 function create() {
@@ -61,7 +61,6 @@ function create() {
 	fall.resize(0.1,0.1);
 
 	player.create();
-	p2.create();
 
 	console.log('cargado go completo');
 	go.resize(1, 0.5);
@@ -73,7 +72,6 @@ function create() {
 
 function update(){
 	player.update();
-	//p2.update();
 }
 
 function render() {
