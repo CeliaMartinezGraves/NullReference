@@ -4,6 +4,8 @@ class Player extends collideWorld{
 		this.cursors = cursors;
 		this.gancho = new Gancho(2, 'images/hookTop.png','hook', this);
 		this.gancho.onload = this.gancho.carga();	
+		this.hayGancho = false;
+
 	}
 
 	preload(){
@@ -30,7 +32,17 @@ class Player extends collideWorld{
     	else
     		player.changeSpeedX(0);
 
-    	if (fireButton.downDuration(0.2))
+    	if (fireButton.downDuration(0.2)){
     		this.gancho.fire();
+    		this.hayGancho = true;
+    	}
+    	if(this.hayGancho){
+    		this.gancho.update();
+    	}
+	}
+	render(){
+		if(this.hayGancho){
+			this.gancho.render();
+		}
 	}
 }
