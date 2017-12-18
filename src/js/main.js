@@ -5,6 +5,9 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, null, { preload: preload, crea
 
 var go, go2, ball, ball2, ball3, ball4, grvball, grvball2, grvball3, grvball4, fall, player, gancho, cursors;
 var bubbles;
+var boundsA, boundsB;
+var i;
+
 
 function preload(){
 
@@ -51,20 +54,9 @@ function create() {
 
 	balls = game.add.group();
 
-	for(var i = 0; i < bubbles.length; i++){
+	for(i = 0; i < bubbles.length; i++){
 		bubbles[i].create();
 	}
-/*
-	ball.create();
-	ball2.create();
-	ball3.create();
-	ball4.create();
-	
-
-	grvball.create();
-	grvball2.create();
-	grvball3.create();
-	grvball4.create();*/
 
 	fall.create();
 	fall.resize(0.1,0.1);
@@ -84,45 +76,18 @@ function create() {
 	
 }
 
+
 function update(){
 	this.game.physics.arcade.collide(ball, go2);
 	player.update();
 
-	for(var i = 0; i < bubbles.length; i++){
+	for(i = 0; i < bubbles.length; i++){
 		if(checkOverlap(player.gancho, bubbles[i])){
 			collisionHandler(player.gancho, bubbles[i], i);
 		}
-	}
-
-/*
-	if(checkOverlap(player.gancho,ball)){
-		collisionHandler(player.gancho,ball);
-	}
-	if(checkOverlap(player.gancho,ball2)){
-		collisionHandler(player.gancho,ball2);
-	}
-	if(checkOverlap(player.gancho,ball3)){
-		collisionHandler(player.gancho,ball3);
-	}
-	if(checkOverlap(player.gancho,ball4)){
-		collisionHandler(player.gancho,ball4);
-	}
-	if(checkOverlap(player.gancho,grvball)){
-		collisionHandler(player.gancho,grvball);
-	}
-	if(checkOverlap(player.gancho,grvball2)){
-		collisionHandler(player.gancho,grvball2);
-	}
-	if(checkOverlap(player.gancho,grvball3)){
-		collisionHandler(player.gancho,grvball3);
-	}
-	if(checkOverlap(player.gancho,grvball4)){
-		collisionHandler(player.gancho,grvball4);
-	}*/
-	//y = y -1;
-	//line1.setTo(400, 600, x,y);
-	
+	}	
 }
+
 
 function render() {
 	player.render();
@@ -132,22 +97,19 @@ function render() {
 function collisionHandler(gancho,pelota, indice){
 	
 	console.log('ouchie');
-	pelota.onKilled(bubbles);
+	pelota.die(bubbles);
 
 	bubbles.splice(indice, 1);
 	
-	gancho.obj.kill();
-	pelota.obj.kill();
-	
-	gancho.onKilled();
+	player.gancho.die();
 
 }
 
 function checkOverlap(spriteA, spriteB) {
 
-	if (spriteA.alive && spriteB.alive){
-    	var boundsA = spriteA.obj.getBounds();
-    	var boundsB = spriteB.obj.getBounds();
+	if (spriteA.exists && spriteB.exists){
+    	boundsA = spriteA.obj.getBounds();
+    	boundsB = spriteB.obj.getBounds();
 
 	    return Phaser.Rectangle.intersects(boundsA, boundsB);
 	}

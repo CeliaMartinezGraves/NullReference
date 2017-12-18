@@ -15,16 +15,16 @@ class Bubble extends collideWorld{
 	}
 
 	divide(parent){
-		var ballSon1 = new Bubble(this.posX, this.posY, 'images/pokemonicon.png', 'ball', -100, 150, this.level-1, this.arrayParent);
+		var ballSon1 = new Bubble(this.obj.body.x, this.obj.body.y, 'images/pokemonicon.png', 'ball', -100, 150, this.level-1, this.arrayParent);
 		ballSon1.create();
-		var ballSon2 = new Bubble(this.posX, this.posY, 'images/pokemonicon.png', 'ball', 100, 150, this.level-1, this.arrayParent);
+		var ballSon2 = new Bubble(this.obj.body.x, this.obj.body.y, 'images/pokemonicon.png', 'ball', 100, 150, this.level-1, this.arrayParent);
 		ballSon2.create();
 
 		parent.push(ballSon1);
 		parent.push(ballSon2);
 	}
 
-	onKilled(parent){
+	die(parent){
 		if (this.level > 0)
 			this.divide(parent);
 		this.obj.destroy();

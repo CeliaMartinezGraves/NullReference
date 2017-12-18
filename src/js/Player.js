@@ -21,16 +21,17 @@ class Player extends collideWorld{
 	}
 
 	update(){
+
 		if (this.cursors.fire.isDown)
     	{
-       	 	player.changeSpeedX(-250);
+       	 	this.changeSpeedX(-250);
     	}
     	else if (this.cursors.right.isDown)
     	{
-        	player.changeSpeedX(250);
+        	this.changeSpeedX(250);
     	}
     	else
-    		player.changeSpeedX(0);
+    		this.changeSpeedX(0);
 
     	if (fireButton.downDuration(0.2)){
     		this.gancho.fire();

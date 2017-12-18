@@ -2,7 +2,7 @@ class Gancho extends VerticalMovable{
 
 	constructor(numBullets, image, label, player){
 
-		super(player.posX, player.posY-50, image, label, -70);
+		super(player.posX, player.posY-50, image, label, -200);
 		
 
 		this.player = player;
@@ -17,7 +17,6 @@ class Gancho extends VerticalMovable{
 
 	create(){
 		super.create();
-		this.changeSpeed(0,-100);
 		this.line1 = new Phaser.Line(200, 200, 100, 100);
 		this.x = this.player.obj.body.x;
 		this.y = this.player.obj.body.y;
@@ -27,7 +26,7 @@ class Gancho extends VerticalMovable{
 		this.obj.outOfBoundsKill = true;
 	}
 
-	onKilled(){
+	die(){
 		this.numBulletsRest++;
 		console.log('gancho Kill');
 	}
@@ -45,7 +44,8 @@ class Gancho extends VerticalMovable{
 		if (this.obj.inWorld === false && this.numBulletsRest < this.numBullets)
 			this.onKill();
 
-		this.line1.setTo(this.x+9,this.y, this.obj.body.x+9,this.obj.body.y+5);
+		if (this.obj.alive)
+			this.line1.setTo(this.x+9,this.y, this.obj.body.x+9,this.obj.body.y+5);
 
 	}
 
