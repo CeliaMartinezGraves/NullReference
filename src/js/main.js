@@ -87,12 +87,17 @@ function update(){
 		if(checkOverlap(player.gancho, bubbles[i])){
 			collisionHandler(player.gancho, bubbles[i], i);
 		}
+
+		else if (checkOverlap(player2.gancho, bubbles[i])){
+			collisionHandler(player2.gancho, bubbles[i], i);
+		}
 	}	
 }
 
 
 function render() {
 	player.render();
+	player2.render();
 	//game.debug.geom(line1,'#0fffff');
 }
 
