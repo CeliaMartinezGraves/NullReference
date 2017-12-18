@@ -3,7 +3,7 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, null, { preload: preload, create: create, update: update, render: render });
 
 
-var go, go2, ball, ball2, ball3, ball4, grvball, grvball2, grvball3, grvball4, fall, player, gancho, cursors;
+var go, go2, ball, ball2, ball3, ball4, grvball, grvball2, grvball3, grvball4, fall, player, player2, gancho, cursors;
 var bubbles;
 var boundsA, boundsB;
 var i;
@@ -11,9 +11,8 @@ var i;
 
 function preload(){
 
-	cursors = game.input.keyboard.createCursorKeys();
-	cursorsWASD = game.input.keyboard.addKeys({'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'fire': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D});
-	fireButton = game.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
+	cursors = game.input.keyboard.addKeys({'up': Phaser.KeyCode.UP, 'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 'right': Phaser.KeyCode.RIGHT, 'fireButton': Phaser.KeyCode.L});
+	cursorsWASD = game.input.keyboard.addKeys({'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D, 'fireButton': Phaser.KeyCode.SPACEBAR});
 
 	go = new GameObject(200,200, 'images/platform.png','platform');
 	go2 = new Platform(300,300, 'images/platform.png', 'platform');
@@ -41,7 +40,8 @@ function preload(){
 	player = new Player('images/dude.png','dude', 0, 0, cursorsWASD);
 	player.preload();
 
-	
+	player2 = new Player('images/dude2.png','dude2', 0, 0, cursors);
+	player2.preload();
 
 }
 
@@ -62,6 +62,7 @@ function create() {
 	fall.resize(0.1,0.1);
 
 	player.create();
+	player2.create();
 
 	console.log('cargado go completo');
 	go.resize(1, 0.5);
@@ -80,6 +81,7 @@ function create() {
 function update(){
 	this.game.physics.arcade.collide(ball, go2);
 	player.update();
+	player2.update();
 
 	for(i = 0; i < bubbles.length; i++){
 		if(checkOverlap(player.gancho, bubbles[i])){

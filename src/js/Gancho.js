@@ -42,7 +42,7 @@ class Gancho extends VerticalMovable{
 
 	update(){
 		if (this.obj.inWorld === false && this.numBulletsRest < this.numBullets)
-			this.onKill();
+			this.die();
 
 		if (this.obj.alive)
 			this.line1.setTo(this.x+9,this.y, this.obj.body.x+9,this.obj.body.y+5);

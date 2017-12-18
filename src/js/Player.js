@@ -22,7 +22,7 @@ class Player extends collideWorld{
 
 	update(){
 
-		if (this.cursors.fire.isDown)
+		if (this.cursors.left.isDown)
     	{
        	 	this.changeSpeedX(-250);
     	}
@@ -33,7 +33,7 @@ class Player extends collideWorld{
     	else
     		this.changeSpeedX(0);
 
-    	if (fireButton.downDuration(0.2)){
+    	if (this.cursors.fireButton.downDuration(0.2)){
     		this.gancho.fire();
     		this.hayGancho = true;
     	}
