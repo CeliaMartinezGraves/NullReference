@@ -1,10 +1,10 @@
 class Bubble extends collideWorld{
-	constructor(posX, posY, image, label,speedX, speedY, level, arrayParent){
+	constructor(posX, posY, image, label,speedX, speedY, level){
 		super(posX, posY, image, label, speedX, speedY);
 		this.level = level;
 		this.width = 0.8;
 		this.heigth = 0.8;
-		this.arrayParent = arrayParent;
+		this.tipo = Bubble;
 	}
 
 	create(){
@@ -14,14 +14,14 @@ class Bubble extends collideWorld{
 		this.obj.body.bounce.x = 1.001;
 	}
 
-	divide(parent){
-		var ballSon1 = new Bubble(this.obj.body.x, this.obj.body.y, 'images/pokemonicon.png', 'ball', -100, 150, this.level-1, this.arrayParent);
+	divide(father){
+		var ballSon1 = new this.tipo(this.obj.body.x, this.obj.body.y, 'images/pokemonicon.png', this.label, -100, 150, this.level-1);
 		ballSon1.create();
-		var ballSon2 = new Bubble(this.obj.body.x, this.obj.body.y, 'images/pokemonicon.png', 'ball', 100, 150, this.level-1, this.arrayParent);
+		var ballSon2 = new this.tipo(this.obj.body.x, this.obj.body.y, 'images/pokemonicon.png', this.label, 100, 150, this.level-1);
 		ballSon2.create();
 
-		parent.push(ballSon1);
-		parent.push(ballSon2);
+		father.push(ballSon1);
+		father.push(ballSon2);
 	}
 
 	die(parent){
@@ -39,6 +39,7 @@ class Bubble extends collideWorld{
 class GravityBubble extends Bubble{
 	create(){
 		super.create();
+		this.tipo = GravityBubble;
 		this.obj.body.gravity.y = 250;
 		this.changeSpeed(this.speedX, 0);
 	}

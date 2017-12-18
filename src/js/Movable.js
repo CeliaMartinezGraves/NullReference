@@ -21,7 +21,7 @@ class Movable extends GameObject {
 	}
 
 	update(){
-		//game.physics.arcade.collide(this.obj, 'platforms'); no funciona aun
+		
 	}
 
 	moveTo(x,y){
