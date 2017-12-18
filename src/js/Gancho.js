@@ -27,10 +27,9 @@ class Gancho extends VerticalMovable{
 		this.obj.outOfBoundsKill = true;
 	}
 
-	onKill(){
-		this.obj.kill();
+	onKilled(){
 		this.numBulletsRest++;
-		console.log(this.numBulletsRest);
+		console.log('gancho Kill');
 	}
 
 	fire(){
