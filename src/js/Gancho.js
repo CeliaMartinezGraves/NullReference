@@ -1,56 +1,43 @@
-class Gancho extends VerticalMovable{
+class Gancho extends Phaser.Weapon {
 
 	constructor(numBullets, image, label, player){
-
-		super(player.posX, player.posY-50, image, label, -200);
+		super(game, player);
 		
-
-		this.player = player;
-
 		this.numBullets = numBullets;
-		this.numBulletsRest = numBullets;
-		super.preload();	
-		var line1;
-		var x,y;
+		this.image = image;
+		this.label = label;
+		this.player = player;
 		
+		
+	}
+
+	cargaIMG(){
+		game.load.image(this.label, this.image);
+	}
+
+	changeSpeed(speed){
+		this.bulletSpeed = speed;
+	}
+
+	preload(){
+		this.cargaIMG();
+		this.createBullets(this.numBullets, this.label);
 	}
 
 	create(){
-		super.create();
-		this.line1 = new Phaser.Line(200, 200, 100, 100);
-		this.x = this.player.obj.body.x;
-		this.y = this.player.obj.body.y;
-		this.moveTo(this.x,this.y);
-		this.obj.body.collideWorldBounds = false;
-		this.obj.checkWorldBounds = true;
-		this.obj.outOfBoundsKill = true;
-	}
-
-	die(){
-		this.numBulletsRest++;
-		console.log('gancho Kill');
+		console.log(Object.keys(this));
+		this.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
+		this.bulletAngleOffset = 180;
+		this.bulletSpeed = 400;
+		this.trackSprite(this.player, 0, 0);
 	}
 
 	fire(){
-		if (this.numBulletsRest > 0){
-				this.create();
-				this.numBulletsRest--;
-		}
-		console.log(this.numBulletsRest);
-	}
+		super.fire();
 
+		console.log(this.bulletKey);
 
-	update(){
-		if (this.obj.inWorld === false && this.numBulletsRest < this.numBullets)
-			this.die();
-
-		if (this.obj.alive)
-			this.line1.setTo(this.x+9,this.y, this.obj.body.x+9,this.obj.body.y+5);
-
-	}
-
-	render(){
-		game.debug.geom(this.line1,'#6E6E6E');
+		//game.add.sprite(this.player.obj.body.x, this.player.obj.body.y, this.label);
 	}
 
 }

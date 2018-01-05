@@ -11,6 +11,8 @@ var i;
 
 function preload(){
 
+	game.load.image('hook', 'images/hookTop.png');
+
 	cursors = game.input.keyboard.addKeys({'up': Phaser.KeyCode.UP, 'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 'right': Phaser.KeyCode.RIGHT, 'fireButton': Phaser.KeyCode.L});
 	cursorsWASD = game.input.keyboard.addKeys({'up': Phaser.KeyCode.W, 'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 'right': Phaser.KeyCode.D, 'fireButton': Phaser.KeyCode.SPACEBAR});
 
@@ -83,7 +85,7 @@ function update(){
 	player.update();
 	player2.update();
 
-	for(i = 0; i < bubbles.length; i++){
+	/*for(i = 0; i < bubbles.length; i++){
 		if(checkOverlap(player.gancho, bubbles[i])){
 			collisionHandler(player.gancho, bubbles[i], i);
 		}
@@ -91,13 +93,14 @@ function update(){
 		else if (checkOverlap(player2.gancho, bubbles[i])){
 			collisionHandler(player2.gancho, bubbles[i], i);
 		}
-	}	
+	}	*/
 }
 
 
 function render() {
 	player.render();
 	player2.render();
+	player.gancho.debug();
 	//game.debug.geom(line1,'#0fffff');
 }
 
@@ -114,7 +117,7 @@ function collisionHandler(gancho,pelota, indice){
 
 function checkOverlap(spriteA, spriteB) {
 
-	if (spriteA.exists && spriteB.exists){
+	if (spriteA.alive && spriteB.alive){
     	boundsA = spriteA.obj.getBounds();
     	boundsB = spriteB.obj.getBounds();
 

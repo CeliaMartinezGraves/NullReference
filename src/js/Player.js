@@ -10,6 +10,12 @@ class Player extends collideWorld{
 
 	preload(){
 		super.preload();
+		this.gancho.preload();
+	}
+
+	create(){
+		super.create();
+		this.gancho.create();
 	}
 
 	changeSpeedX(speedX){
@@ -34,16 +40,17 @@ class Player extends collideWorld{
     		this.changeSpeedX(0);
 
     	if (this.cursors.fireButton.downDuration(0.2)){
+    		this.gancho.bulletKey = this.gancho.label;
     		this.gancho.fire();
     		this.hayGancho = true;
     	}
-    	if(this.hayGancho){
-    		this.gancho.update();
-    	}
+    	//if(this.hayGancho){
+    	//	this.gancho.update();
+    	//}
 	}
 	render(){
-		if(this.hayGancho){
-			this.gancho.render();
-		}
+		//if(this.hayGancho){
+		//	this.gancho.render();
+		//}
 	}
 }
