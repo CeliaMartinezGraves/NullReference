@@ -3,9 +3,9 @@ class Platform extends GameObject{
 		super.create();
 		game.physics.arcade.enable(this.obj);
 		this.obj.body.immovable = true;
+		platformsGroup.addChild(this);
 	}
 
 	update(){
-		 game.physics.arcade.collide(bubbles, this);
 	}
 }

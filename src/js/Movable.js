@@ -1,6 +1,6 @@
 class Movable extends GameObject {
-	constructor(posX, posY, image, label, speedX, speedY){
-		super(posX, posY, image, label);
+	constructor(posX, posY, label, speedX, speedY){
+		super(posX, posY, label);
 		this.speedX = speedX;
 		this.speedY = speedY;
 	}
@@ -43,8 +43,8 @@ class Movable extends GameObject {
 // ya que los enemigos no lo tienen, para que de aqui hereden 
 // player, caidos y burbuja que si lo necesitan
 class collideWorld extends Movable{
-	constructor(posX, posY, image, label, speedX, speedY){
-		super(posX, posY, image, label, speedX, speedY);
+	constructor(posX, posY, label, speedX, speedY){
+		super(posX, posY, label, speedX, speedY);
 	}
 
 	create(){

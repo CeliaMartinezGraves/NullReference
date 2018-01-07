@@ -1,8 +1,8 @@
 class Player extends collideWorld{
-	constructor(image, label,speedX, speedY, cursors){
-		super(game.width/2, game.height, image, label, speedX, speedY);
+	constructor( label,speedX, speedY, cursors){
+		super(game.width/2, game.height, label, speedX, speedY);
 		this.cursors = cursors;
-		this.gancho = new Gancho(2, 'images/hookTop.png','hook', this);
+		this.gancho = new Gancho(2, 'hook', this);
 
 		this.hayGancho = false;
 

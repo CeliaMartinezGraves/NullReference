@@ -2,11 +2,10 @@ class GameObject extends Phaser.Sprite{
 
 // Se llama con new GameObject(x, y, img)
 // asigana los valores al gameObject para luego poder utilizarlos más adelante
-	constructor (posX, posY, image, label){
+	constructor (posX, posY, label){
 		super(game, posX, posY, label);
 		this.posX = posX;
 		this.posY = posY;
-		this.image = image;
 		this.label = label;// IMPORTANTE ASIGNAR ETIQUETA ANTES DE CREAR O CARGAR
 
 		this.obj = this; // Para que en los hijos se pueda utilizar obj
@@ -16,13 +15,6 @@ class GameObject extends Phaser.Sprite{
 // Aunque sean preload, create, etc, hay que hacer llamadas para que se activen
 // ya que esto es js no phaser (al ir por clases)
 
-
-// carga la imagen con la etiqueta que sea
-// Si varios objetos utilizan la misma imagen, no es necesario cargarla en todos, 
-// con acargarla en el primer GO ya es suficiente porque todos tiran de la misma etiqueta en cache
-	preload(){
-		game.load.image(this.label, this.image); //funciona
-	}
 
 // coloca en posX, posY
 	create(){

@@ -1,15 +1,14 @@
 class Gancho extends VerticalMovable{
 
-	constructor(numBullets, image, label, player){
+	constructor(numBullets, label, player){
 
-		super(player.posX, player.posY-50, image, label, -200);
+		super(player.posX, player.posY-50, label, -200);
 		
 
 		this.player = player;
 
 		this.numBullets = numBullets;
 		this.numBulletsRest = numBullets;
-		super.preload();	
 		var line1;
 		var x,y;
 		

@@ -1,14 +1,17 @@
 class Bubble extends collideWorld{
-	constructor(posX, posY, image, label,speedX, speedY, level){
-		super(posX, posY, image, label, speedX, speedY);
+	constructor(posX, posY, label,speedX, speedY, level){
+		super(posX, posY, label, speedX, speedY);
 		this.level = level;
 		this.width = 0.8;
 		this.heigth = 0.8;
 		this.tipo = Bubble;
+		game.physics.arcade.enable(this);
+
 	}
 
 	create(){
 		super.create();
+		bubbles.addChild(this);
 		this.resize(this.width*this.level, this.heigth*this.level);
 		this.obj.body.bounce.y = 1.001;
 		this.obj.body.bounce.x = 1.001;
