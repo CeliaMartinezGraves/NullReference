@@ -11,7 +11,7 @@ class Gancho extends VerticalMovable{
 		this.numBulletsRest = numBullets;
 		super.preload();	
 		var rect;
-		var rectWidth, rectHeight;
+		var rectWidth;
 		var x,y;
 		
 	}
@@ -27,11 +27,13 @@ class Gancho extends VerticalMovable{
 		this.obj.checkWorldBounds = true;
 		this.obj.outOfBoundsKill = true;
 		this.rectWidth=3;
-		this.rectHeight = 200;
 	}
 
 	die(){
-		this.numBulletsRest++;
+		//this.numBulletsRest++;
+		this.rect.setTo(-100,-100,100,100);
+		this.render();
+		this.obj.destroy();
 		console.log('gancho Kill');
 	}
 

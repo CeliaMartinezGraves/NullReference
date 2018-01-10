@@ -83,13 +83,20 @@ function update(){
 	player.update();
 	player2.update();
 
-	for(i = 0; i < bubbles.length; i++){
-		if(checkOverlap(player.gancho, bubbles[i])){
-			collisionHandler(player.gancho, bubbles[i], i);
-		}
+	console.debug(player2.hayGancho)
 
-		else if (checkOverlap(player2.gancho, bubbles[i])){
-			collisionHandler(player2.gancho, bubbles[i], i);
+	for(i = 0; i < bubbles.length; i++){
+		if(player.hayGancho){
+			
+			if(checkOverlap(player.gancho, bubbles[i])){
+				collisionHandler(player, bubbles[i], i);
+			}
+		}
+		if(player2.hayGancho){
+
+			if (checkOverlap(player2.gancho, bubbles[i])){
+				collisionHandler(player2, bubbles[i], i);
+			}	
 		}
 	}	
 }
@@ -101,14 +108,15 @@ function render() {
 	//game.debug.geom(line1,'#0fffff');
 }
 
-function collisionHandler(gancho,pelota, indice){
+function collisionHandler(jugador,pelota, indice){
 	
 	console.log('ouchie');
 	pelota.die(bubbles);
 
 	bubbles.splice(indice, 1);
 	
-	player.gancho.die();
+	//jugador.gancho.die();
+	jugador.killGancho();
 
 }
 
