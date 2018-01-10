@@ -9,8 +9,7 @@ var boundsA, boundsB;
 var i;
 
 function preload(){
-	platformsGroup = game.add.physicsGroup();
-	bubbles = game.add.physicsGroup();
+	game.physics.startSystem(Phaser.Physics.ARCADE);
 	
 	game.state.add('Preload', new Preload(), false); // Añade el estado preload al game
 	game.state.add('GameTitle', new GameTitle(), false);

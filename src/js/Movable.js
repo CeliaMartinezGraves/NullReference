@@ -7,6 +7,7 @@ class Movable extends GameObject {
 
 	create(){
 		super.create();
+		this.obj = game.add.sprite(this.posX, this.posY, this.label); // Para que en los hijos se pueda utilizar obj
 		game.physics.arcade.enable(this.obj);
 
 		this.obj.body.velocity.setTo(this.speedX, this.speedY);

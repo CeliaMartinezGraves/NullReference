@@ -20,12 +20,14 @@ class Preload extends Phaser.State{
 	}
 
 	preload(){
-		console.log('preload preload');
+		
 
 		// Carga todas las imagenes del array y les asigna su etiqueta
 		for(var i = 0; i < this.images.length; i+=2){
 			game.load.image(this.images[i], this.images[i+1]);
 		}
+
+		console.log('preload preload');
 
 	}
 
@@ -67,8 +69,8 @@ class Main extends Phaser.State{
 			'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 
 			'right': Phaser.KeyCode.RIGHT, 'fireButton': Phaser.KeyCode.L});
 
-		go = new Platform(200,200, 'platform');
-		go2 = new Platform(300,300, 'platform');
+		go = new Platform('platform', game);
+		//go2 = new Platform(300,300, 'platform');
 
 		//bubbles = [
 			ball = new Bubble(300, 100, 'ball', -100, 150, 3, bubbles),
@@ -81,22 +83,30 @@ class Main extends Phaser.State{
 	}
 
 	create(){
-		game.physics.startSystem(Phaser.Physics.ARCADE);
 
-		go.create();
-		go2.create();
+
+
+		go.create(200,200);
+		//go.create(300,300);
+		//console.log(Object.keys(platformsGroup.children));
 
 		/*for(i = 0; i < bubbles.length; i++){
 			bubbles[i].create();
 		}*/
 		grvball.create();
 		ball.create();
-		
+		//console.log(Object.keys(bubbles.children));
+
+		game.physics.enable ([go,ball], Phaser.Physics.ARCADE);
 		console.log('Main create');
 	}
 
 	update(){
-		game.physics.arcade.collide(ball, go);
+		game.physics.arcade.collide(go, ball);
+	}
+
+	render(){
+
 	}
 	
 }

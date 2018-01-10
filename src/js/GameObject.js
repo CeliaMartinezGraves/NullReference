@@ -8,7 +8,7 @@ class GameObject extends Phaser.Sprite{
 		this.posY = posY;
 		this.label = label;// IMPORTANTE ASIGNAR ETIQUETA ANTES DE CREAR O CARGAR
 
-		this.obj = this; // Para que en los hijos se pueda utilizar obj
+		this.obj = this;
 	}
 
 // RESTO DE FUNCIONES
@@ -18,7 +18,7 @@ class GameObject extends Phaser.Sprite{
 
 // coloca en posX, posY
 	create(){
-		this.obj = game.add.sprite(this.posX, this.posY, this.label); //funciona
+		
 	}
 
 // cambia el tamaño a widthXheigth

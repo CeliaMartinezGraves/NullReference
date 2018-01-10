@@ -5,16 +5,16 @@ class Bubble extends collideWorld{
 		this.width = 0.8;
 		this.heigth = 0.8;
 		this.tipo = Bubble;
-		game.physics.arcade.enable(this);
 
 	}
 
 	create(){
 		super.create();
-		bubbles.addChild(this);
+		//bubbles.addChild(this);
 		this.resize(this.width*this.level, this.heigth*this.level);
-		this.obj.body.bounce.y = 1.001;
-		this.obj.body.bounce.x = 1.001;
+		//this.obj.body.bounce.y = 1.001;
+		//this.obj.body.bounce.x = 1.001;
+		this.obj.body.bounce.setTo(1, 1);
 	}
 
 	divide(father){
