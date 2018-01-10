@@ -15,6 +15,9 @@ class Bubble extends collideWorld{
 		//this.obj.body.bounce.y = 1.001;
 		//this.obj.body.bounce.x = 1.001;
 		this.obj.body.bounce.setTo(1, 1);
+
+		console.log(Object.keys(this));
+		console.log(Object.keys(this.obj));
 	}
 
 	divide(father){
@@ -31,6 +34,7 @@ class Bubble extends collideWorld{
 		if (this.level > 0)
 			this.divide(parent);
 		this.obj.destroy();
+		this.destroy();
 		console.log('bubble kill');
 	}
 

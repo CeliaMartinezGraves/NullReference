@@ -4,26 +4,25 @@ class GameObject extends Phaser.Sprite{
 // asigana los valores al gameObject para luego poder utilizarlos más adelante
 	constructor (posX, posY, label){
 		super(game, posX, posY, label);
-		this.posX = posX;
-		this.posY = posY;
+		this.x = posX;
+		this.y = posY;
 		this.label = label;// IMPORTANTE ASIGNAR ETIQUETA ANTES DE CREAR O CARGAR
-
-		this.obj = this;
+		game.physics.arcade.enable(this);
 	}
+
 
 // RESTO DE FUNCIONES
 // Aunque sean preload, create, etc, hay que hacer llamadas para que se activen
 // ya que esto es js no phaser (al ir por clases)
 
-
-// coloca en posX, posY
+// Añade al game en pos (x, y)
 	create(){
-		
+		game.add.existing(this);
 	}
 
 // cambia el tamaño a widthXheigth
 	resize(width, height){
-		this.obj.scale.setTo(width, height); //funciona
+		this.obj.scale.setTo(width, height); 
 	}
 
 }

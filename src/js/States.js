@@ -84,10 +84,9 @@ class Main extends Phaser.State{
 
 	create(){
 
-
-
-		go.create(200,200);
+		go.create (300, 300);
 		//go.create(300,300);
+
 		//console.log(Object.keys(platformsGroup.children));
 
 		/*for(i = 0; i < bubbles.length; i++){
@@ -95,14 +94,17 @@ class Main extends Phaser.State{
 		}*/
 		grvball.create();
 		ball.create();
+
+		game.physics.arcade.enable([ball, go]);
 		//console.log(Object.keys(bubbles.children));
 
-		game.physics.enable ([go,ball], Phaser.Physics.ARCADE);
+		//game.physics.enable ([go,ball], Phaser.Physics.ARCADE);
 		console.log('Main create');
 	}
 
 	update(){
-		game.physics.arcade.collide(go, ball);
+		game.physics.arcade.collide(go, ball.obj);
+		game.physics.arcade.collide(go, grvball.obj);
 	}
 
 	render(){
