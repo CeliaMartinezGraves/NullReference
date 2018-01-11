@@ -88,13 +88,13 @@ function update(){
 	for(i = 0; i < bubbles.length; i++){
 		if(player.hayGancho){
 			
-			if(checkOverlap(player.gancho, bubbles[i])){
+			if(checkOverlapGancho(player.gancho, bubbles[i])){
 				collisionHandler(player, bubbles[i], i);
 			}
 		}
 		if(player2.hayGancho){
 
-			if (checkOverlap(player2.gancho, bubbles[i])){
+			if (checkOverlapGancho(player2.gancho, bubbles[i])){
 				collisionHandler(player2, bubbles[i], i);
 			}	
 		}
@@ -132,6 +132,8 @@ function checkOverlap(spriteA, spriteB) {
 		return false;
 }
 
-
+function checkOverlapGancho(gancho,objetoB){
+	return (checkOverlap(gancho,objetoB) || Phaser.Rectangle.intersects(gancho.rect, objetoB.obj.getBounds()));
+}
 
 

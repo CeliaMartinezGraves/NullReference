@@ -10,8 +10,8 @@ class Bubble extends collideWorld{
 	create(){
 		super.create();
 		this.resize(this.width*this.level, this.heigth*this.level);
-		this.obj.body.bounce.y = 1.001;
-		this.obj.body.bounce.x = 1.001;
+		this.obj.body.bounce.y = 1.003;
+		this.obj.body.bounce.x = 1.003;
 	}
 
 	divide(father){
