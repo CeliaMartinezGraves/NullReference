@@ -1,18 +1,6 @@
 class Platform extends GameObject{
-	constructor(label, game){
-		super(0, 0, label);
-
-		this.body.immovable = true;
+	constructor(posX, posY, label){
+		super(posX, posY, label);
+		this.body.immovable = true; // añade la propiedad inmóvil
 	}
-
-	create(posX, posY){
-		this.x = posX;
-		this.y = posY;
-		super.create();
-	}
-
-	update(){
-
-	}
-
 }

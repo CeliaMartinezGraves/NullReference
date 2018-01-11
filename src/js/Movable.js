@@ -1,53 +1,35 @@
 class Movable extends GameObject {
 	constructor(posX, posY, label, speedX, speedY){
 		super(posX, posY, label);
-		this.speedX = speedX;
-		this.speedY = speedY;
+		this.body.velocity.setTo(speedX, speedY); // añade la velocidad
 	}
 
-	create(){
-		super.create();
-		this.obj = game.add.sprite(this.posX, this.posY, this.label); // Para que en los hijos se pueda utilizar obj
-		game.physics.arcade.enable(this.obj);
-		this.obj.body.velocity.setTo(this.speedX, this.speedY);
-	}
-
+	// Cambiar la velocidad del objeto
 	changeSpeed(speedX, speedY){
-		this.speedX = speedX;
-		this.speedY = speedY;
-		this.obj.body.velocity.x = this.speedX;
-		this.obj.body.velocity.y = this.speedY;
+		this.body.velocity.x = speedX;
+		this.body.velocity.y = speedY;
 	}
-
-	update(){
-		
-	}
-
-	moveTo(x,y){
-		this.obj.x = x;
-		this.obj.y = y;
-
-	}
-
 }
-
-
-//this.obj.body.bounce.y = 1.001; para los rebotes en y 
-// ESTO NO VA EN ESTA CLASE; ES POR DEBUG 
-    //this.obj.body.bounce.y = 1.001; 
-    //this.obj.body.bounce.x = 1.001; 
-//this.obj.body.collideWorldBounds = true; esto en todo menos animales 
 
 // Añade la funcionalidad de chocar con los bordes del mundo,
 // ya que los enemigos no lo tienen, para que de aqui hereden 
-// player, caidos y burbuja que si lo necesitan
+// player, caidos y burbuja, que si lo necesitan
 class collideWorld extends Movable{
-	constructor(posX, posY, label, speedX, speedY){
-		super(posX, posY, label, speedX, speedY);
-	}
 
 	create(){
 		super.create();
-		this.obj.body.collideWorldBounds = true;
+		this.body.collideWorldBounds = true;
+	}
+}
+
+// solo se mueve hacia abajo hasta colisionar con el suelo
+// añadir para que pare tambien al chocar con plataformas
+class VerticalMovable extends collideWorld{
+	constructor(posX, posY, label, speedY){
+		super(posX, posY, label, 0, speedY);
+	}
+
+	update(){
+		game.physics.arcade.collide(platforms, this);
 	}
 }
