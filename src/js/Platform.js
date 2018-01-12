@@ -1,11 +1,6 @@
 class Platform extends GameObject{
-	create(){
-		super.create();
-		game.physics.arcade.enable(this.obj);
-		this.obj.body.immovable = true;
-	}
-
-	update(){
-		 game.physics.arcade.collide(bubbles, this);
+	constructor(posX, posY, label){
+		super(posX, posY, label);
+		this.body.immovable = true; // añade la propiedad inmóvil
 	}
 }
