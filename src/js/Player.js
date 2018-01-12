@@ -2,7 +2,7 @@ class Player extends collideWorld{
 	constructor(image, label,speedX, speedY, cursors){
 		super(game.width/2, game.height, image, label, speedX, speedY);
 		this.cursors = cursors;
-		this.gancho = new Gancho(2, 'images/hookTop.png','hook', this);
+		this.gancho = new Gancho(1, 'images/hookTop.png','hook', this);
 
 		this.hayGancho = false;
 
@@ -33,17 +33,26 @@ class Player extends collideWorld{
     	else
     		this.changeSpeedX(0);
 
-    	if (this.cursors.fireButton.downDuration(0.2)){
-    		this.gancho.fire();
+    	if (this.cursors.fireButton.downDuration(0.2) && !this.hayGancho){
+    		this.gancho.create();
     		this.hayGancho = true;
     	}
+    	//if(this.gancho === null){
+    	//	this.hayGancho = false;
+    	//}
     	if(this.hayGancho){
     		this.gancho.update();
     	}
+
 	}
 	render(){
 		if(this.hayGancho){
 			this.gancho.render();
 		}
+	}
+
+	killGancho(){
+		this.gancho.die();
+		this.hayGancho = false;
 	}
 }

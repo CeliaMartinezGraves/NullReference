@@ -83,13 +83,21 @@ function update(){
 	player.update();
 	player2.update();
 
+	console.debug(player2.hayGancho)
+
 	for(i = 0; i < bubbles.length; i++){
-		if(checkOverlap(player.gancho, bubbles[i])){
-			collisionHandler(player.gancho, bubbles[i], i);
+		if(player.hayGancho && checkOverlapGancho(player.gancho, bubbles[i])){
+			collisionHandler(player, bubbles[i], i);
+		}
+		else if(checkOverlap(player,bubbles[i])){
+			console.debug("im hurt");
 		}
 
-		else if (checkOverlap(player2.gancho, bubbles[i])){
-			collisionHandler(player2.gancho, bubbles[i], i);
+		if(player2.hayGancho && checkOverlapGancho(player2.gancho, bubbles[i])){
+				collisionHandler(player2, bubbles[i], i);
+		}
+		else if(checkOverlap(player2,bubbles[i])){
+			console.log("im hurt");
 		}
 	}	
 }
@@ -101,14 +109,15 @@ function render() {
 	//game.debug.geom(line1,'#0fffff');
 }
 
-function collisionHandler(gancho,pelota, indice){
+function collisionHandler(jugador,pelota, indice){
 	
 	console.log('ouchie');
 	pelota.die(bubbles);
 
 	bubbles.splice(indice, 1);
 	
-	player.gancho.die();
+	//jugador.gancho.die();
+	jugador.killGancho();
 
 }
 
@@ -124,6 +133,6 @@ function checkOverlap(spriteA, spriteB) {
 		return false;
 }
 
-
-
-
+function checkOverlapGancho(gancho,objetoB){
+	return (checkOverlap(gancho,objetoB) || Phaser.Rectangle.intersects(gancho.rect, objetoB.obj.getBounds()));
+}
