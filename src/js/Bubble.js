@@ -4,6 +4,7 @@ class Bubble extends collideWorld{
 		this.level = level;
 		this.width = 0.8;
 		this.heigth = 0.8;
+		this.tipo = Bubble;
 	}
 
 	create(){
@@ -13,10 +14,21 @@ class Bubble extends collideWorld{
 		this.obj.body.bounce.x = 1.001;
 	}
 
-	divide(parent){
-		ballSon1 = new parent(this.posX, this.posY, 'images/pokemonicon.png', 'ball', -100, 150, this.level-1);
-		ballSon2 = new parent(this.posX, this.posY, 'images/pokemonicon.png', 'ball', 100, 150, this.level-1);
-		this.obj.kill();
+	divide(father){
+		var ballSon1 = new this.tipo(this.obj.body.x, this.obj.body.y, 'images/pokemonicon.png', this.label, -100, 150, this.level-1);
+		ballSon1.create();
+		var ballSon2 = new this.tipo(this.obj.body.x, this.obj.body.y, 'images/pokemonicon.png', this.label, 100, 150, this.level-1);
+		ballSon2.create();
+
+		father.push(ballSon1);
+		father.push(ballSon2);
+	}
+
+	die(parent){
+		if (this.level > 0)
+			this.divide(parent);
+		this.obj.destroy();
+		console.log('bubble kill');
 	}
 
 	getLevel(){
@@ -27,6 +39,7 @@ class Bubble extends collideWorld{
 class GravityBubble extends Bubble{
 	create(){
 		super.create();
+		this.tipo = GravityBubble;
 		this.obj.body.gravity.y = 250;
 		this.changeSpeed(this.speedX, 0);
 	}
