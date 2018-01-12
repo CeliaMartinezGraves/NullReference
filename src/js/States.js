@@ -72,6 +72,8 @@ class LoadLevel extends Phaser.State{
 
 		fall = new VerticalMovable (300, 20, 'fall', 25);
 
+		player = new Player ( 'dude',250, 0, cursors);
+
 	}
 
 	create(){
@@ -96,6 +98,7 @@ class Main extends Phaser.State{
 		for (i = 0; i < bubbles.length; i++)
 				bubbles[i].create();
 		
+		player.create();
 		
 		console.log('Main create');
 	}
@@ -103,9 +106,11 @@ class Main extends Phaser.State{
 	update(){
 	// Colisiones de todas las plataformas con todas las burbujas
 		game.physics.arcade.collide(platforms, bubbles); 
+		player.update();
 	}
 
 	render(){
+		player.render();
 
 	}
 	
