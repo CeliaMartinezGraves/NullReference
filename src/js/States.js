@@ -96,7 +96,7 @@ class Main extends Phaser.State{
 			platforms[i].create();
 
 		for (i = 0; i < bubbles.length; i++)
-				bubbles[i].create();
+			bubbles[i].create();
 		
 		player.create();
 		
@@ -106,12 +106,11 @@ class Main extends Phaser.State{
 	update(){
 	// Colisiones de todas las plataformas con todas las burbujas
 		game.physics.arcade.collide(platforms, bubbles); 
-		player.update();
+		game.physics.arcade.collide(player.gancho, bubbles);
 	}
 
 	render(){
-		player.render();
-
+		player.gancho.render();
 	}
 	
 }

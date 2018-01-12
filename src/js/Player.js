@@ -4,6 +4,7 @@ class Player extends collideWorld{
 		this.cursors = cursors;
 		this.gancho = new Gancho(1,'hook', this);
 
+
 		this.hayGancho = false;
 
 	}
@@ -21,7 +22,7 @@ class Player extends collideWorld{
 	}
 
 	update(){
-
+		console.log(this.body.y);
 		if (this.cursors.left.isDown)
     	{
        	 	this.changeSpeedX(-250);
@@ -33,7 +34,7 @@ class Player extends collideWorld{
     	else
     		this.changeSpeedX(0);
 
-    	if (this.cursors.fireButton.downDuration(0.2) && !this.hayGancho){
+    	if (this.cursors.fireButton.downDuration(0.2)){
     		this.gancho.create();
     		this.hayGancho = true;
     	}
@@ -44,11 +45,6 @@ class Player extends collideWorld{
     		this.gancho.update();
     	}
 
-	}
-	render(){
-		if(this.hayGancho){
-			this.gancho.render();
-		}
 	}
 
 	killGancho(){

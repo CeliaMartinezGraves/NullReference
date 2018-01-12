@@ -2,38 +2,39 @@ class Gancho extends VerticalMovable{
 
 	constructor(numBullets, label, player){
 
-		super(player.posX, player.posY-50, label, -200);
+		super(player.x, player.y-50, label, -200);
 		
-
 		this.player = player;
 
 		this.numBullets = numBullets;
-		this.numBulletsRest = numBullets;	
-		var rect;
-		var rectWidth;
-		var x,y;
-		
+		this.numBulletsRest = numBullets;		
 	}
 
 	create(){
+		console.log("creo");
+
+		super.revive();
 		super.create();
-		this.rect = new Phaser.Rectangle(200,200,100,100);
-		this.x = this.player.body.x;
-		this.y = this.player.body.y;
-		this.moveTo(this.x,this.y);
+		this.rect = new Phaser.Rectangle(0,0,0,0);
+		this.Xply = this.player.body.x;
+		this.Yply = this.player.body.y;
+
+		this.moveTo(this.Xply,this.Yply);
 		this.body.collideWorldBounds = false;
 		this.checkWorldBounds = true;
-		this.outOfBoundsKill = true;
+		this.events.onOutOfBounds.add(this.die, this);
 		this.rectWidth=3;
 	}
 
 	die(){
-		this.rect.setTo(-100,-100,100,100);
+		this.rect.setTo(0,0,0,0);
 		this.render();
-		this.destroy();
+		this.kill();
 		this.numBulletsRest++;
 		console.log('gancho Kill');
 	}
+
+
 
 	fire(){
 		if (this.numBulletsRest > 0){
@@ -45,18 +46,26 @@ class Gancho extends VerticalMovable{
 
 
 	update(){
-		if (this.inWorld === false && this.numBulletsRest < this.numBullets)
-			this.die();
+		/*if (this.inWorld === false && this.numBulletsRest < this.numBullets)
+			this.die();*/
 
 		if (this.alive){
-			this.rect.setTo(this.body.x+8, this.body.y, this.rectWidth, this.y - this.body.y );
-			console.log(this.rect.height);
+			this.aux = this.Yply - this.body.y ;
+
+			this.rect.setTo(this.body.x+8, this.body.y, this.rectWidth, this.aux);
+			//console.log(this.rect.height);
+			console.log(this.y);
+			console.log(this.Yply);
+			//console.log(this.body.y);
+			//console.log(this.body.x);
 		}
 
 	}
 
 	render(){
-		game.debug.geom(this.rect,'#6E6E6E');
+		if(this.alive){
+			game.debug.geom(this.rect,'#6E6E6E');
+		}
 	}
 
 }
