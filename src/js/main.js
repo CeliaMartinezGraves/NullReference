@@ -3,10 +3,11 @@
 
 var game = new Phaser.Game(800, 600, Phaser.AUTO, null, { preload: preload, create: create, update: update, render: render });
 
-var go, go2, player, cursors, fall;
-var bubbles, platforms;
+var go, go2, player, cursors, cursorsWASD, fall;
+var bubbles, platforms, players, secondPly; // grupos con las burbujas, plataformas y jugadores
 var boundsA, boundsB;
 var i;
+var currentLevel = 0;// nivel de juego
 
 function preload(){
 	game.physics.startSystem(Phaser.Physics.ARCADE);

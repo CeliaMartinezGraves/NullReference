@@ -16,12 +16,15 @@ class Preload extends Phaser.State{
 			'hook', 'images/hookTop.png',
 
 			'loading', 'images/loading.png', // Pantalla de carga
-			'title', 'images/title.png' // Pantalla de inicio
+			'title', 'images/title.png', // Pantalla de inicio
 		];
 
 		this.sheets = [
-			'player', 'images/spriteSheetTest.png'
+			'player', 'images/spriteSheetTest.png', 1601/4, 2397/4,
+			'button', 'images/buttons.png', 200/2, 82/2// boton del menu de inicio
 		];
+
+		secondPly = false; //desactiva el 2º jugador
 	}
 
 	preload(){
@@ -29,9 +32,10 @@ class Preload extends Phaser.State{
 		for(var i = 0; i < this.images.length; i+=2){
 			game.load.image(this.images[i], this.images[i+1]);
 		}
-		// Carga el spritesheet
-		game.load.spritesheet(this.sheets[0], this.sheets[1], 1601/4, 2397/4);
-
+		// Carga los spritesheet
+		for(var i = 0; i < this.sheets.length; i+=4){
+			game.load.spritesheet(this.sheets[i], this.sheets[i+1], this.sheets[i+2], this.sheets[i+3]);
+		}
 		console.log('preload preload');
 	}
 
@@ -42,10 +46,25 @@ class Preload extends Phaser.State{
 		
 		game.state.start('GameTitle'); // Lanza el estado siguiente
 	}
+
 }
 
 // Pantalla de inicio
 class GameTitle extends Phaser.State{
+
+	init(){
+		game.add.sprite(0, 0, 'title');
+		
+		// Añade los botones y el texto que tienen (el texto es a parte, por eso se ve tan meh)
+		game.add.button((window.innerWidth/3)-(50), (window.innerHeight/2) + 100, 'button', 
+		this.onButtonPressed, this, 0, 1, 2); // 50 e 1/2 del ancho de la imagen utilizada
+		game.add.text((window.innerWidth/3)-(50), (window.innerHeight/2) + 100, "1 player");
+		
+		game.add.button((window.innerWidth/3*2)-(50), (window.innerHeight/2) + 100, 'button', 
+		this.on2ndPlyrPressed, this, 0, 1, 2); // 50 e 1/2 del ancho de la imagen utilizada
+		game.add.text((window.innerWidth/3*2)-(50), (window.innerHeight/2) + 100, "2 players");
+
+	}
 
 	preload(){
 		console.log('GameTitle preload');
@@ -53,17 +72,37 @@ class GameTitle extends Phaser.State{
 
 	create(){
 		console.log('GameTitle create');
+		//game.state.start('LoadLevel'); // Lanza el estado siguiente
+	}
 
-		game.add.sprite(0, 0, 'title');
+// Pone el booleano del 2º jugador a true
+	on2ndPlyrPressed(){
+		console.log('pulsandooo 2');
+		secondPly = true; // activa el uso del segundo jugador
+		this.onButtonPressed();
+	}
+// lanza el lector de nivel
+	onButtonPressed(){
+		console.log('pulsandooo');
 		game.state.start('LoadLevel'); // Lanza el estado siguiente
 	}
+	
 }
 
 class LoadLevel extends Phaser.State{
 	init(){
+		console.log(secondPly);
+
 		cursors = game.input.keyboard.addKeys({'up': Phaser.KeyCode.UP, 
 			'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 
 			'right': Phaser.KeyCode.RIGHT, 'fireButton': Phaser.KeyCode.ENTER});
+
+		if(secondPly){
+			cursorsWASD = game.input.keyboard.addKeys({'up': Phaser.KeyCode.W, 
+				'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 
+				'right': Phaser.KeyCode.D, 'fireButton': Phaser.KeyCode.SPACEBAR});
+		}
+
 
 		// numero de plataformas
 		platforms = [
@@ -78,13 +117,27 @@ class LoadLevel extends Phaser.State{
 
 		fall = new VerticalMovable (300, 20, 'fall', 25);
 
-		player = new Player ( 'player',250, 0, cursors);
+
+		if(secondPly){
+			players = [
+				new Player ( 'player',250, 0, cursors), 
+				new Player ( 'player',250, 0, cursorsWASD)
+			];
+			players[0].resize(0.2, 0.2);
+			players[1].resize(0.2, 0.2);
+		}else{
+			players = [
+				new Player ( 'player',250, 0, cursors)
+			];
+			players[0].resize(0.2, 0.2);
+		}
+		
 
 	}
 
 	create(){
 		fall.resize(0.15, 0.15); // Prque la imagen es muy grande
-		player.resize(0.2, 0.2);
+		
 		game.state.start('Main'); // Lanza el estado siguiente
 	}
 }
@@ -104,8 +157,9 @@ class Main extends Phaser.State{
 
 		for (i = 0; i < bubbles.length; i++)
 			bubbles[i].create();
-		
-		player.create();
+	
+		for(i = 0; i < players.length; i++)
+			players[i].create();
 		
 		console.log('Main create');
 	}
@@ -116,7 +170,8 @@ class Main extends Phaser.State{
 	}
 
 	render(){
-		player.gancho.render();
+		for(i = 0; i < players.length; i++)
+			players[i].gancho.render();
 	}
 	
 }

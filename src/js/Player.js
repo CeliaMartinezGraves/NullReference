@@ -52,10 +52,6 @@ class Player extends collideWorld{
     	if(this.hayGancho){
     		this.gancho.update();
     	}
-
-    	if(this.cursors.frame.isDown){
-    		this.changeFrame(10);
-    	}
 	}
 
 	killGancho(){
