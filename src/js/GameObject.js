@@ -6,6 +6,8 @@ class GameObject extends Phaser.Sprite{
 		super(game, posX, posY, label);
 		this.label = label;// IMPORTANTE ASIGNAR ETIQUETA ANTES DE CREAR O CARGAR
 		game.physics.arcade.enable(this); // añade físicas
+
+		this._animSpeed = 12; // velocidad de las animaciones (frames/seg)
 	}
 
 
@@ -26,5 +28,15 @@ class GameObject extends Phaser.Sprite{
 	moveTo(x,y){
 		this.x = x;
 		this.y = y;
+	}
+
+// Cambia el frame visible
+	changeFrame(frame){
+		this.frame = frame;
+	}
+
+// añade animacion y sus frames
+	addAnim(name, frames){
+		this.animations.add(name, frames);
 	}
 }

@@ -18,6 +18,10 @@ class Preload extends Phaser.State{
 			'loading', 'images/loading.png', // Pantalla de carga
 			'title', 'images/title.png' // Pantalla de inicio
 		];
+
+		this.sheets = [
+			'player', 'images/spriteSheetTest.png'
+		];
 	}
 
 	preload(){
@@ -25,6 +29,8 @@ class Preload extends Phaser.State{
 		for(var i = 0; i < this.images.length; i+=2){
 			game.load.image(this.images[i], this.images[i+1]);
 		}
+		// Carga el spritesheet
+		game.load.spritesheet(this.sheets[0], this.sheets[1], 1601/4, 2397/4);
 
 		console.log('preload preload');
 	}
@@ -72,12 +78,13 @@ class LoadLevel extends Phaser.State{
 
 		fall = new VerticalMovable (300, 20, 'fall', 25);
 
-		player = new Player ( 'dude',250, 0, cursors);
+		player = new Player ( 'player',250, 0, cursors);
 
 	}
 
 	create(){
 		fall.resize(0.15, 0.15); // Prque la imagen es muy grande
+		player.resize(0.2, 0.2);
 		game.state.start('Main'); // Lanza el estado siguiente
 	}
 }
@@ -106,7 +113,6 @@ class Main extends Phaser.State{
 	update(){
 	// Colisiones de todas las plataformas con todas las burbujas
 		game.physics.arcade.collide(platforms, bubbles); 
-		game.physics.arcade.collide(player.gancho, bubbles);
 	}
 
 	render(){

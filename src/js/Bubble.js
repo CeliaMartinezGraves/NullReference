@@ -13,8 +13,6 @@ class Bubble extends collideWorld{
 		// que el tamaño dependa del nivel
 		this.resize(this.width*this.level, this.heigth*this.level); 
 		this.body.bounce.setTo(1, 1); // que los rebotes no pierdan energia
-
-		console.log(Object.keys(this));
 	}
 
 	// Divide en dos burbujas del mismo, de un nivel menor y las mete en el array del padre

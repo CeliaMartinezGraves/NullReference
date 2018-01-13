@@ -1,0 +1,6 @@
+numBubbles
+tipo(0 normal, 1 grv) posX posY lvl
+...
+
+numPlat
+tipo(0 normal, 1 rotos) posX posY 
