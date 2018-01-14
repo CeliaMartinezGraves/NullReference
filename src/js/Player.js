@@ -4,9 +4,7 @@ class Player extends collideWorld{
 		this.cursors = cursors;
 		this.gancho = new Gancho(1,'hook', this);
 
-		console.log(this._frame);
-		console.log(Object.keys(this.animations));
-		console.log(this.animations.currentFrame);
+		// añade los frames de cada animacion
 		this.addAnim('leftAnim', [8, 9, 10, 11]);
 		this.addAnim('rightAnim', [12, 13, 14, 15]);
 		this.addAnim('stopAnim', [4]);
