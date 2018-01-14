@@ -16,7 +16,7 @@ class Gancho extends VerticalMovable{
 		super.revive();
 		super.create();
 		this.rect = new Phaser.Rectangle(0,0,0,0);
-		this.Xply = this.player.body.x;
+		this.Xply = this.player.body.x+50;
 		this.Yply = this.player.body.y;
 
 		this.moveTo(this.Xply,this.Yply);
@@ -54,8 +54,8 @@ class Gancho extends VerticalMovable{
 
 			this.rect.setTo(this.body.x+8, this.body.y, this.rectWidth, this.aux);
 			//console.log(this.rect.height);
-			console.log(this.y);
-			console.log(this.Yply);
+			//console.log(this.y);
+			//console.log(this.Yply);
 			//console.log(this.body.y);
 			//console.log(this.body.x);
 		}
