@@ -2,7 +2,7 @@ class Gancho extends VerticalMovable{
 
 	constructor(numBullets, label, player){
 
-		super(player.x, player.y-50, label, -200);
+		super(-100, -100, label, -200);
 		
 		this.player = player;
 
