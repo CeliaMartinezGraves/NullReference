@@ -24,6 +24,9 @@ class Preload extends Phaser.State{
 			'button', 'images/buttons.png', 200/2, 82/2// boton del menu de inicio
 		];
 
+		// Mapas de juego
+    	this.maps = ['lvl0', 'levels/level00.ping']; 
+
 		secondPly = false; //desactiva el 2º jugador
 	}
 
@@ -36,6 +39,9 @@ class Preload extends Phaser.State{
 		for(var i = 0; i < this.sheets.length; i+=4){
 			game.load.spritesheet(this.sheets[i], this.sheets[i+1], this.sheets[i+2], this.sheets[i+3]);
 		}
+
+		 this.txt = game.load.json('lvl0', 'levels/level00.json'); // carga el archivo 
+
 		console.log('preload preload');
 	}
 
@@ -75,13 +81,13 @@ class GameTitle extends Phaser.State{
 		//game.state.start('LoadLevel'); // Lanza el estado siguiente
 	}
 
-// Pone el booleano del 2º jugador a true
+	// Pone el booleano del 2º jugador a true
 	on2ndPlyrPressed(){
 		console.log('pulsandooo 2');
 		secondPly = true; // activa el uso del segundo jugador
 		this.onButtonPressed();
 	}
-// lanza el lector de nivel
+	// lanza el lector de nivel
 	onButtonPressed(){
 		console.log('pulsandooo');
 		game.state.start('LoadLevel'); // Lanza el estado siguiente
@@ -91,7 +97,9 @@ class GameTitle extends Phaser.State{
 
 class LoadLevel extends Phaser.State{
 	init(){
+
 		console.log(secondPly);
+		this.level = game.cache.getJSON('lvl0'); 
 
 		cursors = game.input.keyboard.addKeys({'up': Phaser.KeyCode.UP, 
 			'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 
@@ -103,19 +111,21 @@ class LoadLevel extends Phaser.State{
 				'right': Phaser.KeyCode.D, 'fireButton': Phaser.KeyCode.SPACEBAR});
 		}
 
-
-		// numero de plataformas
-		platforms = [
-			new Platform(300, 300, 'platform'),
-			new Platform(200, 200, 'platform')
-		];
-
-		bubbles = [
-			new Bubble(300, 100, 'ball', -100, 150, 3),
-			new GravityBubble(100, 100, 'gball', 100, 150, 3)
-		];
-
-		fall = new VerticalMovable (300, 20, 'fall', 25);
+    	// numero de plataformas 
+   		for (var i = 0; i < this.level[currentLevel].plat.length; i++) { 
+    	  platforms.push(new Platform(this.level[currentLevel].plat[i].x, this.level[currentLevel].plat[i].y, 'platform')); 
+    	} 
+ 
+ 		// num burbujas
+    	for (var i = 0; i < this.level[currentLevel].ball.length; i++) { 
+     		if(this.level[currentLevel].ball[i].t === 0) 
+     	 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'ball', 100, 100, this.level[currentLevel].ball[i].lvl)); 
+     		else 
+    	    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'gball', 100, 100, this.level[currentLevel].ball[i].lvl)); 
+    	} 
+ 
+    	fall = new VerticalMovable (300, 20, 'fall', 50); 
+    	console.log(bubbles); 
 
 
 		if(secondPly){
@@ -132,7 +142,6 @@ class LoadLevel extends Phaser.State{
 			players[0].resize(0.2, 0.2);
 		}
 		
-
 	}
 
 	create(){
