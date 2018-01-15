@@ -182,9 +182,12 @@ class Main extends Phaser.State{
 		for(i = 0; i < players.length; i++){
 			if(players[i].gancho.alive){
 				game.physics.arcade.collide(players[i].gancho, bubbles, this.overlapGanchoBurbuja, null, this);
+				game.physics.arcade.overlap(players[i].gancho, bubbles, this.overlapGanchoBurbuja, null, this);
 				game.physics.arcade.overlap(players[i].gancho, platforms, this.overlapGanchoPlataforma, null, this);
 			}
 		}
+
+		game.physics.arcade.overlap(players, bubbles, this.overlapPlayerBurbuja, null, this);
 	}
 
 	render(){
@@ -204,6 +207,10 @@ class Main extends Phaser.State{
 		console.log('overlapGanchoPlataforma');
 		gancho.die();
 
+	}
+
+	overlapPlayerBurbuja(player,bubble){
+		//game.state.start('Main');		//Buscar alguna manera de que no pete muchisimo con esto ;v;
 	}
 	
 }
