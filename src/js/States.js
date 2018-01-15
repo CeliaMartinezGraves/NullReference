@@ -7,26 +7,24 @@ class Preload extends Phaser.State{
 	init(){
 		// Guarda en el array la etiqueta y la ruta de la imagen a cargar
 		this.images = [
-			'platform', 'images/platform.png',
-			'ball', 'images/pokemonicon.png', 
-			'gball', 'images/pokemoniconred.png', 
-			'fall', 'images/phaser.png', 
-			'dude', 'images/dude.png',
-			'dude2', 'images/dude2.png',
-			'hook', 'images/hookTop.png',
+			'platform', 'images/sprites/platform.png',
+			'ball', 'images/sprites/blueball.png', 
+			'gball', 'images/sprites/redball.png', 
+			'fall', 'images/sprites/phaser.png',
+			'hook', 'images/sprites/hookTop.png',
 
-			'loading', 'images/loading.png', // Pantalla de carga
-			'title', 'images/title.png', // Pantalla de inicio
+			'loading', 'images/fondos/loading.png', // Pantalla de carga
+			'title', 'images/fondos/title.png' // Pantalla de inicio
 		];
 
 		this.sheets = [
-			'player', 'images/player1.png', 1600/4, 1200/3,
-			'player2', 'images/player2.png', 1600/4, 1200/3,
-			'button', 'images/buttons.png', 200/2, 82/2// boton del menu de inicio
+			'player', 'images/sprites/player1.png', 1600/4, 1200/3,
+			'player2', 'images/sprites/player2.png', 1600/4, 1200/3,
+			'button', 'images/botones/buttons.png', 200/2, 82/2// boton del menu de inicio
 		];
 
 		// Mapas de juego
-    	this.maps = ['lvl0', 'levels/level00.ping']; 
+    	this.maps = ['lvl', 'levels/levels.ping']; 
 
 		secondPly = false; //desactiva el 2º jugador
 	}
@@ -41,7 +39,7 @@ class Preload extends Phaser.State{
 			game.load.spritesheet(this.sheets[i], this.sheets[i+1], this.sheets[i+2], this.sheets[i+3]);
 		}
 
-		 this.txt = game.load.json('lvl0', 'levels/level00.json'); // carga el archivo 
+		 this.txt = game.load.json('lvl', 'levels/levels.json'); // carga el archivo 
 
 		console.log('preload preload');
 	}
@@ -100,16 +98,22 @@ class LoadLevel extends Phaser.State{
 	init(){
 
 		console.log(secondPly);
-		this.level = game.cache.getJSON('lvl0'); 
+		this.level = game.cache.getJSON('lvl'); 
 
-		cursors = game.input.keyboard.addKeys({'up': Phaser.KeyCode.UP, 
+		if(secondPly){
+			cursors = game.input.keyboard.addKeys({'up': Phaser.KeyCode.UP, 
 			'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 
 			'right': Phaser.KeyCode.RIGHT, 'fireButton': Phaser.KeyCode.ENTER});
 
-		if(secondPly){
 			cursorsWASD = game.input.keyboard.addKeys({'up': Phaser.KeyCode.W, 
 				'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 
 				'right': Phaser.KeyCode.D, 'fireButton': Phaser.KeyCode.SPACEBAR});
+
+		}else{
+
+			cursors = game.input.keyboard.addKeys({'up': Phaser.KeyCode.UP, 
+			'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 
+			'right': Phaser.KeyCode.RIGHT, 'fireButton': Phaser.KeyCode.SPACEBAR});
 		}
 
     	// numero de plataformas 
