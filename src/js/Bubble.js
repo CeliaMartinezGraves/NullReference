@@ -8,8 +8,9 @@ class Bubble extends collideWorld{
 		this.tipo = Bubble; // Para luego generar los hijos
 	}
 
-	create(){
+	create(posInGroup){
 		super.create();
+		this.posInGroup = posInGroup; // guarda su pos en el array de bubbles 
 		// que el tamaño dependa del nivel
 		this.resize(this.width*this.level, this.heigth*this.level); 
 		this.body.bounce.setTo(1, 1); // que los rebotes no pierdan energia
@@ -18,18 +19,26 @@ class Bubble extends collideWorld{
 	// Divide en dos burbujas del mismo, de un nivel menor y las mete en el array del padre
 	divide(father){	
 		var ballSon1 = new this.tipo(this.body.x, this.body.y, this.label, -100, 150, this.level-1);
-		ballSon1.create();
+		ballSon1.create(this.posInGroup); // porque se añaden en el final del array 
 		var ballSon2 = new this.tipo(this.body.x, this.body.y, this.label, 100, 150, this.level-1);
-		ballSon2.create();
+		ballSon2.create(father.length); // porque se añaden en el final del array 
 
-		father.push(ballSon1);
-		father.push(ballSon2);
+		father.splice(this.posInGroup, 1, ballSon1); // Para añadirlo en la pos del padre
+		father.push(ballSon2); // Añadirla al final del array
 	}
 
 	// muerte y division de la burbuja (si se puede)
 	die(parent){
-		if (this.level > 0)
+
+		if (this.level > 1)
 			this.divide(parent);
+		else{
+			parent.splice(this.posInGroup, 1);
+			for(i = 0; i < parent.length; i++)
+				parent[i].changePosInGroup(i); 
+		}// porque cuando se muere una pequeña, deja huco pero no se actualiza la posInGroup de las demas
+
+		
 		this.destroy();
 
 		console.log('bubble kill');
@@ -38,12 +47,16 @@ class Bubble extends collideWorld{
 	getLevel(){
 		return this.level;
 	}
+
+	changePosInGroup(pos){
+		this.posInGroup = pos; // Para actualizar las pos cuando se destruyen burbujas
+	}
 }
 
 // Añade las burbujas con gravedad
 class GravityBubble extends Bubble{
-	create(){
-		super.create();
+	create(posInGroup){
+		super.create(posInGroup);
 		this.tipo = GravityBubble;
 		this.setGravity(250);
 	}
@@ -57,4 +70,5 @@ class GravityBubble extends Bubble{
 	setGravity(gravityY){
 		this.body.gravity.y = gravityY;
 	}
+
 }

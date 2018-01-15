@@ -96,10 +96,13 @@ class GameTitle extends Phaser.State{
 
 class LoadLevel extends Phaser.State{
 	init(){
-
+		nivelAcabado = false;
 		console.log(secondPly);
-		this.level = game.cache.getJSON('lvl'); 
 
+		if(this.level === undefined) // Si no esta cogido el archivo
+			this.level = game.cache.getJSON('lvl'); 
+
+		// INICIALIZADO DE CURSORES
 		if(secondPly){
 			cursors = game.input.keyboard.addKeys({'up': Phaser.KeyCode.UP, 
 			'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 
@@ -117,23 +120,31 @@ class LoadLevel extends Phaser.State{
 		}
 
 		// LECTURA DE NIVEL
-		if(currentLevel < this.level.length){ // Solo carga nivel si existe
-    		// numero de plataformas 
-   			for (var i = 0; i < this.level[currentLevel].plat.length; i++) { 
-    	  		platforms.push(new Platform(this.level[currentLevel].plat[i].x, this.level[currentLevel].plat[i].y, 'platform')); 
-    		} 
- 
-	 		// num burbujas
-    		for (var i = 0; i < this.level[currentLevel].ball.length; i++) { 
-   		  		if(this.level[currentLevel].ball[i].t === 0) 
-     		 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'ball', 100, 100, this.level[currentLevel].ball[i].lvl)); 
-     			else 
-    		    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'gball', 100, 100, this.level[currentLevel].ball[i].lvl)); 
-    		} 
-    	}
+		var levelFound = false;
+		// while y booleano para evitar que intente leer niveles que no existen y estalle
+		while(!levelFound && currentLevel >= 0)
+		{
+			if(currentLevel < this.level.length){ // Solo carga nivel si existe
+				levelFound = true;
+		    	// numero de plataformas 
+		   		for (var i = 0; i < this.level[currentLevel].plat.length; i++) { 
+		    		platforms.push(new Platform(this.level[currentLevel].plat[i].x, this.level[currentLevel].plat[i].y, 'platform')); 
+		    	} 
+		 
+			 	// num burbujas
+		    	for (var i = 0; i < this.level[currentLevel].ball.length; i++) { 
+		   			if(this.level[currentLevel].ball[i].t === 0) 
+		     		 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'ball', 100, 100, this.level[currentLevel].ball[i].lvl)); 
+		     		else 
+		    		    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'gball', 100, 100, this.level[currentLevel].ball[i].lvl)); 
+		    	} 
+		    } 
+		    else
+		    	currentLevel--;
+
+		}
  
     	fall = new VerticalMovable (300, 20, 'fall', 50); 
-    	console.log(bubbles); 
 
     	// CREA PLAYERS
 		if(secondPly){
@@ -173,28 +184,37 @@ class Main extends Phaser.State{
 			platforms[i].create();
 
 		for (i = 0; i < bubbles.length; i++)
-			bubbles[i].create();
+			bubbles[i].create(i); // hay que pasarle su pos en el array para que luego se pueda destruir
 	
 		for(i = 0; i < players.length; i++)
 			players[i].create();
-
-		console.log(players[0].gancho);
 		
 		console.log('Main create');
 	}
 
 	update(){
-	// Colisiones de todas las plataformas con todas las burbujas
-		game.physics.arcade.collide(platforms, bubbles); 
 
-		for(i = 0; i < players.length; i++){
-			if(players[i].gancho.alive){
-				game.physics.arcade.overlap(players[i].gancho, bubbles, this.overlapGanchoBurbuja, null, this);
-				game.physics.arcade.overlap(players[i].gancho, platforms, this.overlapGanchoPlataforma, null, this);
+		if(bubbles.length > 0){ // Si aun quedan burbujas
+		// Colisiones de todas las plataformas con todas las burbujas
+			game.physics.arcade.collide(platforms, bubbles); 
+	
+			for(i = 0; i < players.length; i++){
+				if(players[i].gancho.alive){
+					game.physics.arcade.overlap(players[i].gancho, platforms, this.overlapGanchoPlataforma, null, this);
+					game.physics.arcade.overlap(players[i].gancho, bubbles, this.overlapGanchoBurbuja, null, this);
+				}
 			}
-		}
+	
+			game.physics.arcade.overlap(players, bubbles, this.overlapPlayerBurbuja, null, this);
+		}else {
+			nivelAcabado = true;
+			console.log('holii');
 
-		game.physics.arcade.overlap(players, bubbles, this.overlapPlayerBurbuja, null, this);
+			for(i = 0; i < players.length; i++)
+				players[i].dance();
+
+
+		}
 	}
 
 	render(){

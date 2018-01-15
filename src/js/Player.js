@@ -11,8 +11,11 @@ class Player extends collideWorld{
 		this.addAnim('leftAnim', [4, 5, 6, 7]);
 		this.addAnim('rightAnim', [0, 1, 2, 3]);
 		this.addAnim('stopAnim', [8]);
+		this.addAnim('finAnim', [0, 1, 0, 1, 4, 5, 4, 5]);// bailecito al acabar el nivel
 
 		this.hayGancho = false;
+
+		this.numVidas = numVidasInicio; // Asigna las vidas iniciales
 	}
 
 	preload(){
@@ -30,26 +33,28 @@ class Player extends collideWorld{
 
 	update(){
 
-		if (this.cursors.left.isDown)
-    	{
-       	 	this.changeSpeedX(-250);
-       	 	this.animations.play('leftAnim', this._animSpeed);
-    	}
-    	else if (this.cursors.right.isDown)
-    	{
-        	this.changeSpeedX(250);
-        	this.animations.play('rightAnim', this._animSpeed);
-    	}
-    	else if(this.speedX != 0){
-       		this.changeSpeedX(0);
-       		this.animations.play('stopAnim', this._animSpeed);
-    	}
-
-    	if (this.cursors.fireButton.downDuration(0.2)){
-    		//this.animations.play('stopAnim', this._animSpeed);				///Intentar poner animacion de apuntando hacia arriba cuando dispara
-    		this.gancho.fire();
-    		this.hayGancho = true;
-    	}
+		if(!nivelAcabado){	
+			if (this.cursors.left.isDown)
+		   	{
+		   	 	this.changeSpeedX(-250);
+		   	 	this.animations.play('leftAnim', this._animSpeed);
+		   	}
+		   	else if (this.cursors.right.isDown)
+		   	{
+		       	this.changeSpeedX(250);
+		       	this.animations.play('rightAnim', this._animSpeed);
+		   	}
+		   	else if(this.speedX != 0){
+		   		this.changeSpeedX(0);
+		   		this.animations.play('stopAnim', this._animSpeed);
+		   	}
+		
+		   	if (this.cursors.fireButton.downDuration(0.2)){
+		   		//this.animations.play('stopAnim', this._animSpeed);				///Intentar poner animacion de apuntando hacia arriba cuando dispara
+		   		this.gancho.fire();
+		   		this.hayGancho = true;
+		   	}
+		}
     	
     	if(this.hayGancho){
     		this.gancho.update();
@@ -59,5 +64,10 @@ class Player extends collideWorld{
 	killGancho(){
 		this.gancho.die();
 		this.hayGancho = false;
+	}
+
+	//para que "baile" al acabar el nivel
+	dance(){
+		this.animations.play('finAnim', this._animSpeed/2);
 	}
 }
