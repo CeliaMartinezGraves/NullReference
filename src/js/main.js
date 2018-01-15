@@ -8,6 +8,7 @@ var bubbles, platforms, players, secondPly; // grupos con las burbujas, platafor
 var boundsA, boundsB;
 var i;
 var currentLevel = 1;// nivel de juego
+var hacks = true; // Solo permite cheats si esta a true
 
 function preload(){
 	bubbles = [];

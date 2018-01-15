@@ -1,6 +1,9 @@
 class Player extends collideWorld{
-	constructor( label,speedX, speedY, cursors){
+	constructor(label, speedX, speedY, cursors, playerID){ // PLAYERID ES SI ES PLYR 1, 2, etc
 		super(game.width/2, game.height, label, speedX, speedY);
+		if(playerID === 1){
+			this.moveTo((game.width/2)-this.width/4, this.y);
+		}
 		this.cursors = cursors;
 		this.gancho = new Gancho(1,'hook', this);
 

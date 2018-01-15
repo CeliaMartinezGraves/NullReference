@@ -116,33 +116,36 @@ class LoadLevel extends Phaser.State{
 			'right': Phaser.KeyCode.RIGHT, 'fireButton': Phaser.KeyCode.SPACEBAR});
 		}
 
-    	// numero de plataformas 
-   		for (var i = 0; i < this.level[currentLevel].plat.length; i++) { 
-    	  platforms.push(new Platform(this.level[currentLevel].plat[i].x, this.level[currentLevel].plat[i].y, 'platform')); 
-    	} 
+		// LECTURA DE NIVEL
+		if(currentLevel < this.level.length){ // Solo carga nivel si existe
+    		// numero de plataformas 
+   			for (var i = 0; i < this.level[currentLevel].plat.length; i++) { 
+    	  		platforms.push(new Platform(this.level[currentLevel].plat[i].x, this.level[currentLevel].plat[i].y, 'platform')); 
+    		} 
  
- 		// num burbujas
-    	for (var i = 0; i < this.level[currentLevel].ball.length; i++) { 
-     		if(this.level[currentLevel].ball[i].t === 0) 
-     	 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'ball', 100, 100, this.level[currentLevel].ball[i].lvl)); 
-     		else 
-    	    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'gball', 100, 100, this.level[currentLevel].ball[i].lvl)); 
-    	} 
+	 		// num burbujas
+    		for (var i = 0; i < this.level[currentLevel].ball.length; i++) { 
+   		  		if(this.level[currentLevel].ball[i].t === 0) 
+     		 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'ball', 100, 100, this.level[currentLevel].ball[i].lvl)); 
+     			else 
+    		    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'gball', 100, 100, this.level[currentLevel].ball[i].lvl)); 
+    		} 
+    	}
  
     	fall = new VerticalMovable (300, 20, 'fall', 50); 
     	console.log(bubbles); 
 
-
+    	// CREA PLAYERS
 		if(secondPly){
 			players = [
-				new Player ( 'player',250, 0, cursors), 
-				new Player ( 'player2',250, 0, cursorsWASD)
+				new Player ( 'player',250, 0, cursors, 1), 
+				new Player ( 'player2',250, 0, cursorsWASD, 2)
 			];
 			players[0].resize(0.2, 0.2);
 			players[1].resize(0.2, 0.2);
 		}else{
 			players = [
-				new Player ( 'player',250, 0, cursors)
+				new Player ( 'player',250, 0, cursors, 1)
 			];
 			players[0].resize(0.2, 0.2);
 		}
