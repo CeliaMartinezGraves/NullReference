@@ -21,6 +21,7 @@ class Preload extends Phaser.State{
 
 		this.sheets = [
 			'player', 'images/player1.png', 1600/4, 1200/3,
+			'player2', 'images/player2.png', 1600/4, 1200/3,
 			'button', 'images/buttons.png', 200/2, 82/2// boton del menu de inicio
 		];
 
@@ -131,7 +132,7 @@ class LoadLevel extends Phaser.State{
 		if(secondPly){
 			players = [
 				new Player ( 'player',250, 0, cursors), 
-				new Player ( 'player',250, 0, cursorsWASD)
+				new Player ( 'player2',250, 0, cursorsWASD)
 			];
 			players[0].resize(0.2, 0.2);
 			players[1].resize(0.2, 0.2);
