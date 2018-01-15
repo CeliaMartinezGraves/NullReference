@@ -169,6 +169,8 @@ class Main extends Phaser.State{
 	
 		for(i = 0; i < players.length; i++)
 			players[i].create();
+
+		console.log(players[0].gancho);
 		
 		console.log('Main create');
 	}
@@ -178,11 +180,11 @@ class Main extends Phaser.State{
 		game.physics.arcade.collide(platforms, bubbles); 
 
 		for(i = 0; i < players.length; i++){
-			game.physics.arcade.overlap(players[i].gancho,bubbles, this.overlapGanchoBurbuja,null,this);
-			game.physics.arcade.overlap(players[i].gancho,platforms, this.overlapGanchoPlataforma,null,this);
+			if(players[i].gancho.alive){
+				game.physics.arcade.collide(players[i].gancho, bubbles, this.overlapGanchoBurbuja, null, this);
+				game.physics.arcade.overlap(players[i].gancho, platforms, this.overlapGanchoPlataforma, null, this);
+			}
 		}
-
-		//game.physics.arcade.overlap(players[0].gancho,bubbles, this.overlapGanchoBurbuja,null,this);
 	}
 
 	render(){
@@ -191,12 +193,15 @@ class Main extends Phaser.State{
 	}
 
 	overlapGanchoBurbuja(gancho,bubble){
+		console.log('overlapGanchoBurbuja');
+
 		gancho.die();
 		bubble.die(bubbles);
 
 	}
 
 	overlapGanchoPlataforma(gancho,platform){
+		console.log('overlapGanchoPlataforma');
 		gancho.die();
 
 	}

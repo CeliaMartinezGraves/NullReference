@@ -5,14 +5,14 @@ class Gancho extends VerticalMovable{
 		super(-100, -100, label, -200);
 		
 		this.player = player;
-
+		this.alive = false;
 		this.numBullets = numBullets;
 		this.numBulletsRest = numBullets;		
 	}
 
 	create(){
 		console.log("creo");
-
+		//this.alive = true;
 		super.revive();
 		super.create();
 		this.rect = new Phaser.Rectangle(0,0,0,0);
@@ -28,10 +28,11 @@ class Gancho extends VerticalMovable{
 
 	die(){
 		this.rect.setTo(0,0,0,0);
+		this.alive = false;
 		this.render();
 		this.kill();
 		this.numBulletsRest++;
-		console.log('gancho Kill');
+		game.debug.geom(this.rect,'#6E6E6E');
 	}
 
 
@@ -46,18 +47,10 @@ class Gancho extends VerticalMovable{
 
 
 	update(){
-		/*if (this.inWorld === false && this.numBulletsRest < this.numBullets)
-			this.die();*/
-
+		
 		if (this.alive){
 			this.aux = this.Yply - this.body.y ;
-
 			this.rect.setTo(this.body.x+8, this.body.y, this.rectWidth, this.aux);
-			//console.log(this.rect.height);
-			//console.log(this.y);
-			//console.log(this.Yply);
-			//console.log(this.body.y);
-			//console.log(this.body.x);
 		}
 
 	}
