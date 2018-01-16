@@ -155,8 +155,7 @@ class LoadLevel extends Phaser.State{
 		// LECTURA DE NIVEL
 		var levelFound = false;
 		// while y booleano para evitar que intente leer niveles que no existen y estalle
-		while(!levelFound && currentLevel >= 0)
-		{
+		while(!levelFound && currentLevel >= 0) {
 			if(currentLevel < this.level.length){ // Solo carga nivel si existe
 				levelFound = true;
 				timeLeftLevel = this.level[currentLevel].time; // añade los segundos en los que hay que acabar el nivel
@@ -176,16 +175,12 @@ class LoadLevel extends Phaser.State{
 		    else
 		    	currentLevel--;
 		}
- 
-    	fall = new VerticalMovable (300, 20, 'fall', 50); 
 
 		backgroundmusic = game.add.audio('background1');
 		
 	}
 
-	create(){
-		fall.resize(0.15, 0.15); // Prque la imagen es muy grande
-		
+	create(){		
 		game.state.start('Main'); // Lanza el estado siguiente
 	}
 }
@@ -200,7 +195,6 @@ class Main extends Phaser.State{
 	create(){
 		game.sound.stopAll();		//Para toda la música antes de empezar a sonar la nueva
 		backgroundmusic.play();
-		fall.create();
 
 		for (i = 0; i < platforms.length; i++)
 			platforms[i].create();
