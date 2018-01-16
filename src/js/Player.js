@@ -11,16 +11,28 @@ class Player extends collideWorld{
 		this.addAnim('leftAnim', [4, 5, 6, 7]);
 		this.addAnim('rightAnim', [0, 1, 2, 3]);
 		this.addAnim('stopAnim', [8]);
+
+		this.addAnim('hitStopAnim', [8, 9]);
+		this.addAnim('hitLeftAnim', [4, 9, 5, 9, 6, 9, 7, 9]);
+		this.addAnim('hitRightAnim', [0, 9, 1, 9, 2, 9, 3, 9]);
+
 		this.addAnim('finAnim', [0, 1, 0, 1, 4, 5, 4, 5]);// bailecito al acabar el nivel
+
 
 		this.hayGancho = false;
 
-		this.numVidas = numVidasInicio; // Asigna las vidas iniciales
+		
+		this.hit = false;
 	}
 
 	preload(){
 		super.preload();
 		this.animations.play('stopAnim', this._animSpeed, true);
+	}
+
+	create(vidas){
+		super.create();
+		this.numVidas = vidas; // Asigna las vidas iniciales
 	}
 
 	changeSpeedX(speedX){
@@ -34,10 +46,12 @@ class Player extends collideWorld{
 	update(){
 
 		if(!nivelAcabado){	
+			console.log(this.hit);
 			if (this.cursors.left.isDown)
 		   	{
 		   	 	this.changeSpeedX(-250);
 		   	 	this.animations.play('leftAnim', this._animSpeed);
+
 		   	}
 		   	else if (this.cursors.right.isDown)
 		   	{
@@ -49,11 +63,13 @@ class Player extends collideWorld{
 		   		this.animations.play('stopAnim', this._animSpeed);
 		   	}
 		
-		   	if (this.cursors.fireButton.downDuration(0.2)){
+		   	if (this.cursors.fireButton.downDuration(0.1)){
 		   		//this.animations.play('stopAnim', this._animSpeed);				///Intentar poner animacion de apuntando hacia arriba cuando dispara
 		   		this.gancho.fire();
 		   		this.hayGancho = true;
 		   	}
+
+		   	game.physics.arcade.overlap(this, bubbles, this.lessLife, null, this);
 		}
     	
     	if(this.hayGancho){
@@ -64,6 +80,14 @@ class Player extends collideWorld{
 	killGancho(){
 		this.gancho.die();
 		this.hayGancho = false;
+	}
+
+	lessLife(){
+		if(this.numVidas>0 && !this.hit){
+			this.numVidas--;
+			this.hit = true;
+		}
+		console.log('player: ' + this.numVidas);
 	}
 
 	//para que "baile" al acabar el nivel

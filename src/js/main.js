@@ -6,11 +6,13 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, null, { preload: preload, crea
 var cursors, cursorsWASD, cursorsCHEATS, fall;
 var backgroundmusic;
 var bubbles, platforms, players, secondPly; // grupos con las burbujas, plataformas y jugadores
+var vidasPlayers;
 var i;
 var currentLevel = 0;// nivel de juego
 var timeLeftLevel; // timepo restante para pasarse el nivel // sera timer
-var _timeBetweenLevels = 5; // tiempo entre niveles en segundos (lo que tarda en bailar)
+var _timeBetweenLevels = 3; // tiempo entre niveles en segundos (lo que tarda en bailar)
 var nivelAcabado = false; // True mientras se ejecuta cosas inter niveles
+var nuevaPartida = true; // A true si se empieza partida nueva desde cero
 var cheats = true; // Solo permite cheats si esta a true
 var numVidasInicio = 3; // numero inicial de vidas
 
@@ -24,6 +26,7 @@ function preload(){
     // Inicializa bubbles, plataforms y fisicas
 	bubbles = [];
 	platforms = [];
+	vidasPlayers = [numVidasInicio, numVidasInicio];
 	game.physics.startSystem(Phaser.Physics.ARCADE);
 
 	// si los cheats estan activados, carga los cursores que necesita

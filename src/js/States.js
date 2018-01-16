@@ -105,6 +105,7 @@ class GameTitle extends Phaser.State{
 	}
 	// lanza el lector de nivel
 	onButtonPressed(){
+		nuevaPartida = true;
 		console.log('pulsandooo');
 		game.state.start('LoadLevel'); // Lanza el estado siguiente
 	}
@@ -114,27 +115,43 @@ class GameTitle extends Phaser.State{
 class LoadLevel extends Phaser.State{
 	init(){
 		nivelAcabado = false;
+
+		// INICIALIZADO DE CURSORES
+		// CREA PLAYERS
+			if(secondPly){
+					cursors = game.input.keyboard.addKeys({'up': Phaser.KeyCode.UP, 
+					'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 
+					'right': Phaser.KeyCode.RIGHT, 'fireButton': Phaser.KeyCode.ENTER});
+		
+					cursorsWASD = game.input.keyboard.addKeys({'up': Phaser.KeyCode.W, 
+						'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 
+						'right': Phaser.KeyCode.D, 'fireButton': Phaser.KeyCode.SPACEBAR});
+		
+					players = [
+						new Player ( 'player', 250, 0, cursors, 1), 
+						new Player ( 'player2', 250, 0, cursorsWASD, 2)
+					];
+					players[0].resize(0.2, 0.2);
+					players[1].resize(0.2, 0.2);
+		
+				}
+				else {
+		
+					cursors = game.input.keyboard.addKeys({'up': Phaser.KeyCode.UP, 
+					'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 
+					'right': Phaser.KeyCode.RIGHT, 'fireButton': Phaser.KeyCode.SPACEBAR});
+		
+					players = [
+						new Player ( 'player',250, 0, cursors, 1)
+					];
+					players[0].resize(0.2, 0.2);
+				}
+		
+		
 		console.log("load level " + currentLevel);
 
 		if(this.level === undefined) // Si no esta cogido el archivo
-			this.level = game.cache.getJSON('lvl'); 
-
-		// INICIALIZADO DE CURSORES
-		if(secondPly){
-			cursors = game.input.keyboard.addKeys({'up': Phaser.KeyCode.UP, 
-			'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 
-			'right': Phaser.KeyCode.RIGHT, 'fireButton': Phaser.KeyCode.ENTER});
-
-			cursorsWASD = game.input.keyboard.addKeys({'up': Phaser.KeyCode.W, 
-				'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 
-				'right': Phaser.KeyCode.D, 'fireButton': Phaser.KeyCode.SPACEBAR});
-
-		}else{
-
-			cursors = game.input.keyboard.addKeys({'up': Phaser.KeyCode.UP, 
-			'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 
-			'right': Phaser.KeyCode.RIGHT, 'fireButton': Phaser.KeyCode.SPACEBAR});
-		}
+			this.level = game.cache.getJSON('lvl');
 
 		// LECTURA DE NIVEL
 		var levelFound = false;
@@ -162,21 +179,6 @@ class LoadLevel extends Phaser.State{
 		}
  
     	fall = new VerticalMovable (300, 20, 'fall', 50); 
-
-    	// CREA PLAYERS
-		if(secondPly){
-			players = [
-				new Player ( 'player',250, 0, cursors, 1), 
-				new Player ( 'player2',250, 0, cursorsWASD, 2)
-			];
-			players[0].resize(0.2, 0.2);
-			players[1].resize(0.2, 0.2);
-		}else{
-			players = [
-				new Player ( 'player',250, 0, cursors, 1)
-			];
-			players[0].resize(0.2, 0.2);
-		}
 
 		backgroundmusic = game.add.audio('background1');
 		
@@ -207,8 +209,12 @@ class Main extends Phaser.State{
 		for (i = 0; i < bubbles.length; i++)
 			bubbles[i].create(i); // hay que pasarle su pos en el array para que luego se pueda destruir
 	
-		for(i = 0; i < players.length; i++)
-			players[i].create();
+		for(i = 0; i < players.length; i++){
+			console.log(players);
+			console.log(vidasPlayers[i]);
+			console.log(players[i]);
+			players[i].create(vidasPlayers[i]);
+		}
 		
 		console.log('Main create');
 	}
@@ -221,14 +227,10 @@ class Main extends Phaser.State{
 	
 			for(i = 0; i < players.length; i++){
 				if(players[i].gancho.alive){
-					players[i].gancho.handleCollisions(bubbles,platforms)
-					//game.physics.arcade.overlap(players[i].gancho, platforms, this.overlapGanchoPlataforma, null, this);
-					//game.physics.arcade.overlap(players[i].gancho, bubbles, this.overlapGanchoBurbuja, null, this);
-
+					players[i].gancho.handleCollisions(bubbles,platforms);
 				}
 			}
-	
-			game.physics.arcade.overlap(players, bubbles, this.overlapPlayerBurbuja, null, this);
+
 		}else if(!nivelAcabado){
 			nivelAcabado = true;
 			console.log('holii');
@@ -263,6 +265,10 @@ class Main extends Phaser.State{
 		currentLevel = level;
 		bubbles = [];
 		platforms = [];
+
+		for(i = 0; i < players.length; i++)
+			vidasPlayers[i] = players[i].getVidas;
+
 		game.state.start('LoadLevel');
 	}
 
