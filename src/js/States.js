@@ -197,6 +197,7 @@ class Main extends Phaser.State{
 	}
 
 	create(){
+		game.sound.stopAll();		//Para toda la música antes de empezar a sonar la nueva
 		backgroundmusic.play();
 		fall.create();
 
