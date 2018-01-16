@@ -27,9 +27,13 @@ class Preload extends Phaser.State{
     	this.maps = ['lvl', 'levels/levels.ping']; 
 
 		secondPly = false; //desactiva el 2º jugador
+		
 	}
 
 	preload(){
+		
+		console.log(cursorsCHEATS);
+
 		// Carga todas las imagenes del array y les asigna su etiqueta
 		for(var i = 0; i < this.images.length; i+=2){
 			game.load.image(this.images[i], this.images[i+1]);
@@ -39,12 +43,16 @@ class Preload extends Phaser.State{
 			game.load.spritesheet(this.sheets[i], this.sheets[i+1], this.sheets[i+2], this.sheets[i+3]);
 		}
 
-		 this.txt = game.load.json('lvl', 'levels/levels.json'); // carga el archivo 
-
+		this.txt = game.load.json('lvl', 'levels/levels.json'); // carga el archivo 
+		
 		console.log('preload preload');
 	}
 
 	create(){
+		console.log(cheats);
+		
+		
+
 		console.log('preload create');
 
 		game.add.sprite(0, 0, 'loading');
@@ -97,7 +105,7 @@ class GameTitle extends Phaser.State{
 class LoadLevel extends Phaser.State{
 	init(){
 		nivelAcabado = false;
-		console.log(secondPly);
+		console.log("load level " + currentLevel);
 
 		if(this.level === undefined) // Si no esta cogido el archivo
 			this.level = game.cache.getJSON('lvl'); 
@@ -126,6 +134,7 @@ class LoadLevel extends Phaser.State{
 		{
 			if(currentLevel < this.level.length){ // Solo carga nivel si existe
 				levelFound = true;
+				timeLeftLevel = this.level[currentLevel].time; // añade los segundos en los que hay que acabar el nivel
 		    	// numero de plataformas 
 		   		for (var i = 0; i < this.level[currentLevel].plat.length; i++) { 
 		    		platforms.push(new Platform(this.level[currentLevel].plat[i].x, this.level[currentLevel].plat[i].y, 'platform')); 
@@ -141,7 +150,6 @@ class LoadLevel extends Phaser.State{
 		    } 
 		    else
 		    	currentLevel--;
-
 		}
  
     	fall = new VerticalMovable (300, 20, 'fall', 50); 
@@ -212,8 +220,11 @@ class Main extends Phaser.State{
 
 			for(i = 0; i < players.length; i++)
 				players[i].dance();
+		}
 
-
+		// Si los cheats estan activados, los procesa
+		if(cheats){
+			this.handleCheats();
 		}
 	}
 
@@ -237,7 +248,27 @@ class Main extends Phaser.State{
 	}
 
 	overlapPlayerBurbuja(player,bubble){
-		//game.state.start('Main');		//Buscar alguna manera de que no pete muchisimo con esto ;v;
+		// restaria vidas al player que choca
+	}
+
+	handleCheats(){
+
+		if(cursorsCHEATS.nextLVL.downDuration(0.1)){
+			currentLevel++;
+			bubbles = [];
+			platforms = [];
+			game.state.start('LoadLevel');
+		}else if(cursorsCHEATS.prevLVL.downDuration(0.1)){
+			currentLevel--;
+			bubbles = [];
+			platforms = [];
+			game.state.start('LoadLevel');
+		}
+
 	}
 	
+}
+
+class Credits extends Phaser.State{
+
 }
