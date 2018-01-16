@@ -16,6 +16,7 @@ var nuevaPartida = true; // A true si se empieza partida nueva desde cero
 var cheats = true; // Solo permite cheats si esta a true
 var numVidasInicio = 3; // numero inicial de vidas
 
+
 function preload(){
 
 	cheats = true;

@@ -12,10 +12,6 @@ class Player extends collideWorld{
 		this.addAnim('rightAnim', [0, 1, 2, 3]);
 		this.addAnim('stopAnim', [8]);
 
-		this.addAnim('hitStopAnim', [8, 9]);
-		this.addAnim('hitLeftAnim', [4, 9, 5, 9, 6, 9, 7, 9]);
-		this.addAnim('hitRightAnim', [0, 9, 1, 9, 2, 9, 3, 9]);
-
 		this.addAnim('finAnim', [0, 1, 0, 1, 4, 5, 4, 5]);// bailecito al acabar el nivel
 
 
@@ -33,6 +29,8 @@ class Player extends collideWorld{
 	create(vidas){
 		super.create();
 		this.numVidas = vidas; // Asigna las vidas iniciales
+		console.log("player " + this.numVidas);
+
 	}
 
 	changeSpeedX(speedX){
@@ -93,5 +91,9 @@ class Player extends collideWorld{
 	//para que "baile" al acabar el nivel
 	dance(){
 		this.animations.play('finAnim', this._animSpeed/2, true);
+	}
+
+	getVidas(){
+		return (this.numVidas);
 	}
 }

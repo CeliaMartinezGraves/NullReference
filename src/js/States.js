@@ -118,34 +118,33 @@ class LoadLevel extends Phaser.State{
 
 		// INICIALIZADO DE CURSORES
 		// CREA PLAYERS
-			if(secondPly){
-					cursors = game.input.keyboard.addKeys({'up': Phaser.KeyCode.UP, 
-					'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 
-					'right': Phaser.KeyCode.RIGHT, 'fireButton': Phaser.KeyCode.ENTER});
+		if(secondPly){
+			cursors = game.input.keyboard.addKeys({'up': Phaser.KeyCode.UP, 
+				'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 
+				'right': Phaser.KeyCode.RIGHT, 'fireButton': Phaser.KeyCode.ENTER});
 		
-					cursorsWASD = game.input.keyboard.addKeys({'up': Phaser.KeyCode.W, 
-						'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 
-						'right': Phaser.KeyCode.D, 'fireButton': Phaser.KeyCode.SPACEBAR});
+			cursorsWASD = game.input.keyboard.addKeys({'up': Phaser.KeyCode.W, 
+				'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 
+				'right': Phaser.KeyCode.D, 'fireButton': Phaser.KeyCode.SPACEBAR});
 		
-					players = [
-						new Player ( 'player', 250, 0, cursors, 1), 
-						new Player ( 'player2', 250, 0, cursorsWASD, 2)
-					];
-					players[0].resize(0.2, 0.2);
-					players[1].resize(0.2, 0.2);
+			players = [
+				new Player ( 'player', 250, 0, cursors, 1), 
+				new Player ( 'player2', 250, 0, cursorsWASD, 2)
+			];
+			players[0].resize(0.2, 0.2);
+			players[1].resize(0.2, 0.2);
 		
-				}
-				else {
+		}
+		else {
+			cursors = game.input.keyboard.addKeys({'up': Phaser.KeyCode.UP, 
+				'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 
+				'right': Phaser.KeyCode.RIGHT, 'fireButton': Phaser.KeyCode.SPACEBAR});
 		
-					cursors = game.input.keyboard.addKeys({'up': Phaser.KeyCode.UP, 
-					'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 
-					'right': Phaser.KeyCode.RIGHT, 'fireButton': Phaser.KeyCode.SPACEBAR});
-		
-					players = [
-						new Player ( 'player',250, 0, cursors, 1)
-					];
-					players[0].resize(0.2, 0.2);
-				}
+			players = [
+				new Player ( 'player',250, 0, cursors, 1)
+			];
+			players[0].resize(0.2, 0.2);
+		}
 		
 		
 		console.log("load level " + currentLevel);
@@ -267,7 +266,7 @@ class Main extends Phaser.State{
 		platforms = [];
 
 		for(i = 0; i < players.length; i++)
-			vidasPlayers[i] = players[i].getVidas;
+			vidasPlayers[i] = players[i].getVidas();
 
 		game.state.start('LoadLevel');
 	}
