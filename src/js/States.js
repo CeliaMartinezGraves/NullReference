@@ -23,6 +23,11 @@ class Preload extends Phaser.State{
 			'button', 'images/botones/buttons.png', 200/2, 82/2// boton del menu de inicio
 		];
 
+		this.audios = [
+			'background1' ,'music/ChibiNinja.mp3', 1, true,			//1 es el volumen, true es si es en loop
+
+		];
+
 		// Mapas de juego
     	this.maps = ['lvl', 'levels/levels.ping']; 
 
@@ -37,6 +42,10 @@ class Preload extends Phaser.State{
 		// Carga los spritesheet
 		for(var i = 0; i < this.sheets.length; i+=4){
 			game.load.spritesheet(this.sheets[i], this.sheets[i+1], this.sheets[i+2], this.sheets[i+3]);
+		}
+
+		for(var i = 0; i < this.audios.length;i+=4){
+			game.load.audio(this.audios[i],this.audios[i+1],this.audios[i+2],this.audios[i+3])
 		}
 
 		 this.txt = game.load.json('lvl', 'levels/levels.json'); // carga el archivo 
@@ -160,6 +169,8 @@ class LoadLevel extends Phaser.State{
 			];
 			players[0].resize(0.2, 0.2);
 		}
+
+		backgroundmusic = game.add.audio('background1');
 		
 	}
 
@@ -178,6 +189,7 @@ class Main extends Phaser.State{
 	}
 
 	create(){
+		backgroundmusic.play();
 		fall.create();
 
 		for (i = 0; i < platforms.length; i++)
