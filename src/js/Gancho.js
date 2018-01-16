@@ -61,4 +61,30 @@ class Gancho extends VerticalMovable{
 		}
 	}
 
+	handleCollisions(bubbles,platforms){
+		if ( !this.game.physics.arcade.overlap(this, platforms, this.overlapGanchoPlataforma, null, this) &&
+		!this.game.physics.arcade.overlap(this, bubbles, this.overlapGanchoBurbuja, null, this)){
+			for(var i = 0; i < bubbles.length;i++){
+				if(Phaser.Rectangle.intersects(this.rect, bubbles[i].getBounds())){
+					this.overlapGanchoBurbuja(this,bubbles[i]);
+				}
+			}
+		}
+
+	}
+
+	overlapGanchoBurbuja(gancho,bubble){
+		console.log('overlapGanchoBurbuja');
+
+		gancho.die();
+		bubble.die(bubbles);
+
+	}
+
+	overlapGanchoPlataforma(gancho,platform){
+		console.log('overlapGanchoPlataforma');
+		gancho.die();
+
+	}
+
 }
