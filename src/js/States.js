@@ -214,12 +214,11 @@ class Main extends Phaser.State{
 			}
 	
 			game.physics.arcade.overlap(players, bubbles, this.overlapPlayerBurbuja, null, this);
-		}else {
+		}else if(!nivelAcabado){
 			nivelAcabado = true;
 			console.log('holii');
 
-			for(i = 0; i < players.length; i++)
-				players[i].dance();
+			this.winLevel();
 		}
 
 		// Si los cheats estan activados, los procesa
@@ -251,18 +250,28 @@ class Main extends Phaser.State{
 		// restaria vidas al player que choca
 	}
 
+	winLevel(){
+		for(i = 0; i < players.length; i++)
+			players[i].dance();
+
+		game.time.events.add(Phaser.Timer.SECOND * _timeBetweenLevels, this.loadLevel, this, currentLevel + 1);
+	}
+
+	// lee y carga el nivel 'level'
+	loadLevel(level){
+		currentLevel = level;
+		bubbles = [];
+		platforms = [];
+		game.state.start('LoadLevel');
+	}
+
 	handleCheats(){
 
 		if(cursorsCHEATS.nextLVL.downDuration(0.1)){
-			currentLevel++;
-			bubbles = [];
-			platforms = [];
-			game.state.start('LoadLevel');
+			this.loadLevel(currentLevel + 1);
+			
 		}else if(cursorsCHEATS.prevLVL.downDuration(0.1)){
-			currentLevel--;
-			bubbles = [];
-			platforms = [];
-			game.state.start('LoadLevel');
+			this.loadLevel(currentLevel - 1);
 		}
 
 	}

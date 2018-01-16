@@ -7,8 +7,8 @@ var cursors, cursorsWASD, cursorsCHEATS, fall;
 var bubbles, platforms, players, secondPly; // grupos con las burbujas, plataformas y jugadores
 var i;
 var currentLevel = 0;// nivel de juego
-var timeLeftLevel; // timepo restante para pasarse el nivel
-var _timeBetweenLevels = 200; // tiempo entre niveles (lo que tarda en bailar)
+var timeLeftLevel; // timepo restante para pasarse el nivel // sera timer
+var _timeBetweenLevels = 5; // tiempo entre niveles en segundos (lo que tarda en bailar)
 var nivelAcabado = false; // True mientras se ejecuta cosas inter niveles
 var cheats = true; // Solo permite cheats si esta a true
 var numVidasInicio = 3; // numero inicial de vidas
@@ -24,7 +24,7 @@ function preload(){
 	bubbles = [];
 	platforms = [];
 	game.physics.startSystem(Phaser.Physics.ARCADE);
-	
+
 	// si los cheats estan activados, carga los cursores que necesita
 		if(cheats){
 			cursorsCHEATS = game.input.keyboard.addKeys({'nextLVL': Phaser.KeyCode.NUMPAD_ADD, 'prevLVL': Phaser.KeyCode.NUMPAD_SUBTRACT}); //'up': Phaser.KeyCode.UP
