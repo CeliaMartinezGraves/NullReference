@@ -20,11 +20,11 @@ class Preload extends Phaser.State{
 		this.sheets = [
 			'player', 'images/sprites/player1.png', 1600/4, 1200/3,
 			'player2', 'images/sprites/player2.png', 1600/4, 1200/3,
-			'button', 'images/botones/buttons.png', 200/2, 82/2// boton del menu de inicio
+			'button', 'images/botones/buttons.png', 200/2, 82/2 // boton del menu de inicio
 		];
 
 		this.audios = [
-			'background1' ,'music/ChibiNinja.mp3', 1, true,			//1 es el volumen, true es si es en loop
+			'background1' ,'music/ChibiNinja.mp3', 1, true		//1 es el volumen, true es si es en loop
 
 		];
 
