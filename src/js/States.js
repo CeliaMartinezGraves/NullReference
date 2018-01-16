@@ -32,9 +32,13 @@ class Preload extends Phaser.State{
     	this.maps = ['lvl', 'levels/levels.ping']; 
 
 		secondPly = false; //desactiva el 2º jugador
+		
 	}
 
 	preload(){
+		
+		console.log(cursorsCHEATS);
+
 		// Carga todas las imagenes del array y les asigna su etiqueta
 		for(var i = 0; i < this.images.length; i+=2){
 			game.load.image(this.images[i], this.images[i+1]);
@@ -54,6 +58,10 @@ class Preload extends Phaser.State{
 	}
 
 	create(){
+		console.log(cheats);
+		
+		
+
 		console.log('preload create');
 
 		game.add.sprite(0, 0, 'loading');
@@ -106,7 +114,7 @@ class GameTitle extends Phaser.State{
 class LoadLevel extends Phaser.State{
 	init(){
 		nivelAcabado = false;
-		console.log(secondPly);
+		console.log("load level " + currentLevel);
 
 		if(this.level === undefined) // Si no esta cogido el archivo
 			this.level = game.cache.getJSON('lvl'); 
@@ -135,6 +143,7 @@ class LoadLevel extends Phaser.State{
 		{
 			if(currentLevel < this.level.length){ // Solo carga nivel si existe
 				levelFound = true;
+				timeLeftLevel = this.level[currentLevel].time; // añade los segundos en los que hay que acabar el nivel
 		    	// numero de plataformas 
 		   		for (var i = 0; i < this.level[currentLevel].plat.length; i++) { 
 		    		platforms.push(new Platform(this.level[currentLevel].plat[i].x, this.level[currentLevel].plat[i].y, 'platform')); 
@@ -150,7 +159,6 @@ class LoadLevel extends Phaser.State{
 		    } 
 		    else
 		    	currentLevel--;
-
 		}
  
     	fall = new VerticalMovable (300, 20, 'fall', 50); 
@@ -218,14 +226,16 @@ class Main extends Phaser.State{
 			}
 	
 			game.physics.arcade.overlap(players, bubbles, this.overlapPlayerBurbuja, null, this);
-		}else {
+		}else if(!nivelAcabado){
 			nivelAcabado = true;
 			console.log('holii');
 
-			for(i = 0; i < players.length; i++)
-				players[i].dance();
+			this.winLevel();
+		}
 
-
+		// Si los cheats estan activados, los procesa
+		if(cheats){
+			this.handleCheats();
 		}
 	}
 
@@ -249,7 +259,37 @@ class Main extends Phaser.State{
 	}
 
 	overlapPlayerBurbuja(player,bubble){
-		//game.state.start('Main');		//Buscar alguna manera de que no pete muchisimo con esto ;v;
+		// restaria vidas al player que choca
+	}
+
+	winLevel(){
+		for(i = 0; i < players.length; i++)
+			players[i].dance();
+
+		game.time.events.add(Phaser.Timer.SECOND * _timeBetweenLevels, this.loadLevel, this, currentLevel + 1);
+	}
+
+	// lee y carga el nivel 'level'
+	loadLevel(level){
+		currentLevel = level;
+		bubbles = [];
+		platforms = [];
+		game.state.start('LoadLevel');
+	}
+
+	handleCheats(){
+
+		if(cursorsCHEATS.nextLVL.downDuration(0.1)){
+			this.loadLevel(currentLevel + 1);
+			
+		}else if(cursorsCHEATS.prevLVL.downDuration(0.1)){
+			this.loadLevel(currentLevel - 1);
+		}
+
 	}
 	
+}
+
+class Credits extends Phaser.State{
+
 }

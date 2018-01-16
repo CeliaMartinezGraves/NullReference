@@ -20,7 +20,7 @@ class Player extends collideWorld{
 
 	preload(){
 		super.preload();
-		this.animations.play('stopAnim', this._animSpeed);
+		this.animations.play('stopAnim', this._animSpeed, true);
 	}
 
 	changeSpeedX(speedX){
@@ -68,6 +68,6 @@ class Player extends collideWorld{
 
 	//para que "baile" al acabar el nivel
 	dance(){
-		this.animations.play('finAnim', this._animSpeed/2);
+		this.animations.play('finAnim', this._animSpeed/2, true);
 	}
 }
