@@ -24,9 +24,9 @@ class Preload extends Phaser.State{
 		];
 
 		this.audios = [
-			'background1' ,'music/ChibiNinja.mp3', 1, true,		//1 es el volumen, true es si es en loop
-			'pasoDeNivel','music/pasoDeNivel.mp3', 1, false,
-			'explosion','music/Explosion.mp3', 1, false
+			'background1' ,'music/ChibiNinja.mp3', 
+			'pasoDeNivel','music/pasoDeNivel.mp3', 
+			'explosion','music/Explosion.mp3'
 
 		];
 
@@ -50,8 +50,8 @@ class Preload extends Phaser.State{
 			game.load.spritesheet(this.sheets[i], this.sheets[i+1], this.sheets[i+2], this.sheets[i+3]);
 		}
 
-		for(var i = 0; i < this.audios.length;i+=4){
-			game.load.audio(this.audios[i],this.audios[i+1],this.audios[i+2],this.audios[i+3])
+		for(var i = 0; i < this.audios.length;i+=2){
+			game.load.audio(this.audios[i],this.audios[i+1]);
 		}
 
 		 this.txt = game.load.json('lvl', 'levels/levels.json'); // carga el archivo 
@@ -197,7 +197,7 @@ class Main extends Phaser.State{
 
 	create(){
 		game.sound.stopAll();		//Para toda la música antes de empezar a sonar la nueva
-		backgroundmusic.play();
+		backgroundmusic.loopFull();
 
 		for (i = 0; i < platforms.length; i++)
 			platforms[i].create();
