@@ -80,6 +80,7 @@ class Gancho extends VerticalMovable{
 
 		gancho.die();
 		bubble.die(bubbles);
+		explosion.play();
 
 	}
 
