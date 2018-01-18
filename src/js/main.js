@@ -5,7 +5,7 @@
 var game = new Phaser.Game(800, 600, Phaser.AUTO, null, { preload: preload, create: create, update: update, render: render });
 
 var cursors, cursorsWASD, cursorsCHEATS, fall;
-var backgroundmusic, pasoDeNivel, explosion;
+var backgroundmusic, pasoDeNivel, explosion, menumusic;
 var bubbles, platforms, players, secondPly; // grupos con las burbujas, plataformas y jugadores
 var vidasPlayers;
 var i;

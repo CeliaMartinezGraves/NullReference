@@ -26,7 +26,8 @@ class Preload extends Phaser.State{
 		this.audios = [
 			'background1' ,'music/ChibiNinja.mp3', 
 			'pasoDeNivel','music/pasoDeNivel.mp3', 
-			'explosion','music/Explosion.mp3'
+			'explosion','music/Explosion.mp3',
+			'menumusic','music/Jumpshot.mp3'
 
 		];
 
@@ -76,6 +77,8 @@ class GameTitle extends Phaser.State{
 
 	init(){
 
+		menumusic = game.add.audio('menumusic');
+
 		game.add.sprite(0, 0, 'title');
 		
 		// Añade los botones y el texto que tienen (el texto es a parte, por eso se ve tan meh)
@@ -94,6 +97,7 @@ class GameTitle extends Phaser.State{
 	}
 
 	create(){
+		menumusic.loopFull();
 		console.log('GameTitle create');
 		//game.state.start('LoadLevel'); // Lanza el estado siguiente
 	}
