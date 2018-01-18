@@ -24,7 +24,8 @@ class Preload extends Phaser.State{
 		];
 
 		this.audios = [
-			'background1' ,'music/ChibiNinja.mp3', 1, true		//1 es el volumen, true es si es en loop
+			'background1' ,'music/ChibiNinja.mp3', 1, true,		//1 es el volumen, true es si es en loop
+			'pasoDeNivel','music/pasoDeNivel.mp3', 1, false
 
 		];
 
@@ -176,6 +177,7 @@ class LoadLevel extends Phaser.State{
 		}
 
 		backgroundmusic = game.add.audio('background1');
+		pasoDeNivel = game.add.audio('pasoDeNivel');
 		
 	}
 
@@ -246,6 +248,8 @@ class Main extends Phaser.State{
 	}
 
 	winLevel(){
+		game.sound.stopAll();		//Para toda la música antes de empezar a sonar la nueva
+		pasoDeNivel.play();
 		for(i = 0; i < players.length; i++)
 			players[i].dance();
 
