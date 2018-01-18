@@ -14,7 +14,7 @@ class Preload extends Phaser.State{
 			'hook', 'images/sprites/hookTop.png',
 
 			'loading', 'images/fondos/loading.png', // Pantalla de carga
-			'title', 'images/fondos/title.png' // Pantalla de inicio
+			'title', 'images/fondos/title.jpg' // Pantalla de inicio
 		];
 
 		this.sheets = [
@@ -59,8 +59,6 @@ class Preload extends Phaser.State{
 
 	create(){
 		console.log(cheats);
-		
-		
 
 		console.log('preload create');
 
@@ -75,6 +73,7 @@ class Preload extends Phaser.State{
 class GameTitle extends Phaser.State{
 
 	init(){
+
 		game.add.sprite(0, 0, 'title');
 		
 		// Añade los botones y el texto que tienen (el texto es a parte, por eso se ve tan meh)
