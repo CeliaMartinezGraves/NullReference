@@ -26,7 +26,7 @@ class Preload extends Phaser.State{
 			'player2', 'images/sprites/player2.png', 1600/4, 1200/3, , , ,
 			'button', 'images/botones/buttons.png', 448/2, 84, , , , // boton del menu de inicio
 			'mutebutton', 'images/botones/mutebutton.png', 64/2, 32, , , ,
-			'normalBackground', 'images/fondos/backgrounds.jpg', 4467/2, 33602/20, 40, 134, 199
+			'normalBackground', 'images/fondos/backgrounds.jpg', 2012, 20549/14, , ,
 		];
 
 		// Fondos especiales de un solo "uso"
@@ -170,7 +170,7 @@ class GameTitle extends Phaser.State{
 class LoadLevel extends Phaser.State{
 	init(){
 		nivelAcabado = false;
-		this.backLevels = ['normalBackground', 'bobble','tloz','mario' ]; // Etiquetas de los niveles y los niveles especiales
+
 		// INICIALIZADO DE CURSORES
 		// CREA PLAYERS
 		if(secondPly){
@@ -238,17 +238,9 @@ class LoadLevel extends Phaser.State{
 		
 	}
 
-	create(){		
+	create(){
+		
 		game.state.start('Main'); // Lanza el estado siguiente
-	}
-
-	// leer niveles para que cada 5 sea uno de los especiales
-	getBackground(){
-		if(currentLevel%5 != 0){
-			currentBack = this.backLevels[0];
-		}else{
-			currentLevel =this.backLevels[currentLevel/5];
-		}
 	}
 }
 
@@ -256,11 +248,16 @@ class LoadLevel extends Phaser.State{
 class Main extends Phaser.State{
 
 	init(){
-		mute = game.add.button(10, 10, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
+		this.backLevels = ['normalBackground', 'bobble','tloz','mario' ]; // Etiquetas de los niveles y los niveles especiales
+		this.getBackground();
+
+		mute = game.add.button(0, 0, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
 	}
 
 	preload(){
 		console.log('Main preload');
+		console.log(currentBack);
+		game.add.sprite(0, 0, currentBack, 0);
 	}
 
 	create(){
@@ -358,7 +355,16 @@ class Main extends Phaser.State{
 			game.sound.mute=true;
 			mute.setFrames(1);
 		}
+	}
 
+	// leer niveles para que cada 5 sea uno de los especiales
+	getBackground(){
+
+		if(currentLevel%5 != 0){
+			currentBack = this.backLevels[0];
+		}else{
+			currentBack =this.backLevels[currentLevel/5];
+		}
 	}
 	
 }
