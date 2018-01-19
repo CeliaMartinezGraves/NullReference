@@ -11,10 +11,11 @@ var backgroundmusic, pasoDeNivel, explosion, menumusic;
 var bubbles, platforms, players, secondPly; // grupos con las burbujas, plataformas y jugadores
 var vidasPlayers;
 var i;
-var currentLevel = 0;// nivel de juego
+var currentLevel = 1;// nivel de juego
 var currentBack; // label del fondo a cargar
 var timeLeftLevel; // timepo restante para pasarse el nivel // sera timer
 var _timeBetweenLevels = 3; // tiempo entre niveles en segundos (lo que tarda en bailar)
+var TPV = false;
 var nivelAcabado = false; // True mientras se ejecuta cosas inter niveles
 var nuevaPartida = true; // A true si se empieza partida nueva desde cero
 var cheats = true; // Solo permite cheats si esta a true
@@ -36,7 +37,7 @@ function preload(){
 
 	// si los cheats estan activados, carga los cursores que necesita
 		if(cheats){
-			cursorsCHEATS = game.input.keyboard.addKeys({'nextLVL': Phaser.KeyCode.NUMPAD_ADD, 'prevLVL': Phaser.KeyCode.NUMPAD_SUBTRACT}); //'up': Phaser.KeyCode.UP
+			cursorsCHEATS = game.input.keyboard.addKeys({'nextLVL': Phaser.KeyCode.NUMPAD_ADD, 'prevLVL': Phaser.KeyCode.NUMPAD_SUBTRACT, 'T':Phaser.KeyCode.T, 'P': Phaser.KeyCode.P, 'V': Phaser.KeyCode.V}); //'up': Phaser.KeyCode.UP
 		}
 
 	// Añade estados

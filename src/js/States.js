@@ -13,6 +13,12 @@ class Preload extends Phaser.State{
 			'fall', 'images/sprites/phaser.png',
 			'hook', 'images/sprites/hookTop.png', 
 
+			'blueGhost', 'images/sprites/blueghostball.png', 
+			'orangeGhost', 'images/sprites/orangeghostball.png', 
+			'pacman', 'images/sprites/pacmanball.png', 
+			'pinkGhost', 'images/sprites/pinkghostball.png', 
+			'redGhost', 'images/sprites/redghostball.png', 
+
 			'loading', 'images/fondos/loading.png', // Pantalla de carga
 			'title', 'images/fondos/title.jpg', // Pantalla de inicio
 			'controls', 'images/fondos/controles.png',
@@ -32,6 +38,7 @@ class Preload extends Phaser.State{
 
 		// Fondos especiales de un solo "uso"
 		this.specialBackgrounds = [
+			'pacman', 'images/special/pacman.png',
 			'bobble', 'images/special/bubbleBobble back.jpg',
 			'tloz', 'images/special/tloz timeTemple.png', 
 			'mario', 'images/special/Mario background.png'
@@ -183,6 +190,11 @@ class LoadLevel extends Phaser.State{
 	init(){
 		nivelAcabado = false;
 
+		if(currentLevel === 5)
+			TPV = true;
+		else
+			TPV = false;
+
 		// INICIALIZADO DE CURSORES
 		// CREA PLAYERS
 		if(secondPly){
@@ -221,8 +233,10 @@ class LoadLevel extends Phaser.State{
 
 		// LECTURA DE NIVEL
 		var levelFound = false;
+
 		// while y booleano para evitar que intente leer niveles que no existen y estalle
-		while(!levelFound && currentLevel >= 0) {
+		while(!levelFound && currentLevel > 0) {
+
 			if(currentLevel < this.level.length){ // Solo carga nivel si existe
 				levelFound = true;
 				timeLeftLevel = this.level[currentLevel].time; // añade los segundos en los que hay que acabar el nivel
@@ -232,11 +246,21 @@ class LoadLevel extends Phaser.State{
 		    	} 
 		 
 			 	// num burbujas
-		    	for (var i = 0; i < this.level[currentLevel].ball.length; i++) { 
-		   			if(this.level[currentLevel].ball[i].t === 0) 
-		     		 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'ball', 100, 100, this.level[currentLevel].ball[i].lvl)); 
-		     		else 
-		    		    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'gball', 100, 100, this.level[currentLevel].ball[i].lvl)); 
+		    	for (var i = 0; i < this.level[currentLevel].ball.length; i++) {
+		    		if (TPV){
+		    			var Pacman = ['pacman', 'blueGhost', 'orangeGhost', 'pinkGhost','redGhost'];
+
+		   				if(this.level[currentLevel].ball[i].t === 0) 
+		   			 	 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, Pacman[Math.trunc(Math.random()*3 + 1)], 100, 100, this.level[currentLevel].ball[i].lvl)); 
+		   			 	else 
+		   				    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, Pacman[0], 100, 100, this.level[currentLevel].ball[i].lvl));
+		   			}else{
+
+		   				if(this.level[currentLevel].ball[i].t === 0) 
+		   			 	 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'ball', 100, 100, this.level[currentLevel].ball[i].lvl)); 
+		   			 	else 
+		   				    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'gball', 100, 100, this.level[currentLevel].ball[i].lvl));
+		   			}
 		    	} 
 		    } 
 		    else
@@ -260,7 +284,7 @@ class LoadLevel extends Phaser.State{
 class Main extends Phaser.State{
 
 	init(){
-		this.backLevels = ['normalBackground', 'bobble','tloz','mario' ]; // Etiquetas de los niveles y los niveles especiales
+		this.backLevels = ['normalBackground', 'pacman', 'bobble','tloz','mario' ]; // Etiquetas de los niveles y los niveles especiales
 		this.getBackground();
 		mute = game.add.button(0, 0, 'mutebutton', this.onMutePressed, this, 0);
 	}
@@ -352,6 +376,8 @@ class Main extends Phaser.State{
 			
 		}else if(cursorsCHEATS.prevLVL.downDuration(0.1)){
 			this.loadLevel(currentLevel - 1);
+		}else if(cursorsCHEATS.T.isDown && cursorsCHEATS.P.isDown && cursorsCHEATS.V.isDown){
+			TPV = !TPV;
 		}
 
 	}
