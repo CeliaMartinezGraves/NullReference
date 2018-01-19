@@ -94,6 +94,7 @@ class Player extends collideWorld{
 
 	//para que "baile" al acabar el nivel
 	dance(){
+		this.changeSpeedX(0);
 		this.animations.play('finAnim', this._animSpeed/2, true);
 	}
 
