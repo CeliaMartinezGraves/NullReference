@@ -21,12 +21,12 @@ class Preload extends Phaser.State{
 		];
 
 		this.sheets = [
-			//label, ruta, anchoFrame, altoFrame, nº frames, margen, espaciado
-			'player', 'images/sprites/player1.png', 1600/4, 1200/3, , , ,
-			'player2', 'images/sprites/player2.png', 1600/4, 1200/3, , , ,
-			'button', 'images/botones/buttons.png', 448/2, 84, , , , // boton del menu de inicio
-			'mutebutton', 'images/botones/mutebutton.png', 64/2, 32, , , ,
-			'normalBackground', 'images/fondos/backgrounds.jpg', 800, 8400/14, , ,
+			//label, ruta, anchoFrame, altoFrame
+			'player', 'images/sprites/player1.png', 1600/4, 1200/3,
+			'player2', 'images/sprites/player2.png', 1600/4, 1200/3,
+			'button', 'images/botones/buttons.png', 448/2, 84, // boton del menu de inicio
+			'mutebutton', 'images/botones/mutebutton.png', 64/2, 32,
+			'normalBackground', 'images/fondos/backgrounds.jpg', 800, 600
 		];
 
 		// Fondos especiales de un solo "uso"
@@ -61,8 +61,8 @@ class Preload extends Phaser.State{
 		}
 		// Carga los spritesheet
 		//label, ruta, anchoFrame, altoFrame, nº frames, margen, espaciado
-		for(var i = 0; i < this.sheets.length; i+=7){
-			game.load.spritesheet(this.sheets[i], this.sheets[i+1], this.sheets[i+2], this.sheets[i+3], this.sheets[i+4], this.sheets[i+5], this.sheets[i+6]);
+		for(var i = 0; i < this.sheets.length; i+=4){
+			game.load.spritesheet(this.sheets[i], this.sheets[i+1], this.sheets[i+2], this.sheets[i+3]);
 			console.log('spritesheet '+ i);
 		}
 		// Carga los fondos especiaes
