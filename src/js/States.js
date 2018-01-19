@@ -90,6 +90,11 @@ class GameTitle extends Phaser.State{
 		this.on2ndPlyrPressed, this, 0, 1, 2); // 50 e 1/2 del ancho de la imagen utilizada
 		game.add.text((window.innerWidth/3*2), (window.innerHeight/2) + 125, "2 players");
 
+		// Añade los botones y el texto que tienen (el texto es a parte, por eso se ve tan meh)
+		game.add.button((window.innerWidth/2)-(100), (window.innerHeight/2) + (200), 'button', 
+		this.onButtonPressed, this, 0, 1, 2); // 50 e 1/2 del ancho de la imagen utilizada
+		game.add.text((window.innerWidth/2)-(50), (window.innerHeight/2) + (225), "controls");
+
 	}
 
 	preload(){
@@ -133,17 +138,17 @@ class LoadLevel extends Phaser.State{
 				'right': Phaser.KeyCode.D, 'fireButton': Phaser.KeyCode.SPACEBAR});
 		
 			players = [
-				new Player ( 'player', 250, 0, cursors, 1), 
-				new Player ( 'player2', 250, 0, cursorsWASD, 2)
+				new Player ( 'player', 250, 0, cursorsWASD, 1), 
+				new Player ( 'player2', 250, 0, cursors, 2)
 			];
 			players[0].resize(0.2, 0.2);
 			players[1].resize(0.2, 0.2);
 		
 		}
 		else {
-			cursors = game.input.keyboard.addKeys({'up': Phaser.KeyCode.UP, 
-				'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 
-				'right': Phaser.KeyCode.RIGHT, 'fireButton': Phaser.KeyCode.SPACEBAR});
+			cursors = game.input.keyboard.addKeys({'up': Phaser.KeyCode.W, 
+				'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 
+				'right': Phaser.KeyCode.D, 'fireButton': Phaser.KeyCode.SPACEBAR});
 		
 			players = [
 				new Player ( 'player',250, 0, cursors, 1)
