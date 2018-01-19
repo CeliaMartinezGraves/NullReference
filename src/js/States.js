@@ -26,7 +26,7 @@ class Preload extends Phaser.State{
 			'player2', 'images/sprites/player2.png', 1600/4, 1200/3, , , ,
 			'button', 'images/botones/buttons.png', 448/2, 84, , , , // boton del menu de inicio
 			'mutebutton', 'images/botones/mutebutton.png', 64/2, 32, , , ,
-			'normalBackground', 'images/fondos/backgrounds.jpg', 2012, 20549/14, , ,
+			'normalBackground', 'images/fondos/backgrounds.jpg', 800, 8400/14, , ,
 		];
 
 		// Fondos especiales de un solo "uso"
@@ -256,8 +256,7 @@ class Main extends Phaser.State{
 
 	preload(){
 		console.log('Main preload');
-		console.log(currentBack);
-		game.add.sprite(0, 0, currentBack, 0);
+		
 	}
 
 	create(){
@@ -363,8 +362,20 @@ class Main extends Phaser.State{
 		if(currentLevel%5 != 0){
 			currentBack = this.backLevels[0];
 		}else{
-			currentBack =this.backLevels[currentLevel/5];
+			currentBack = this.backLevels[currentLevel/5];
 		}
+
+		var numframe = currentLevel-Math.trunc(currentLevel/5);// Math.trunc(currentLevel/5) para que trunque el resultado 
+     
+   	 	console.log(currentLevel%5 + ' frame: '+ numframe); 
+ 
+    	if((currentLevel%5) != 0){ 
+      		var back = game.add.sprite(0, 0, currentBack, numframe);
+      		back.animations.currentFrame = numframe;
+      		console.log(back);
+    	}else{ 
+      		game.add.sprite(0, 0, currentBack); 
+    	} 
 	}
 	
 }
