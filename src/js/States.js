@@ -20,7 +20,8 @@ class Preload extends Phaser.State{
 		this.sheets = [
 			'player', 'images/sprites/player1.png', 1600/4, 1200/3,
 			'player2', 'images/sprites/player2.png', 1600/4, 1200/3,
-			'button', 'images/botones/buttons.png', 448/2, 84 // boton del menu de inicio
+			'button', 'images/botones/buttons.png', 448/2, 84, // boton del menu de inicio
+			'mutebutton', 'images/botones/mutebutton.png', 64/2, 32 // boton de mute de la musica
 		];
 
 		this.audios = [
@@ -83,17 +84,20 @@ class GameTitle extends Phaser.State{
 		
 		// Añade los botones y el texto que tienen (el texto es a parte, por eso se ve tan meh)
 		game.add.button((window.innerWidth/3)-(100), (window.innerHeight/2) + 100, 'button', 
-		this.onButtonPressed, this, 0, 1, 2); // 50 e 1/2 del ancho de la imagen utilizada
+		this.onButtonPressed, this, 0, 1); // 50 e 1/2 del ancho de la imagen utilizada
 		game.add.text((window.innerWidth/3)-(50), (window.innerHeight/2) + 125, "1 player");
 		
 		game.add.button((window.innerWidth/3*2)-(50), (window.innerHeight/2) + 100, 'button', 
-		this.on2ndPlyrPressed, this, 0, 1, 2); // 50 e 1/2 del ancho de la imagen utilizada
+		this.on2ndPlyrPressed, this, 0, 1); // 50 e 1/2 del ancho de la imagen utilizada
 		game.add.text((window.innerWidth/3*2), (window.innerHeight/2) + 125, "2 players");
 
-		// Añade los botones y el texto que tienen (el texto es a parte, por eso se ve tan meh)
 		game.add.button((window.innerWidth/2)-(100), (window.innerHeight/2) + (200), 'button', 
-		this.onButtonPressed, this, 0, 1, 2); // 50 e 1/2 del ancho de la imagen utilizada
+		this.onButtonPressed, this,  0, 1); // 50 e 1/2 del ancho de la imagen utilizada
 		game.add.text((window.innerWidth/2)-(50), (window.innerHeight/2) + (225), "controls");
+
+
+		mute = game.add.button(0, 0, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
+
 
 	}
 
@@ -118,6 +122,18 @@ class GameTitle extends Phaser.State{
 		nuevaPartida = true;
 		console.log('pulsandooo');
 		game.state.start('LoadLevel'); // Lanza el estado siguiente
+	}
+
+	onMutePressed(){
+		if(game.sound.mute==true){
+			game.sound.mute=false;
+			mute.setFrames(0);
+		}
+		else{
+			game.sound.mute=true;
+			mute.setFrames(1);
+		}
+
 	}
 	
 }
@@ -199,6 +215,10 @@ class LoadLevel extends Phaser.State{
 
 // Juego principal
 class Main extends Phaser.State{
+
+	init(){
+		mute = game.add.button(0, 0, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
+	}
 
 	preload(){
 		console.log('Main preload');
@@ -286,6 +306,18 @@ class Main extends Phaser.State{
 			
 		}else if(cursorsCHEATS.prevLVL.downDuration(0.1)){
 			this.loadLevel(currentLevel - 1);
+		}
+
+	}
+
+	onMutePressed(){
+		if(game.sound.mute==true){
+			game.sound.mute=false;
+			mute.setFrames(0);
+		}
+		else{
+			game.sound.mute=true;
+			mute.setFrames(1);
 		}
 
 	}
