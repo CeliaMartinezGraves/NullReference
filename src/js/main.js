@@ -11,6 +11,7 @@ var bubbles, platforms, players, secondPly; // grupos con las burbujas, platafor
 var vidasPlayers;
 var i;
 var currentLevel = 0;// nivel de juego
+var currentBack; // label del fondo a cargar
 var timeLeftLevel; // timepo restante para pasarse el nivel // sera timer
 var _timeBetweenLevels = 3; // tiempo entre niveles en segundos (lo que tarda en bailar)
 var nivelAcabado = false; // True mientras se ejecuta cosas inter niveles

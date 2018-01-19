@@ -11,17 +11,26 @@ class Preload extends Phaser.State{
 			'ball', 'images/sprites/blueball.png', 
 			'gball', 'images/sprites/redball.png', 
 			'fall', 'images/sprites/phaser.png',
-			'hook', 'images/sprites/hookTop.png',
+			'hook', 'images/sprites/hookTop.png', 
 
 			'loading', 'images/fondos/loading.png', // Pantalla de carga
 			'title', 'images/fondos/title.jpg' // Pantalla de inicio
 		];
 
 		this.sheets = [
-			'player', 'images/sprites/player1.png', 1600/4, 1200/3,
-			'player2', 'images/sprites/player2.png', 1600/4, 1200/3,
-			'button', 'images/botones/buttons.png', 448/2, 84, // boton del menu de inicio
-			'mutebutton', 'images/botones/mutebutton.png', 64/2, 32 // boton de mute de la musica
+			//label, ruta, anchoFrame, altoFrame, nº frames, margen, espaciado
+			'player', 'images/sprites/player1.png', 1600/4, 1200/3, , , ,
+			'player2', 'images/sprites/player2.png', 1600/4, 1200/3, , , ,
+			'button', 'images/botones/buttons.png', 448/2, 84, , , , // boton del menu de inicio
+			'mutebutton', 'images/botones/mutebutton.png', 64/2, 32, , , ,
+			'normalBackground', 'images/fondos/backgrounds.jpg', 4467/2, 33602/20, 40, 134, 199
+		];
+
+		// Fondos especiales de un solo "uso"
+		this.specialBackgrounds = [
+			'bobble', 'images/special/bubbleBobble back.jpg',
+			'tloz', 'images/special/tloz timeTemple.png', 
+			'mario', 'images/special/Mario background.png'
 		];
 
 		this.audios = [
@@ -33,7 +42,7 @@ class Preload extends Phaser.State{
 		];
 
 		// Mapas de juego
-    	this.maps = ['lvl', 'levels/levels.ping']; 
+    	this.maps = ['lvl', 'levels/levels.json']; 
 
 		secondPly = false; //desactiva el 2º jugador
 		
@@ -48,15 +57,21 @@ class Preload extends Phaser.State{
 			game.load.image(this.images[i], this.images[i+1]);
 		}
 		// Carga los spritesheet
-		for(var i = 0; i < this.sheets.length; i+=4){
-			game.load.spritesheet(this.sheets[i], this.sheets[i+1], this.sheets[i+2], this.sheets[i+3]);
+		//label, ruta, anchoFrame, altoFrame, nº frames, margen, espaciado
+		for(var i = 0; i < this.sheets.length; i+=7){
+			game.load.spritesheet(this.sheets[i], this.sheets[i+1], this.sheets[i+2], this.sheets[i+3], this.sheets[i+4], this.sheets[i+5], this.sheets[i+6]);
+			console.log('spritesheet '+ i);
 		}
-
+		// Carga los fondos especiaes
+		for(var i = 0; i<this.specialBackgrounds.length; i+=2){
+			game.load.image(this.specialBackgrounds[i], this.specialBackgrounds[i+1]);
+		}
+		// Carga los audios
 		for(var i = 0; i < this.audios.length;i+=2){
 			game.load.audio(this.audios[i],this.audios[i+1]);
 		}
 
-		 this.txt = game.load.json('lvl', 'levels/levels.json'); // carga el archivo 
+		 this.txt = game.load.json(this.maps[0], this.maps[1]); // carga el archivo 
 
 		console.log('preload preload');
 	}
@@ -141,7 +156,7 @@ class GameTitle extends Phaser.State{
 class LoadLevel extends Phaser.State{
 	init(){
 		nivelAcabado = false;
-
+		this.backLevels = ['normalBackground', 'bobble','tloz','mario' ]; // Etiquetas de los niveles y los niveles especiales
 		// INICIALIZADO DE CURSORES
 		// CREA PLAYERS
 		if(secondPly){
@@ -210,6 +225,15 @@ class LoadLevel extends Phaser.State{
 
 	create(){		
 		game.state.start('Main'); // Lanza el estado siguiente
+	}
+
+	// leer niveles para que cada 5 sea uno de los especiales
+	getBackground(){
+		if(currentLevel%5 != 0){
+			currentBack = this.backLevels[0];
+		}else{
+			currentLevel =this.backLevels[currentLevel/5];
+		}
 	}
 }
 
