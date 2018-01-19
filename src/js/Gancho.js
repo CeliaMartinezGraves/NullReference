@@ -1,13 +1,11 @@
 class Gancho extends VerticalMovable{
 
-	constructor(numBullets, label, player){
+	constructor(label, player){
 
 		super(-100, -100, label, -200);
 		
 		this.player = player;
 		this.alive = false;
-		this.numBullets = numBullets;
-		this.numBulletsRest = numBullets;		
 	}
 
 	create(){
@@ -33,16 +31,6 @@ class Gancho extends VerticalMovable{
 		this.kill();
 		this.numBulletsRest++;
 		game.debug.geom(this.rect,'#6E6E6E');
-	}
-
-
-
-	fire(){
-		if (this.numBulletsRest > 0){
-				this.create();
-				this.numBulletsRest--;
-		}
-		console.log(this.numBulletsRest);
 	}
 
 

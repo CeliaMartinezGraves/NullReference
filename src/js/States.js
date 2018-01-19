@@ -20,7 +20,7 @@ class Preload extends Phaser.State{
 		this.sheets = [
 			'player', 'images/sprites/player1.png', 1600/4, 1200/3,
 			'player2', 'images/sprites/player2.png', 1600/4, 1200/3,
-			'button', 'images/botones/buttons.png', 200/2, 82/2 // boton del menu de inicio
+			'button', 'images/botones/buttons.png', 448/2, 84 // boton del menu de inicio
 		];
 
 		this.audios = [
@@ -82,13 +82,13 @@ class GameTitle extends Phaser.State{
 		game.add.sprite(0, 0, 'title');
 		
 		// Añade los botones y el texto que tienen (el texto es a parte, por eso se ve tan meh)
-		game.add.button((window.innerWidth/3)-(50), (window.innerHeight/2) + 100, 'button', 
+		game.add.button((window.innerWidth/3)-(100), (window.innerHeight/2) + 100, 'button', 
 		this.onButtonPressed, this, 0, 1, 2); // 50 e 1/2 del ancho de la imagen utilizada
-		game.add.text((window.innerWidth/3)-(50), (window.innerHeight/2) + 100, "1 player");
+		game.add.text((window.innerWidth/3)-(50), (window.innerHeight/2) + 125, "1 player");
 		
 		game.add.button((window.innerWidth/3*2)-(50), (window.innerHeight/2) + 100, 'button', 
 		this.on2ndPlyrPressed, this, 0, 1, 2); // 50 e 1/2 del ancho de la imagen utilizada
-		game.add.text((window.innerWidth/3*2)-(50), (window.innerHeight/2) + 100, "2 players");
+		game.add.text((window.innerWidth/3*2), (window.innerHeight/2) + 125, "2 players");
 
 	}
 

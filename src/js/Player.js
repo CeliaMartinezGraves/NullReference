@@ -5,7 +5,7 @@ class Player extends collideWorld{
 			this.moveTo((game.width/2)-this.width/4, this.y);
 		}
 		this.cursors = cursors;
-		this.gancho = new Gancho(1,'hook', this);
+		this.gancho = new Gancho('hook', this);
 
 		// añade los frames de cada animacion
 		this.addAnim('leftAnim', [4, 5, 6, 7]);
@@ -44,6 +44,12 @@ class Player extends collideWorld{
 	update(){
 
 		if(!nivelAcabado){	
+
+		if(this.hayGancho){
+    		this.gancho.update();
+    	}
+
+
 			console.log(this.hit);
 			if (this.cursors.left.isDown)
 		   	{
@@ -63,16 +69,14 @@ class Player extends collideWorld{
 		
 		   	if (this.cursors.fireButton.downDuration(0.1)){
 		   		//this.animations.play('stopAnim', this._animSpeed);				///Intentar poner animacion de apuntando hacia arriba cuando dispara
-		   		this.gancho.fire();
+		   		this.gancho.create();
 		   		this.hayGancho = true;
 		   	}
 
 		   	game.physics.arcade.overlap(this, bubbles, this.lessLife, null, this);
 		}
     	
-    	if(this.hayGancho){
-    		this.gancho.update();
-    	}
+    	
 	}
 
 	killGancho(){
