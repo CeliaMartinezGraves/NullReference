@@ -6,6 +6,7 @@ var game = new Phaser.Game(800, 600, Phaser.AUTO, null, { preload: preload, crea
 
 var cursors, cursorsWASD, cursorsCHEATS, fall;
 var mute;
+var submenu;
 var backgroundmusic, pasoDeNivel, explosion, menumusic;
 var bubbles, platforms, players, secondPly; // grupos con las burbujas, plataformas y jugadores
 var vidasPlayers;
@@ -43,8 +44,8 @@ function preload(){
 	game.state.add('GameTitle', new GameTitle(), false);
 	game.state.add('LoadLevel', new LoadLevel(), false); // lectura de nivel
 	game.state.add('Main', new Main(), false); // bucle principal del juego
-	game.state.add('Credits', new Credits(), false); // creditos
-	game.state.add('Controls', new Controls(),false);
+	//game.state.add('Credits', new Credits(), false); // creditos
+	game.state.add('SubMenu', new SubMenu(),false);
 
 	game.state.start('Preload'); // hace que el game se inicie desde aqui y lance el Preload
 }

@@ -16,6 +16,7 @@ class Preload extends Phaser.State{
 			'loading', 'images/fondos/loading.png', // Pantalla de carga
 			'title', 'images/fondos/title.jpg', // Pantalla de inicio
 			'controls', 'images/fondos/controles.png',
+			'credits', 'images/fondos/creditos.png',
 
 			'return', 'images/botones/return.png'
 		];
@@ -111,9 +112,13 @@ class GameTitle extends Phaser.State{
 		this.on2ndPlyrPressed, this, 0, 1); // 50 e 1/2 del ancho de la imagen utilizada
 		game.add.text((window.innerWidth/3*2), (window.innerHeight/2) + 125, "2 players");
 
-		game.add.button((window.innerWidth/2)-(100), (window.innerHeight/2) + (200), 'button', 
+		game.add.button((window.innerWidth/3)-(100), (window.innerHeight/2) + (200), 'button', 
 		this.onControlsPressed, this,  0, 1); // 50 e 1/2 del ancho de la imagen utilizada
-		game.add.text((window.innerWidth/2)-(50), (window.innerHeight/2) + (225), "controls");
+		game.add.text((window.innerWidth/3)-(50), (window.innerHeight/2) + (225), "controls");
+
+		game.add.button((window.innerWidth/3*2)-(50), (window.innerHeight/2) + (200), 'button', 
+		this.onCreditsPressed, this,  0, 1); // 50 e 1/2 del ancho de la imagen utilizada
+		game.add.text((window.innerWidth/3*2), (window.innerHeight/2) + (225), "credits");
 
 
 		mute = game.add.button(10, 10, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
@@ -162,7 +167,14 @@ class GameTitle extends Phaser.State{
 
 	onControlsPressed(){
 		console.log('pulsando controls');
-		game.state.start('Controls');
+		submenu = 'controls';
+		game.state.start('SubMenu');
+	}
+
+	onCreditsPressed(){
+		console.log('pulsando controls');
+		submenu = 'credits';
+		game.state.start('SubMenu');
 	}
 	
 }
@@ -250,8 +262,7 @@ class Main extends Phaser.State{
 	init(){
 		this.backLevels = ['normalBackground', 'bobble','tloz','mario' ]; // Etiquetas de los niveles y los niveles especiales
 		this.getBackground();
-
-		mute = game.add.button(0, 0, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
+		mute = game.add.button(0, 0, 'mutebutton', this.onMutePressed, this, 0);
 	}
 
 	preload(){
@@ -346,7 +357,7 @@ class Main extends Phaser.State{
 	}
 
 	onMutePressed(){
-		if(game.sound.mute==true){
+		if(game.sound.mute){
 			game.sound.mute=false;
 			mute.setFrames(0);
 		}
@@ -380,14 +391,14 @@ class Main extends Phaser.State{
 	
 }
 
-class Credits extends Phaser.State{
+//class Credits extends Phaser.State{
 
-}
+//}
 
-class Controls extends Phaser.State{
+class SubMenu extends Phaser.State{
 	init(){
 
-		game.add.sprite(0,0, 'controls');
+		game.add.sprite(0,0, submenu);
 
 		game.add.button((window.innerWidth)-(100), 10, 'return', 
 		this.onButtonPressed, this); // 50 e 1/2 del ancho de la imagen utilizada
