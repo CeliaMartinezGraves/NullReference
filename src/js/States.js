@@ -286,7 +286,7 @@ class LoadLevel extends Phaser.State{
 class Main extends Phaser.State{
 
 	init(){
-		this.backLevels = ['normalBackground', 'pacman', 'bobble','tloz','mario' ]; // Etiquetas de los niveles y los niveles especiales
+		this.backLevels = ['normalBackground', 'pacman', 'bobble','mario', 'tloz']; // Etiquetas de los niveles y los niveles especiales
 		this.getBackground();
 		mute = game.add.button(0, 0, 'mutebutton', this.onMutePressed, this, 0);
 	}
