@@ -29,8 +29,8 @@ class Preload extends Phaser.State{
 
 		this.sheets = [
 			//label, ruta, anchoFrame, altoFrame
-			'player', 'images/sprites/player1.png', 1600/4, 1200/3,
-			'player2', 'images/sprites/player2.png', 1600/4, 1200/3,
+			'player', 'images/sprites/player1.png', 1600/4, 1123/3,
+			'player2', 'images/sprites/player2.png', 1600/4, 1124/3,
 			'button', 'images/botones/buttons.png', 448/2, 84, // boton del menu de inicio
 			'mutebutton', 'images/botones/mutebutton.png', 64/2, 32,
 			'normalBackground', 'images/fondos/backgrounds.jpg', 800, 600
@@ -212,6 +212,8 @@ class LoadLevel extends Phaser.State{
 			];
 			players[0].resize(0.2, 0.2);
 			players[1].resize(0.2, 0.2);
+
+
 		
 		}
 		else {
@@ -309,6 +311,10 @@ class Main extends Phaser.State{
 			console.log(vidasPlayers[i]);
 			console.log(players[i]);
 			players[i].create(vidasPlayers[i]);
+
+			for(var j = 0; j<players[i].numVidas; j++){
+				players[i].GUI[j].create(j*25);
+			}
 		}
 		
 		console.log('Main create');
@@ -319,7 +325,8 @@ class Main extends Phaser.State{
 		if(bubbles.length > 0){ // Si aun quedan burbujas
 		// Colisiones de todas las plataformas con todas las burbujas
 			game.physics.arcade.collide(platforms, bubbles); 
-	
+			game.physics.arcade.overlap(players, bubbles, this.overlapPlayerBurbuja, null, this);
+
 			for(i = 0; i < players.length; i++){
 				if(players[i].gancho.alive){
 					players[i].gancho.handleCollisions(bubbles,platforms);
@@ -344,8 +351,10 @@ class Main extends Phaser.State{
 			players[i].gancho.render();
 	}
 
-	overlapPlayerBurbuja(player,bubble){
-		// restaria vidas al player que choca
+	overlapPlayerBurbuja(player, burbuja){
+		console.log('player se choco con burbuja malvada');
+		player.lessLife();
+		game.time.events.add(Phaser.Timer.SECOND * 1.5, this.loadLevel, this, currentLevel);
 	}
 
 	winLevel(){
@@ -377,7 +386,7 @@ class Main extends Phaser.State{
 		}else if(cursorsCHEATS.prevLVL.downDuration(0.1)){
 			this.loadLevel(currentLevel - 1);
 		}else if(cursorsCHEATS.T.isDown && cursorsCHEATS.P.isDown && cursorsCHEATS.V.isDown){
-			TPV = !TPV;
+			this.loadLevel(5);
 		}
 
 	}
@@ -416,10 +425,6 @@ class Main extends Phaser.State{
 	}
 	
 }
-
-//class Credits extends Phaser.State{
-
-//}
 
 class SubMenu extends Phaser.State{
 	init(){

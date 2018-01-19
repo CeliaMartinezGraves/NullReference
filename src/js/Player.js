@@ -1,8 +1,14 @@
 class Player extends collideWorld{
 	constructor(label, speedX, speedY, cursors, playerID){ // PLAYERID ES SI ES PLYR 1, 2, etc
 		super(game.width/2, game.height, label, speedX, speedY);
+		
+		var posXGUI;
+
 		if(playerID === 1){
 			this.moveTo((game.width/2)-this.width/4, this.y);
+			posXGUI = 20;
+		}else{
+			posXGUI =700;
 		}
 		this.cursors = cursors;
 		this.gancho = new Gancho('hook', this);
@@ -11,14 +17,14 @@ class Player extends collideWorld{
 		this.addAnim('leftAnim', [4, 5, 6, 7]);
 		this.addAnim('rightAnim', [0, 1, 2, 3]);
 		this.addAnim('stopAnim', [8]);
-
+		this.addAnim('dieAnim', [8, 10]);
 		this.addAnim('finAnim', [0, 1, 0, 1, 4, 5, 4, 5]);// bailecito al acabar el nivel
 
-
+		this.controlable = true;
 		this.hayGancho = false;
-
-		
 		this.hit = false;
+		
+		this.GUI = [new GUI(posXGUI, 15, this.label, null), new GUI(posXGUI, 15, this.label, null), new GUI(posXGUI, 15, this.label, null)];
 	}
 
 	preload(){
@@ -43,14 +49,12 @@ class Player extends collideWorld{
 
 	update(){
 
-		if(!nivelAcabado){	
+		if(!nivelAcabado && this.controlable){	
 
-		if(this.hayGancho){
-    		this.gancho.update();
-    	}
+			if(this.hayGancho){
+    			this.gancho.update();
+    		}
 
-
-			console.log(this.hit);
 			if (this.cursors.left.isDown)
 		   	{
 		   	 	this.changeSpeedX(-250);
@@ -73,8 +77,7 @@ class Player extends collideWorld{
 		   		this.gancho.create();
 		   		this.hayGancho = true;
 		   	}
-
-		   	game.physics.arcade.overlap(this, bubbles, this.lessLife, null, this);
+  	
 		}
     	
     	
@@ -89,12 +92,18 @@ class Player extends collideWorld{
 		if(this.numVidas>0 && !this.hit){
 			this.numVidas--;
 			this.hit = true;
-		}
+			this.animations.play('dieAnim', this._animSpeed/2, true);
+			this.changeSpeedX(0);
+			this.controlable = false;
+			return true;
+		}else
+			return false;
 		console.log('player: ' + this.numVidas);
 	}
 
 	//para que "baile" al acabar el nivel
 	dance(){
+		this.controlable = false;
 		this.changeSpeedX(0);
 		this.animations.play('finAnim', this._animSpeed/2, true);
 	}

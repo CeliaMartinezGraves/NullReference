@@ -32,7 +32,7 @@ class GameObject extends Phaser.Sprite{
 
 	// Cambia el frame visible
 	changeFrame(frame){
-		this.frame = frame;
+		this.animations.currentFrame = frame;
 	}
 
 	// añade animacion y sus frames
