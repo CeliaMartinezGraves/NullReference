@@ -29,7 +29,6 @@ class Gancho extends VerticalMovable{
 		this.alive = false;
 		this.render();
 		this.kill();
-		this.numBulletsRest++;
 		game.debug.geom(this.rect,'#6E6E6E');
 	}
 

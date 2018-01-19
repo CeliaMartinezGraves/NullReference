@@ -67,8 +67,9 @@ class Player extends collideWorld{
 		   		this.animations.play('stopAnim', this._animSpeed);
 		   	}
 		
-		   	if (this.cursors.fireButton.downDuration(0.1)){
-		   		//this.animations.play('stopAnim', this._animSpeed);				///Intentar poner animacion de apuntando hacia arriba cuando dispara
+		   	if (this.cursors.fireButton.downDuration(0.1) & !this.gancho.alive){
+		   		this.changeSpeedX(0);
+		   		this.animations.play('stopAnim', this._animSpeed);				
 		   		this.gancho.create();
 		   		this.hayGancho = true;
 		   	}
