@@ -370,13 +370,13 @@ class Credits extends Phaser.State{
 class Controls extends Phaser.State{
 	init(){
 
-		game.add.sprite(10,10, 'controls');
+		game.add.sprite(0,0, 'controls');
 
 		game.add.button((window.innerWidth)-(100), 10, 'return', 
 		this.onButtonPressed, this); // 50 e 1/2 del ancho de la imagen utilizada
 
 
-		mute = game.add.button(0, 0, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
+		mute = game.add.button(10, 10, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
 
 
 	}
