@@ -14,7 +14,10 @@ class Preload extends Phaser.State{
 			'hook', 'images/sprites/hookTop.png', 
 
 			'loading', 'images/fondos/loading.png', // Pantalla de carga
-			'title', 'images/fondos/title.jpg' // Pantalla de inicio
+			'title', 'images/fondos/title.jpg', // Pantalla de inicio
+			'controls', 'images/fondos/controles.png',
+
+			'return', 'images/botones/return.png'
 		];
 
 		this.sheets = [
@@ -92,8 +95,10 @@ class Preload extends Phaser.State{
 class GameTitle extends Phaser.State{
 
 	init(){
-
-		menumusic = game.add.audio('menumusic');
+		if(menumusic==null){
+			menumusic = game.add.audio('menumusic');
+			menumusic.loop = true;
+		}
 
 		game.add.sprite(0, 0, 'title');
 		
@@ -107,11 +112,11 @@ class GameTitle extends Phaser.State{
 		game.add.text((window.innerWidth/3*2), (window.innerHeight/2) + 125, "2 players");
 
 		game.add.button((window.innerWidth/2)-(100), (window.innerHeight/2) + (200), 'button', 
-		this.onButtonPressed, this,  0, 1); // 50 e 1/2 del ancho de la imagen utilizada
+		this.onControlsPressed, this,  0, 1); // 50 e 1/2 del ancho de la imagen utilizada
 		game.add.text((window.innerWidth/2)-(50), (window.innerHeight/2) + (225), "controls");
 
 
-		mute = game.add.button(0, 0, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
+		mute = game.add.button(10, 10, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
 
 
 	}
@@ -121,7 +126,11 @@ class GameTitle extends Phaser.State{
 	}
 
 	create(){
-		menumusic.loopFull();
+
+		if(!menumusic.isPlaying){
+			menumusic.play();
+			console.log('music is playing?' +menumusic.isPlaying);
+		}
 		console.log('GameTitle create');
 		//game.state.start('LoadLevel'); // Lanza el estado siguiente
 	}
@@ -149,6 +158,11 @@ class GameTitle extends Phaser.State{
 			mute.setFrames(1);
 		}
 
+	}
+
+	onControlsPressed(){
+		console.log('pulsando controls');
+		game.state.start('Controls');
 	}
 	
 }
@@ -218,6 +232,7 @@ class LoadLevel extends Phaser.State{
 		}
 
 		backgroundmusic = game.add.audio('background1');
+		backgroundmusic.loop = true;
 		pasoDeNivel = game.add.audio('pasoDeNivel');
 		explosion = game.add.audio('explosion');
 		
@@ -241,7 +256,7 @@ class LoadLevel extends Phaser.State{
 class Main extends Phaser.State{
 
 	init(){
-		mute = game.add.button(0, 0, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
+		mute = game.add.button(10, 10, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
 	}
 
 	preload(){
@@ -250,7 +265,7 @@ class Main extends Phaser.State{
 
 	create(){
 		game.sound.stopAll();		//Para toda la música antes de empezar a sonar la nueva
-		backgroundmusic.loopFull();
+		backgroundmusic.play();
 
 		for (i = 0; i < platforms.length; i++)
 			platforms[i].create();
@@ -349,5 +364,38 @@ class Main extends Phaser.State{
 }
 
 class Credits extends Phaser.State{
+
+}
+
+class Controls extends Phaser.State{
+	init(){
+
+		game.add.sprite(10,10, 'controls');
+
+		game.add.button((window.innerWidth)-(100), 10, 'return', 
+		this.onButtonPressed, this); // 50 e 1/2 del ancho de la imagen utilizada
+
+
+		mute = game.add.button(0, 0, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
+
+
+	}
+
+	onMutePressed(){
+		if(game.sound.mute==true){
+			game.sound.mute=false;
+			mute.setFrames(0);
+		}
+		else{
+			game.sound.mute=true;
+			mute.setFrames(1);
+		}
+
+	}
+
+	onButtonPressed(){
+		console.log('pulsandooo');
+		game.state.start('GameTitle'); // Lanza el estado siguiente
+	}
 
 }

@@ -44,6 +44,7 @@ function preload(){
 	game.state.add('LoadLevel', new LoadLevel(), false); // lectura de nivel
 	game.state.add('Main', new Main(), false); // bucle principal del juego
 	game.state.add('Credits', new Credits(), false); // creditos
+	game.state.add('Controls', new Controls(),false);
 
 	game.state.start('Preload'); // hace que el game se inicie desde aqui y lance el Preload
 }
