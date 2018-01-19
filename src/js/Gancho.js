@@ -25,6 +25,7 @@ class Gancho extends VerticalMovable{
 	}
 
 	die(){
+		this.player.hayGancho = false;
 		this.rect.setTo(0,0,0,0);
 		this.alive = false;
 		this.render();

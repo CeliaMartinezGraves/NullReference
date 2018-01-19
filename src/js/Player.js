@@ -67,7 +67,7 @@ class Player extends collideWorld{
 		   		this.animations.play('stopAnim', this._animSpeed);
 		   	}
 		
-		   	if (this.cursors.fireButton.downDuration(0.1) & !this.gancho.alive){
+		   	if (this.cursors.fireButton.downDuration(0.1) & !this.hayGancho){
 		   		this.changeSpeedX(0);
 		   		this.animations.play('stopAnim', this._animSpeed);				
 		   		this.gancho.create();
