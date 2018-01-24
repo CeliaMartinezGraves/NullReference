@@ -83,7 +83,7 @@ class Preload extends Phaser.State{
 			game.load.audio(this.audios[i],this.audios[i+1]);
 		}
 
-		 this.txt = game.load.json(this.maps[0], this.maps[1]); // carga el archivo 
+		this.txt = game.load.json(this.maps[0], this.maps[1]); // carga el archivo 
 		console.log('preload preload');
 	}
 
@@ -200,15 +200,15 @@ class LoadLevel extends Phaser.State{
 			TPV = false;
 
 		// INICIALIZADO DE CURSORES
+		cursorsWASD = game.input.keyboard.addKeys({'up': Phaser.KeyCode.W, 
+				'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 
+				'right': Phaser.KeyCode.D, 'fireButton': Phaser.KeyCode.SPACEBAR});
+
 		// CREA PLAYERS
 		if(secondPly){
 			cursors = game.input.keyboard.addKeys({'up': Phaser.KeyCode.UP, 
 				'down': Phaser.KeyCode.DOWN, 'left': Phaser.KeyCode.LEFT, 
 				'right': Phaser.KeyCode.RIGHT, 'fireButton': Phaser.KeyCode.ENTER});
-		
-			cursorsWASD = game.input.keyboard.addKeys({'up': Phaser.KeyCode.W, 
-				'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 
-				'right': Phaser.KeyCode.D, 'fireButton': Phaser.KeyCode.SPACEBAR});
 		
 			players = [
 				new Player ( 'player', 250, 0, cursorsWASD, 1), 
@@ -221,12 +221,9 @@ class LoadLevel extends Phaser.State{
 		
 		}
 		else {
-			cursors = game.input.keyboard.addKeys({'up': Phaser.KeyCode.W, 
-				'down': Phaser.KeyCode.S, 'left': Phaser.KeyCode.A, 
-				'right': Phaser.KeyCode.D, 'fireButton': Phaser.KeyCode.SPACEBAR});
 		
 			players = [
-				new Player ( 'player',250, 0, cursors, 1)
+				new Player ( 'player',250, 0, cursorsWASD, 1)
 			];
 			players[0].resize(0.2, 0.2);
 		}
@@ -253,19 +250,20 @@ class LoadLevel extends Phaser.State{
 		 
 			 	// num burbujas
 		    	for (var i = 0; i < this.level[currentLevel].ball.length; i++) {
+		    		var dirVel = this.level[currentLevel].ball[i].dirX;
 		    		if (TPV){
 		    			var Pacman = ['pacman', 'blueGhost', 'orangeGhost', 'pinkGhost','redGhost'];
 
 		   				if(this.level[currentLevel].ball[i].t === 0) 
-		   			 	 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, Pacman[Math.trunc(Math.random()*4 + 1)], 100, 100, this.level[currentLevel].ball[i].lvl)); 
+		   			 	 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, Pacman[Math.trunc(Math.random()*4 + 1)], 100*dirVel, 100, this.level[currentLevel].ball[i].lvl)); 
 		   			 	else 
-		   				    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, Pacman[0], 100, 100, this.level[currentLevel].ball[i].lvl));
+		   				    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, Pacman[0], 100*dirVel, 100, this.level[currentLevel].ball[i].lvl));
 		   			}else{
 
 		   				if(this.level[currentLevel].ball[i].t === 0) 
-		   			 	 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'ball', 100, 100, this.level[currentLevel].ball[i].lvl)); 
+		   			 	 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'ball', 100*dirVel, 100, this.level[currentLevel].ball[i].lvl)); 
 		   			 	else 
-		   				    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'gball', 100, 100, this.level[currentLevel].ball[i].lvl));
+		   				    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'gball', 100*dirVel, 100, this.level[currentLevel].ball[i].lvl));
 		   			}
 		    	} 
 		    } 
