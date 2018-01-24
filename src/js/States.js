@@ -38,7 +38,7 @@ class Preload extends Phaser.State{
 
 		// Fondos especiales de un solo "uso"
 		this.specialBackgrounds = [
-			'pacman', 'images/special/pacman.png',
+			'pacmanBack', 'images/special/pacman.png',
 			'bobble', 'images/special/bubbleBobble back.jpg',
 			'tloz', 'images/special/tloz timeTemple.png', 
 			'mario', 'images/special/Mario background.png'
@@ -257,7 +257,7 @@ class LoadLevel extends Phaser.State{
 		    			var Pacman = ['pacman', 'blueGhost', 'orangeGhost', 'pinkGhost','redGhost'];
 
 		   				if(this.level[currentLevel].ball[i].t === 0) 
-		   			 	 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, Pacman[Math.trunc(Math.random()*3 + 1)], 100, 100, this.level[currentLevel].ball[i].lvl)); 
+		   			 	 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, Pacman[Math.trunc(Math.random()*4 + 1)], 100, 100, this.level[currentLevel].ball[i].lvl)); 
 		   			 	else 
 		   				    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, Pacman[0], 100, 100, this.level[currentLevel].ball[i].lvl));
 		   			}else{
@@ -290,9 +290,15 @@ class LoadLevel extends Phaser.State{
 class Main extends Phaser.State{
 
 	init(){
-		this.backLevels = ['normalBackground', 'pacman', 'bobble','mario', 'tloz']; // Etiquetas de los niveles y los niveles especiales
+		this.backLevels = ['normalBackground', 'pacmanBack', 'bobble','mario', 'tloz']; // Etiquetas de los niveles y los niveles especiales
 		this.getBackground();
 		mute = game.add.button(0, 0, 'mutebutton', this.onMutePressed, this, 0);
+
+		//this.timer = game.time.events.add(Phaser.Timer.SECOND * timeLeftLevel, this.loadLevel, this, currentLevel);
+		this.timer = game.time.create(false);
+		this.timer.add(timeLeftLevel*1000, this.loadLevel, this, currentLevel);
+		this.timer.start();
+
 	}
 
 	preload(){
@@ -325,6 +331,7 @@ class Main extends Phaser.State{
 	}
 
 	update(){
+		console.log(this.timer);
 
 		if(bubbles.length > 0){ // Si aun quedan burbujas
 		// Colisiones de todas las plataformas con todas las burbujas
