@@ -58,7 +58,7 @@ class GravityBubble extends Bubble{
 	create(posInGroup){
 		super.create(posInGroup);
 		this.tipo = GravityBubble;
-		this.setGravity(100);
+		this.setGravity(200);
 		//this.body.bounce.setTo(1, 1.0015); // que los rebotes no pierdan energia
 	}
 

@@ -263,7 +263,7 @@ class LoadLevel extends Phaser.State{
 		   				if(this.level[currentLevel].ball[i].t === 0) 
 		   			 	 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'ball', 100*dirVel, 100, this.level[currentLevel].ball[i].lvl)); 
 		   			 	else 
-		   				    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'gball', 100*dirVel, 100, this.level[currentLevel].ball[i].lvl));
+		   				    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'gball', 75*dirVel, 50, this.level[currentLevel].ball[i].lvl));
 		   			}
 		    	} 
 		    } 
