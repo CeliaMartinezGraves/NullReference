@@ -7,7 +7,7 @@ class Preload extends Phaser.State{
 	init(){
 		// Guarda en el array la etiqueta y la ruta de la imagen a cargar
 		this.images = [
-			'platform', 'images/sprites/platform.png',
+			//'platform', 'images/sprites/platform.png',
 			'ball', 'images/sprites/blueball.png', 
 			'gball', 'images/sprites/redball.png', 
 			'fall', 'images/sprites/phaser.png',
@@ -33,7 +33,8 @@ class Preload extends Phaser.State{
 			'player2', 'images/sprites/player2.png', 1056/4, 1080/3,
 			'button', 'images/botones/buttons.png', 448/2, 84, // boton del menu de inicio
 			'mutebutton', 'images/botones/mutebutton.png', 64/2, 32,
-			'normalBackground', 'images/fondos/backgrounds.jpg', 800, 600
+			'normalBackground', 'images/fondos/backgrounds.jpg', 800, 600,
+			'platform', 'images/sprites/platform.png', 100, 34/2
 		];
 
 		// Fondos especiales de un solo "uso"
@@ -263,7 +264,7 @@ class LoadLevel extends Phaser.State{
 		   				if(this.level[currentLevel].ball[i].t === 0) 
 		   			 	 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'ball', 100*dirVel, 100, this.level[currentLevel].ball[i].lvl)); 
 		   			 	else 
-		   				    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'gball', 75*dirVel, 50, this.level[currentLevel].ball[i].lvl));
+		   				    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'gball', 100*dirVel, 100, this.level[currentLevel].ball[i].lvl));
 		   			}
 		    	} 
 		    } 
@@ -397,6 +398,10 @@ class Main extends Phaser.State{
 		}else if(cursorsCHEATS.T.isDown && cursorsCHEATS.P.isDown && cursorsCHEATS.V.isDown){
 			this.loadLevel(5);
 		}
+		else if(cursorsCHEATS.P.downDuration(0.1)){
+			for(i = 0; i < platforms.length; i++)
+				platforms[i].platDeLaConstruccion();
+		}
 
 	}
 
@@ -441,9 +446,7 @@ class SubMenu extends Phaser.State{
 		game.add.sprite(0,0, submenu);
 
 		game.add.button((window.innerWidth)-(100), 10, 'return', 
-		this.onButtonPressed, this); // 50 e 1/2 del ancho de la imagen utilizada
-
-
+		this.onButtonPressed, this); // 50 e 1/2 del ancho de la imagen utilizado
 		mute = game.add.button(10, 10, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
 
 
