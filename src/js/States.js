@@ -29,8 +29,8 @@ class Preload extends Phaser.State{
 
 		this.sheets = [
 			//label, ruta, anchoFrame, altoFrame
-			'player', 'images/sprites/player1.png', 1600/4, 1123/3,
-			'player2', 'images/sprites/player2.png', 1600/4, 1124/3,
+			'player', 'images/sprites/player1.png', 1056/4, 1080/3,
+			'player2', 'images/sprites/player2.png', 1056/4, 1080/3,
 			'button', 'images/botones/buttons.png', 448/2, 84, // boton del menu de inicio
 			'mutebutton', 'images/botones/mutebutton.png', 64/2, 32,
 			'normalBackground', 'images/fondos/backgrounds.jpg', 800, 600
