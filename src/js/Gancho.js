@@ -37,7 +37,7 @@ class Gancho extends VerticalMovable{
 	update(){
 		
 		if (this.alive){
-			this.aux = this.Yply - this.body.y ;
+			this.aux = game.height - this.body.y ;
 			this.rect.setTo(this.body.x+8, this.body.y, this.rectWidth, this.aux);
 		}
 

@@ -49,7 +49,6 @@ class Preload extends Phaser.State{
 			'pasoDeNivel','music/pasoDeNivel.mp3', 
 			'explosion','music/Explosion.mp3',
 			'menumusic','music/Jumpshot.mp3'
-
 		];
 
 		// Mapas de juego
@@ -57,9 +56,11 @@ class Preload extends Phaser.State{
 
 		secondPly = false; //desactiva el 2º jugador
 		
+		
 	}
 
 	preload(){
+		game.load.spritesheet('animload',  'images/sprites/redballLoadingSheet.png', 30, 30); // Lee animacion de carga
 		
 		console.log(cursorsCHEATS);
 
@@ -83,16 +84,19 @@ class Preload extends Phaser.State{
 		}
 
 		 this.txt = game.load.json(this.maps[0], this.maps[1]); // carga el archivo 
-
 		console.log('preload preload');
 	}
 
 	create(){
+		
+		this.loading = game.add.sprite(game.width/2 - 45, game.height/2 - 45, 'animload');
+		this.loading.scale.setTo(3, 3); 
+		this.loading.animations.add('load');
+		this.loading.animations.play('load',  7, true);
+
 		console.log(cheats);
 
 		console.log('preload create');
-
-		game.add.sprite(0, 0, 'loading');
 		
 		game.state.start('GameTitle'); // Lanza el estado siguiente
 	}
@@ -456,5 +460,9 @@ class SubMenu extends Phaser.State{
 		console.log('pulsandooo');
 		game.state.start('GameTitle'); // Lanza el estado siguiente
 	}
+
+}
+
+class Death extends Phaser.State{
 
 }
