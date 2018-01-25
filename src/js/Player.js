@@ -1,8 +1,10 @@
 class Player extends collideWorld{
 	constructor(label, speedX, speedY, cursors, playerID){ // PLAYERID ES SI ES PLYR 1, 2, etc
-		super(game.width/2, game.height, label, speedX, speedY);
+		super(game.width/2, game.height-75, label, speedX, speedY);
 		
 		var posXGUI;
+
+		this.body.setSize(75, 74, 0);// Hace un poco mas pequeño el collider
 
 		if(playerID === 1){
 			this.moveTo((game.width/2)-this.width/4, this.y);
