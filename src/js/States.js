@@ -256,13 +256,13 @@ class LoadLevel extends Phaser.State{
 		    			var Pacman = ['pacman', 'blueGhost', 'orangeGhost', 'pinkGhost','redGhost'];
 
 		   				if(this.level[currentLevel].ball[i].t === 0) 
-		   			 	 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, Pacman[Math.trunc(Math.random()*4 + 1)], 100*dirVel, 100, this.level[currentLevel].ball[i].lvl)); 
+		   			 	 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, Pacman[Math.trunc(Math.random()*4 + 1)], 185*dirVel, 185, this.level[currentLevel].ball[i].lvl)); 
 		   			 	else 
 		   				    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, Pacman[0], 100*dirVel, 100, this.level[currentLevel].ball[i].lvl));
 		   			}else{
 
 		   				if(this.level[currentLevel].ball[i].t === 0) 
-		   			 	 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'ball', 100*dirVel, 100, this.level[currentLevel].ball[i].lvl)); 
+		   			 	 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'ball', 175*dirVel, 175, this.level[currentLevel].ball[i].lvl)); 
 		   			 	else 
 		   				    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'gball', 100*dirVel, 100, this.level[currentLevel].ball[i].lvl));
 		   			}

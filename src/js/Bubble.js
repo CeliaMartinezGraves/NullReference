@@ -18,9 +18,9 @@ class Bubble extends collideWorld{
 
 	// Divide en dos burbujas del mismo, de un nivel menor y las mete en el array del padre
 	divide(father){	
-		var ballSon1 = new this.tipo(this.body.x, this.body.y, this.label, -100, 150, this.level-1);
+		var ballSon1 = new this.tipo(this.body.x, this.body.y, this.label, -100, -150, this.level-1);
 		ballSon1.create(this.posInGroup); // porque se añaden en el final del array 
-		var ballSon2 = new this.tipo(this.body.x, this.body.y, this.label, 100, 150, this.level-1);
+		var ballSon2 = new this.tipo(this.body.x, this.body.y, this.label, 100, -150, this.level-1);
 		ballSon2.create(father.length); // porque se añaden en el final del array 
 
 		father.splice(this.posInGroup, 1, ballSon1); // Para añadirlo en la pos del padre
