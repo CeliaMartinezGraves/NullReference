@@ -24,6 +24,7 @@ class Preload extends Phaser.State{
 			'controls', 'images/fondos/controles.png',
 			'credits', 'images/fondos/creditos.png',
 			'gameover', 'images/fondos/gameover.png',
+			'winner', 'images/fondos/Winner.png',
 
 			'return', 'images/botones/return.png'
 		];
@@ -532,4 +533,27 @@ class Death extends Phaser.State{
 		game.state.start('GameTitle');
 	}
 
+}
+
+class Win extends Phaser.State{
+
+	init(){
+
+		game.add.sprite(0,0, 'winner');
+		mute = game.add.button(10, 10, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
+		
+		game.add.button((window.innerWidth/2)-(50), (window.innerHeight/2) + 100, 'button', 
+		this.onMenuPressed, this, 0, 1); // 50 e 1/2 del ancho de la imagen utilizada
+		game.add.text((window.innerWidth/2), (window.innerHeight/2) + 125, "Menu");
+
+	}
+
+	onMenuPressed(){
+		currentLevel = 1;
+		bubbles = [];
+		platforms = [];
+		for(i = 0; i < players.length; i++)
+			vidasPlayers[i] = numVidasInicio;
+		game.state.start('GameTitle');
+	}
 }
