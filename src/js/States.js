@@ -541,9 +541,9 @@ class Win extends Phaser.State{
 		game.add.sprite(0,0, 'winner');
 		mute = game.add.button(10, 10, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
 		
-		game.add.button((window.innerWidth/2)-(50), (window.innerHeight/2) + 100, 'button', 
+		game.add.button((window.innerWidth/2)-(100), (window.innerHeight/2) + 100, 'button', 
 		this.onMenuPressed, this, 0, 1); // 50 e 1/2 del ancho de la imagen utilizada
-		game.add.text((window.innerWidth/2), (window.innerHeight/2) + 125, "Menu");
+		game.add.text((window.innerWidth/2)-25, (window.innerHeight/2) + 125, "Menu");
 
 	}
 
