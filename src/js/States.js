@@ -520,6 +520,8 @@ class Death extends Phaser.State{
 		currentLevel = 1;
 		bubbles = [];
 		platforms = [];
+		for(i = 0; i < players.length; i++)
+			vidasPlayers[i] = numVidasInicio;
 		game.state.start('GameTitle');
 	}
 
