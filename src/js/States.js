@@ -246,7 +246,7 @@ class LoadLevel extends Phaser.State{
 				timeLeftLevel = this.level[currentLevel].time; // añade los segundos en los que hay que acabar el nivel
 		    	// numero de plataformas 
 		   		for (var i = 0; i < this.level[currentLevel].plat.length; i++) { 
-		    		platforms.push(new Platform(this.level[currentLevel].plat[i].x, this.level[currentLevel].plat[i].y, 'platform')); 
+		    		platforms.push(new Platform(this.level[currentLevel].plat[i].x, this.level[currentLevel].plat[i].y, 'platform', this.level[currentLevel].plat[i].rot)); 
 		    	} 
 		 
 			 	// num burbujas

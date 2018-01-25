@@ -5,9 +5,12 @@ class Platform extends GameObject{
 		this.addAnim('construccion',[1]);
 		this.addAnim('normal',[0]);
 		this.normal = true;
+
 		if(rotar === 1){
 			this.angle = 90;
+			this.body.setSize(17, 100, -17);
 		}
+		
 	}
 
 	platDeLaConstruccion(){
