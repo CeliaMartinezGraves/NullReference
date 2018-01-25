@@ -53,7 +53,8 @@ class Preload extends Phaser.State{
 			'explosion','music/Explosion.mp3',
 			'menumusic','music/Jumpshot.mp3',
 			'hurt','music/hurt.mp3',
-			'gameOverSound', 'music/KLPeachGameOver.mp3'
+			'gameOverSound', 'music/KLPeachGameOver.mp3',
+			'winSound', 'music/Victory.mp3'
 		];
 
 		// Mapas de juego
@@ -226,10 +227,7 @@ class LoadLevel extends Phaser.State{
 				new Player ( 'player2', 250, 0, cursors, 2)
 			];
 			players[0].resize(0.2, 0.2);
-			players[1].resize(0.2, 0.2);
-
-
-		
+			players[1].resize(0.2, 0.2);		
 		}
 		else {
 		
@@ -249,37 +247,36 @@ class LoadLevel extends Phaser.State{
 		var levelFound = false;
 
 		// while y booleano para evitar que intente leer niveles que no existen y estalle
-		while(!levelFound && currentLevel > 0) {
+		if(!levelFound && currentLevel >= 0 && currentLevel < this.level.length) {
 
-			if(currentLevel < this.level.length){ // Solo carga nivel si existe
-				levelFound = true;
-				timeLeftLevel = this.level[currentLevel].time; // añade los segundos en los que hay que acabar el nivel
-		    	// numero de plataformas 
-		   		for (var i = 0; i < this.level[currentLevel].plat.length; i++) { 
-		    		platforms.push(new Platform(this.level[currentLevel].plat[i].x, this.level[currentLevel].plat[i].y, 'platform', this.level[currentLevel].plat[i].rot)); 
-		    	} 
-		 
-			 	// num burbujas
-		    	for (var i = 0; i < this.level[currentLevel].ball.length; i++) {
-		    		var dirVel = this.level[currentLevel].ball[i].dirX;
-		    		if (TPV){
-		    			var Pacman = ['pacman', 'blueGhost', 'orangeGhost', 'pinkGhost','redGhost'];
-
-		   				if(this.level[currentLevel].ball[i].t === 0) 
-		   			 	 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, Pacman[Math.trunc(Math.random()*4 + 1)], 185*dirVel, 185, this.level[currentLevel].ball[i].lvl)); 
-		   			 	else 
-		   				    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, Pacman[0], 100*dirVel, 100, this.level[currentLevel].ball[i].lvl));
-		   			}else{
-
-		   				if(this.level[currentLevel].ball[i].t === 0) 
-		   			 	 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'ball', 175*dirVel, 175, this.level[currentLevel].ball[i].lvl)); 
-		   			 	else 
-		   				    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'gball', 100*dirVel, 100, this.level[currentLevel].ball[i].lvl));
-		   			}
-		    	} 
+			// Solo carga nivel si existe
+			levelFound = true;
+			timeLeftLevel = this.level[currentLevel].time; // añade los segundos en los que hay que acabar el nivel
+		    // numero de plataformas 
+		   	for (var i = 0; i < this.level[currentLevel].plat.length; i++) { 
+		    	platforms.push(new Platform(this.level[currentLevel].plat[i].x, this.level[currentLevel].plat[i].y, 'platform', this.level[currentLevel].plat[i].rot)); 
 		    } 
-		    else
-		    	currentLevel--;
+		 
+			 // num burbujas
+		    for (var i = 0; i < this.level[currentLevel].ball.length; i++) {
+		    	var dirVel = this.level[currentLevel].ball[i].dirX;
+		    	if (TPV){
+		    		var Pacman = ['pacman', 'blueGhost', 'orangeGhost', 'pinkGhost','redGhost'];
+
+		   			if(this.level[currentLevel].ball[i].t === 0) 
+		   		 	 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, Pacman[Math.trunc(Math.random()*4 + 1)], 185*dirVel, 185, this.level[currentLevel].ball[i].lvl)); 
+		   		 	else 
+		   			    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, Pacman[0], 100*dirVel, 100, this.level[currentLevel].ball[i].lvl));
+		   		}else{
+
+		   			if(this.level[currentLevel].ball[i].t === 0) 
+		   		 	 	bubbles.push(new Bubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'ball', 175*dirVel, 175, this.level[currentLevel].ball[i].lvl)); 
+		   		 	else 
+		   			    bubbles.push(new GravityBubble(this.level[currentLevel].ball[i].x, this.level[currentLevel].ball[i].y, 'gball', 100*dirVel, 100, this.level[currentLevel].ball[i].lvl));
+		   		}
+		    } 
+		}else if(currentLevel === this.level.length){
+			game.state.start('Win');
 		}
 
 		backgroundmusic = game.add.audio('background1');
@@ -538,6 +535,7 @@ class Death extends Phaser.State{
 class Win extends Phaser.State{
 
 	init(){
+		winSound = game.add.audio('winSound');
 
 		game.add.sprite(0,0, 'winner');
 		mute = game.add.button(10, 10, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
@@ -546,6 +544,10 @@ class Win extends Phaser.State{
 		this.onMenuPressed, this, 0, 1); // 50 e 1/2 del ancho de la imagen utilizada
 		game.add.text((window.innerWidth/2), (window.innerHeight/2) + 125, "Menu");
 
+	}
+
+	crete(){
+		winSound.play();
 	}
 
 	onMenuPressed(){
