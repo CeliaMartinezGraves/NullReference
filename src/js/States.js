@@ -51,7 +51,8 @@ class Preload extends Phaser.State{
 			'pasoDeNivel','music/pasoDeNivel.mp3', 
 			'explosion','music/Explosion.mp3',
 			'menumusic','music/Jumpshot.mp3',
-			'hurt','music/hurt.mp3'
+			'hurt','music/hurt.mp3',
+			'gameOverSound', 'music/KLPeachGameOver.mp3'
 		];
 
 		// Mapas de juego
@@ -491,6 +492,8 @@ class SubMenu extends Phaser.State{
 class Death extends Phaser.State{
 
 	init(){
+		gameOverSound = game.add.audio('gameOverSound');
+		
 
 		game.add.sprite(0,0, 'gameover');
 		mute = game.add.button(10, 10, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
@@ -504,6 +507,10 @@ class Death extends Phaser.State{
 		this.onMenuPressed, this, 0, 1); // 50 e 1/2 del ancho de la imagen utilizada
 		game.add.text((window.innerWidth/3*2), (window.innerHeight/2) + 125, "Menu");
 
+	}
+
+	create(){
+		gameOverSound.play();
 	}
 
 
