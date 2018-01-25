@@ -23,6 +23,7 @@ class Preload extends Phaser.State{
 			'title', 'images/fondos/title.jpg', // Pantalla de inicio
 			'controls', 'images/fondos/controles.png',
 			'credits', 'images/fondos/creditos.png',
+			'gameover', 'images/fondos/gameover.png',
 
 			'return', 'images/botones/return.png'
 		];
@@ -143,7 +144,6 @@ class GameTitle extends Phaser.State{
 
 
 		mute = game.add.button(10, 10, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
-
 
 	}
 
@@ -300,11 +300,7 @@ class Main extends Phaser.State{
 	init(){
 		this.backLevels = ['normalBackground', 'pacmanBack', 'bobble','mario', 'tloz']; // Etiquetas de los niveles y los niveles especiales
 		this.getBackground();
-		if(game.sound.mute){
-			mute = game.add.button(0, 0, 'mutebutton', this.onMutePressed, this, 1);
-		}
-		else
-			mute = game.add.button(0, 0, 'mutebutton', this.onMutePressed, this, 0);
+		mute = game.add.button(0, 0, 'mutebutton', this.onMutePressed, this, 0);
 
 		//this.timer = game.time.events.add(Phaser.Timer.SECOND * timeLeftLevel, this.loadLevel, this, currentLevel);
 		this.timer = game.time.create(false);
@@ -377,7 +373,12 @@ class Main extends Phaser.State{
 	overlapPlayerBurbuja(player, burbuja){
 		console.log('player se choco con burbuja malvada');
 		player.lessLife();
-		game.time.events.add(Phaser.Timer.SECOND * 1.5, this.loadLevel, this, currentLevel);
+		if(player.getVidas() >0)
+			game.time.events.add(Phaser.Timer.SECOND * 1.5, this.loadLevel, this, currentLevel);
+		else
+			game.time.events.add(Phaser.Timer.SECOND * 1.5, this.endGame, this);
+
+
 	}
 
 	winLevel(){
@@ -450,6 +451,10 @@ class Main extends Phaser.State{
       		game.add.sprite(0, 0, currentBack); 
     	} 
 	}
+
+	endGame(){
+		game.state.start('Death');
+	}
 	
 }
 
@@ -461,7 +466,6 @@ class SubMenu extends Phaser.State{
 		game.add.button((window.innerWidth)-(100), 10, 'return', 
 		this.onButtonPressed, this); // 50 e 1/2 del ancho de la imagen utilizado
 		mute = game.add.button(10, 10, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
-
 
 	}
 
@@ -485,5 +489,38 @@ class SubMenu extends Phaser.State{
 }
 
 class Death extends Phaser.State{
+
+	init(){
+
+		game.add.sprite(0,0, 'gameover');
+		mute = game.add.button(10, 10, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
+
+		// Añade los botones y el texto que tienen (el texto es a parte, por eso se ve tan meh)
+		game.add.button((window.innerWidth/3)-(100), (window.innerHeight/2) + 100, 'button', 
+		this.onContinuePressed, this, 0, 1); // 50 e 1/2 del ancho de la imagen utilizada
+		game.add.text((window.innerWidth/3)-(50), (window.innerHeight/2) + 125, "Continue");
+		
+		game.add.button((window.innerWidth/3*2)-(50), (window.innerHeight/2) + 100, 'button', 
+		this.onMenuPressed, this, 0, 1); // 50 e 1/2 del ancho de la imagen utilizada
+		game.add.text((window.innerWidth/3*2), (window.innerHeight/2) + 125, "Menu");
+
+	}
+
+
+	onContinuePressed(){
+		bubbles = [];
+		platforms = [];
+
+		for(i = 0; i < players.length; i++)
+			vidasPlayers[i] = numVidasInicio;
+		game.state.start('LoadLevel');
+	}
+
+	onMenuPressed(){
+
+
+		
+		game.state.start('GameTitle');
+	}
 
 }
