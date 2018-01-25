@@ -49,7 +49,8 @@ class Preload extends Phaser.State{
 			'background1' ,'music/ChibiNinja.mp3', 
 			'pasoDeNivel','music/pasoDeNivel.mp3', 
 			'explosion','music/Explosion.mp3',
-			'menumusic','music/Jumpshot.mp3'
+			'menumusic','music/Jumpshot.mp3',
+			'hurt','music/hurt.mp3'
 		];
 
 		// Mapas de juego
@@ -146,7 +147,6 @@ class GameTitle extends Phaser.State{
 
 		if(!menumusic.isPlaying){
 			menumusic.play();
-			console.log('music is playing?' +menumusic.isPlaying);
 		}
 		console.log('GameTitle create');
 		//game.state.start('LoadLevel'); // Lanza el estado siguiente
@@ -276,6 +276,7 @@ class LoadLevel extends Phaser.State{
 		backgroundmusic.loop = true;
 		pasoDeNivel = game.add.audio('pasoDeNivel');
 		explosion = game.add.audio('explosion');
+		daño = game.add.audio('hurt');
 		
 	}
 

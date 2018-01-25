@@ -90,6 +90,9 @@ class Player extends collideWorld{
 
 	lessLife(){
 		if(this.numVidas>0 && !this.hit){
+			this.game.sound.stopAll();
+			daño.play();
+
 			this.numVidas--;
 			this.hit = true;
 			this.animations.play('dieAnim', this._animSpeed/2, true);
