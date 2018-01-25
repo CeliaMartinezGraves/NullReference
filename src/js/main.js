@@ -47,7 +47,7 @@ function preload(){
 	game.state.add('Main', new Main(), false); // bucle principal del juego
 	game.state.add('SubMenu', new SubMenu(),false);//submenus del menu principal
 	game.state.add('Death', new Death(),false);
-	game.state.add('Win'), new Win(),false);
+	game.state.add('Win', new Win(),false);
 
 	game.state.start('Preload'); // hace que el game se inicie desde aqui y lance el Preload
 }
