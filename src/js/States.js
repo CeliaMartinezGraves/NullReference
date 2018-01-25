@@ -535,6 +535,7 @@ class Death extends Phaser.State{
 class Win extends Phaser.State{
 
 	init(){
+		game.sound.stopAll();
 		winSound = game.add.audio('winSound');
 
 		game.add.sprite(0,0, 'winner');
@@ -546,7 +547,8 @@ class Win extends Phaser.State{
 
 	}
 
-	crete(){
+	create(){
+
 		winSound.play();
 	}
 
