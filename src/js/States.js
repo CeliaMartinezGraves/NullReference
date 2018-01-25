@@ -339,7 +339,7 @@ class Main extends Phaser.State{
 	}
 
 	update(){
-		console.log(this.timer);
+		//console.log(this.timer);
 
 		if(bubbles.length > 0){ // Si aun quedan burbujas
 		// Colisiones de todas las plataformas con todas las burbujas
@@ -517,9 +517,9 @@ class Death extends Phaser.State{
 	}
 
 	onMenuPressed(){
-
-
-		
+		currentLevel = 1;
+		bubbles = [];
+		platforms = [];
 		game.state.start('GameTitle');
 	}
 
