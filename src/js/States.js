@@ -56,14 +56,36 @@ class Preload extends Phaser.State{
 		// Mapas de juego
     	this.maps = ['lvl', 'levels/levels.json']; 
 
-		secondPly = false; //desactiva el 2º jugador
-		
+		secondPly = false; //desactiva el 2º jugador	
 		
 	}
 
 	preload(){
-		game.load.spritesheet('animload',  'images/sprites/redballLoadingSheet.png', 30, 30); // Lee animacion de carga
+		this.load.spritesheet('animload',  'images/sprites/redballLoadingSheet.png', 30, 30); // Lee animacion de cargas
+
+		this.loadingEverything(game);
 		
+		console.log('preload preload');
+	}
+
+	create(){
+		
+		this.loading = this.add.sprite(game.width/2 - 45, game.height/2 - 45, 'animload');
+		this.loading.scale.setTo(3, 3); 
+		this.loading.animations.add('load');
+		this.loading.animations.play('load',  7, true);
+
+		console.log(cheats);
+
+		
+
+		console.log('preload create');
+		
+		game.state.start('GameTitle'); // Lanza el estado siguiente
+	}
+
+	loadingEverything(game){
+		console.log("CARGANDOOOO");
 		console.log(cursorsCHEATS);
 
 		// Carga todas las imagenes del array y les asigna su etiqueta
@@ -86,21 +108,7 @@ class Preload extends Phaser.State{
 		}
 
 		this.txt = game.load.json(this.maps[0], this.maps[1]); // carga el archivo 
-		console.log('preload preload');
-	}
-
-	create(){
 		
-		this.loading = game.add.sprite(game.width/2 - 45, game.height/2 - 45, 'animload');
-		this.loading.scale.setTo(3, 3); 
-		this.loading.animations.add('load');
-		this.loading.animations.play('load',  7, true);
-
-		console.log(cheats);
-
-		console.log('preload create');
-		
-		game.state.start('GameTitle'); // Lanza el estado siguiente
 	}
 
 }
