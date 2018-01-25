@@ -292,7 +292,11 @@ class Main extends Phaser.State{
 	init(){
 		this.backLevels = ['normalBackground', 'pacmanBack', 'bobble','mario', 'tloz']; // Etiquetas de los niveles y los niveles especiales
 		this.getBackground();
-		mute = game.add.button(0, 0, 'mutebutton', this.onMutePressed, this, 0);
+		if(game.sound.mute){
+			mute = game.add.button(0, 0, 'mutebutton', this.onMutePressed, this, 1);
+		}
+		else
+			mute = game.add.button(0, 0, 'mutebutton', this.onMutePressed, this, 0);
 
 		//this.timer = game.time.events.add(Phaser.Timer.SECOND * timeLeftLevel, this.loadLevel, this, currentLevel);
 		this.timer = game.time.create(false);
