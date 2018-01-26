@@ -73,8 +73,6 @@ class Preload extends Phaser.State{
 		this.load.spritesheet('animload',  'images/sprites/redballLoadingSheet.png', 30, 30); // Lee animacion de cargas
 
 		this.loadingEverything(game);
-		
-		console.log('preload preload');
 	}
 
 	create(){
@@ -83,19 +81,11 @@ class Preload extends Phaser.State{
 		this.loading.scale.setTo(3, 3); 
 		this.loading.animations.add('load');
 		this.loading.animations.play('load',  7, true);
-
-		console.log(cheats);
-
-		
-
-		console.log('preload create');
 		
 		game.state.start('GameTitle'); // Lanza el estado siguiente
 	}
 
 	loadingEverything(game){
-		console.log("CARGANDOOOO");
-		console.log(cursorsCHEATS);
 
 		// Carga todas las imagenes del array y les asigna su etiqueta
 		for(var i = 0; i < this.images.length; i+=2){
@@ -105,7 +95,6 @@ class Preload extends Phaser.State{
 		//label, ruta, anchoFrame, altoFrame, nº frames, margen, espaciado
 		for(var i = 0; i < this.sheets.length; i+=4){
 			game.load.spritesheet(this.sheets[i], this.sheets[i+1], this.sheets[i+2], this.sheets[i+3]);
-			console.log('spritesheet '+ i);
 		}
 		// Carga los fondos especiaes
 		for(var i = 0; i<this.specialBackgrounds.length; i+=2){
@@ -156,7 +145,6 @@ class GameTitle extends Phaser.State{
 	}
 
 	preload(){
-		console.log('GameTitle preload');
 	}
 
 	create(){
@@ -164,20 +152,17 @@ class GameTitle extends Phaser.State{
 		if(!menumusic.isPlaying){
 			menumusic.play();
 		}
-		console.log('GameTitle create');
 		//game.state.start('LoadLevel'); // Lanza el estado siguiente
 	}
 
 	// Pone el booleano del 2º jugador a true
 	on2ndPlyrPressed(){
-		console.log('pulsandooo 2');
 		secondPly = true; // activa el uso del segundo jugador
 		this.onButtonPressed();
 	}
 	// lanza el lector de nivel
 	onButtonPressed(){
 		nuevaPartida = true;
-		console.log('pulsandooo');
 		game.state.start('LoadLevel'); // Lanza el estado siguiente
 	}
 
@@ -194,13 +179,11 @@ class GameTitle extends Phaser.State{
 	}
 
 	onControlsPressed(){
-		console.log('pulsando controls');
 		submenu = 'controls';
 		game.state.start('SubMenu');
 	}
 
 	onCreditsPressed(){
-		console.log('pulsando controls');
 		submenu = 'credits';
 		game.state.start('SubMenu');
 	}
@@ -242,8 +225,6 @@ class LoadLevel extends Phaser.State{
 			players[0].resize(0.2, 0.2);
 		}
 		
-		
-		console.log("load level " + currentLevel);
 
 		if(this.level === undefined) // Si no esta cogido el archivo
 			this.level = game.cache.getJSON('lvl');
@@ -323,8 +304,6 @@ class Main extends Phaser.State{
 
 	preload(){
 		
-		console.log('Main preload');
-		
 	}
 
 	create(){
@@ -338,17 +317,12 @@ class Main extends Phaser.State{
 			bubbles[i].create(i); // hay que pasarle su pos en el array para que luego se pueda destruir
 	
 		for(i = 0; i < players.length; i++){
-			console.log(players);
-			console.log(vidasPlayers[i]);
-			console.log(players[i]);
 			players[i].create(vidasPlayers[i]);
 
 			for(var j = 0; j<players[i].numVidas; j++){
 				players[i].GUI[j].create(j*25);
 			}
 		}
-		
-		console.log('Main create');
 	}
 
 	update(){
