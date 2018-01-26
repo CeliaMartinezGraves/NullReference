@@ -34,7 +34,7 @@ class BreakablePlatform extends Platform{
 	}
 
 	break(){
-		this.rand = Math.trunc(Math.random()*4 + 1);
+		this.rand = Math.trunc(Math.random()*5 + 1);
 		if(this.rand == 1){
 			if(powerups == null)
 				powerups = [];
@@ -43,7 +43,7 @@ class BreakablePlatform extends Platform{
 			powerups[powerups.length-1].create();
 			
 		}
-		if(this.rand == 2){
+		if(this.rand == 2||this.rand == 3){
 			console.log("powerup!");
 			if(powerups == null)
 				powerups = [];
