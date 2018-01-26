@@ -36,7 +36,6 @@ class BreakablePlatform extends Platform{
 	break(){
 		this.rand = Math.trunc(Math.random()*4 + 1);
 		if(this.rand == 1){
-			console.log("powerup!");
 			if(powerups == null)
 				powerups = [];
 

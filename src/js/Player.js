@@ -39,7 +39,6 @@ class Player extends collideWorld{
 	create(vidas){
 		super.create();
 		this.numVidas = vidas; // Asigna las vidas iniciales
-		console.log("player " + this.numVidas);
 
 	}
 
@@ -112,7 +111,6 @@ class Player extends collideWorld{
 			return true;
 		}else
 			return false;
-		console.log('player: ' + this.numVidas);
 	}
 
 	//para que "baile" al acabar el nivel

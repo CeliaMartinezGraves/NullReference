@@ -367,12 +367,10 @@ class Main extends Phaser.State{
 						players[i].ganchos[i].handleCollisions(bubbles,platforms);
 					}
 				}
-				console.log("vuelta");
 			}
 
 		}else if(!nivelAcabado){
 			nivelAcabado = true;
-			console.log('holii');
 
 			this.winLevel();
 		}
@@ -392,7 +390,6 @@ class Main extends Phaser.State{
 	}
 
 	overlapPlayerBurbuja(player, burbuja){
-		console.log('player se choco con burbuja malvada');
 		player.lessLife();
 		if(player.getVidas() >0)
 			game.time.events.add(Phaser.Timer.SECOND * 1.5, this.loadLevel, this, currentLevel);
@@ -403,7 +400,6 @@ class Main extends Phaser.State{
 	}
 
 	overlapPlayerPowerUp(player,powerup){
-		console.log("overlapPlayerPowerUp");
 		powerup.powers(player);
 	}
 
@@ -466,13 +462,10 @@ class Main extends Phaser.State{
 		}
 
 		var numframe = currentLevel-Math.trunc(currentLevel/5);// Math.trunc(currentLevel/5) para que trunque el resultado 
-     
-   	 	console.log(currentLevel%5 + ' frame: '+ numframe); 
  
     	if((currentLevel%5) != 0){ 
       		var back = game.add.sprite(0, 0, currentBack, numframe);
       		back.animations.currentFrame = numframe;
-      		console.log(back);
     	}else{ 
       		game.add.sprite(0, 0, currentBack); 
     	} 
@@ -519,7 +512,6 @@ class SubMenu extends Phaser.State{
 	}
 
 	onButtonPressed(){
-		console.log('pulsandooo');
 		game.state.start('GameTitle'); // Lanza el estado siguiente
 	}
 

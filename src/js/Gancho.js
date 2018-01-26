@@ -65,17 +65,12 @@ class Gancho extends VerticalMovable{
 	}
 
 	overlapGanchoBurbuja(gancho,bubble){
-		console.log('overlapGanchoBurbuja');
-		console.log(this.player.ganchos.length);
 		gancho.die();
 		bubble.die(bubbles);
 		explosion.play();
-		console.log(this.player.ganchos.length);
-
 	}
 
 	overlapGanchoPlataforma(gancho,platform){
-		console.log('overlapGanchoPlataforma');
 		if(platform.rompible)
 			platform.break(this.player);
 		gancho.die();

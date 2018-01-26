@@ -9,7 +9,6 @@ class GUI extends GameObject{
 		this.x = this.posOrigX+posX;
 		this.resize(0.1, 0.1);
 		this.animations.currentFrame = 9;
-		console.log(this);
 		super.create();
 	}
 }

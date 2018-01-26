@@ -58,7 +58,6 @@ class Vida extends PowerUp{
 
 	powers(player){
 		if(player.getVidas() < 3){
-			console.log("overlapPlayerPowerUp");
 			player.numVidas += 1;
 			this.destroy();
 		}
@@ -79,7 +78,6 @@ class DobleGancho extends PowerUp{
 
 	powers(player){
 		if(player.hayGancho.length == 1){
-			console.log("overlapPlayerPowerUp");
 			player.hayGancho.push (false);
 			player.ganchos.push (new Gancho('hook',player,1));
 			this.destroy();

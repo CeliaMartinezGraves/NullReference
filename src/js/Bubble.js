@@ -40,8 +40,6 @@ class Bubble extends collideWorld{
 
 		
 		this.destroy();
-
-		console.log('bubble kill');
 	}
 
 	getLevel(){
