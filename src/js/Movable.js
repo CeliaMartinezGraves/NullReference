@@ -64,3 +64,25 @@ class Vida extends PowerUp{
 		}
 	}
 }
+
+class DobleGancho extends PowerUp{
+	constructor (posX, posY, label,speedY){
+		super(posX, posY, label, speedY);
+		this.addAnim('changing', [0,1]);
+	}
+
+	create(vidas){
+		super.create();
+		this.animations.play('changing', this._animSpeed-10,true);
+
+	}
+
+	powers(player){
+		if(player.hayGancho.length == 1){
+			console.log("overlapPlayerPowerUp");
+			player.hayGancho.push (false);
+			player.ganchos.push (new Gancho('hook',player,1));
+			this.destroy();
+		}
+	}
+}

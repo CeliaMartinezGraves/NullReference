@@ -13,7 +13,8 @@ class Player extends collideWorld{
 			posXGUI =700;
 		}
 		this.cursors = cursors;
-		this.gancho = new Gancho('hook', this);
+		this.ganchos = [];
+		this.ganchos.push (new Gancho('hook', this, 0));
 
 		// añade los frames de cada animacion
 		this.addAnim('leftAnim', [4, 5, 6, 7]);
@@ -23,7 +24,8 @@ class Player extends collideWorld{
 		this.addAnim('finAnim', [0, 1, 0, 1, 4, 5, 4, 5]);// bailecito al acabar el nivel
 
 		this.controlable = true;
-		this.hayGancho = false;
+		this.hayGancho = [];
+		this.hayGancho.push (false);
 		this.hit = false;
 		
 		this.GUI = [new GUI(posXGUI, 15, this.label, null), new GUI(posXGUI, 15, this.label, null), new GUI(posXGUI, 15, this.label, null)];
@@ -53,9 +55,11 @@ class Player extends collideWorld{
 
 		if(!nivelAcabado && this.controlable){	
 
-			if(this.hayGancho){
-    			this.gancho.update();
-    		}
+			for(i = 0; i < this.hayGancho.length;i++){
+				if(this.hayGancho[i])
+					this.ganchos[i].update();
+			}
+
 
 			if (this.cursors.left.isDown)
 		   	{
@@ -73,21 +77,26 @@ class Player extends collideWorld{
 		   		this.animations.play('stopAnim', this._animSpeed);
 		   	}
 		
-		   	if (this.cursors.fireButton.downDuration(0.1) & !this.hayGancho){
-		   		this.changeSpeedX(0);
-		   		this.animations.play('stopAnim', this._animSpeed);				
-		   		this.gancho.create();
-		   		this.hayGancho = true;
+		   	if (this.cursors.fireButton.downDuration(0.1)){
+		   		this.i = 0;
+		   		this.disparado = false;
+		   		while(this.i < this.hayGancho.length && !this.disparado){
+		   			if(!this.hayGancho[this.i]){
+		   				this.changeSpeedX(0);
+		   				this.animations.play('stopAnim', this._animSpeed);		
+		   				this.ganchos[this.i].create();
+		   				this.hayGancho[this.i] = true;
+		   				this.disparado = true;
+		   			}
+		   			this.i++;
+
+		   		}			
+		   		
 		   	}
   	
 		}
     	
     	
-	}
-
-	killGancho(){
-		this.gancho.die();
-		this.hayGancho = false;
 	}
 
 	lessLife(){

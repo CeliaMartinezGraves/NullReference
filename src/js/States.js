@@ -13,6 +13,8 @@ class Preload extends Phaser.State{
 			'hook', 'images/sprites/hookTop.png',
 			'backTime', 'images/sprites/backTime.png',
 
+			'dobleg', 'images/sprites/dobleg.png',
+
 			'blueGhost', 'images/sprites/blueghostball.png', 
 			'orangeGhost', 'images/sprites/orangeghostball.png', 
 			'pacman', 'images/sprites/pacmanball.png', 
@@ -26,7 +28,9 @@ class Preload extends Phaser.State{
 			'gameover', 'images/fondos/gameover.png',
 			'winner', 'images/fondos/Winner.png',
 
-			'return', 'images/botones/return.png'			
+			'return', 'images/botones/return.png'
+
+			
 		];
 
 		this.sheets = [
@@ -357,10 +361,16 @@ class Main extends Phaser.State{
 			game.physics.arcade.collide(platforms, bubbles); 
 			game.physics.arcade.overlap(players, bubbles, this.overlapPlayerBurbuja, null, this);
 
-			for(i = 0; i < players.length; i++){
-				if(players[i].gancho.alive){
-					players[i].gancho.handleCollisions(bubbles,platforms);
+			for(var i = 0; i < players.length; i++){
+				for(var j = 0; j < players[i].ganchos.length; j++){
+					if(players[i].ganchos[i].alive){
+						players[i].ganchos[i].handleCollisions(bubbles,platforms);
+						console.log("holiiii");
+						console.log(i);
+						console.log(players[i]);
+					}
 				}
+				console.log("vuelta");
 			}
 
 		}else if(!nivelAcabado){
@@ -377,8 +387,10 @@ class Main extends Phaser.State{
 	}
 
 	render(){
-		for(i = 0; i < players.length; i++)
-			players[i].gancho.render();
+		for(i = 0; i < players.length; i++){
+			for(var j = 0; j < players[i].ganchos.length; j++)
+				players[i].ganchos[j].render();
+		}
 		this.text.text = Math.trunc(this.timer.duration/1000 +1);
 	}
 

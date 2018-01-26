@@ -1,11 +1,12 @@
 class Gancho extends VerticalMovable{
 
-	constructor(label, player){
+	constructor(label, player, num){
 
 		super(-100, -100, label, -200);
 		
 		this.player = player;
 		this.alive = false;
+		this.num = num;
 	}
 
 	create(){
@@ -25,7 +26,7 @@ class Gancho extends VerticalMovable{
 	}
 
 	die(){
-		this.player.hayGancho = false;
+		this.player.hayGancho[this.num] = false;
 		this.rect.setTo(0,0,0,0);
 		this.alive = false;
 		this.render();
@@ -65,10 +66,11 @@ class Gancho extends VerticalMovable{
 
 	overlapGanchoBurbuja(gancho,bubble){
 		console.log('overlapGanchoBurbuja');
-
+		console.log(this.player.ganchos.length);
 		gancho.die();
 		bubble.die(bubbles);
 		explosion.play();
+		console.log(this.player.ganchos.length);
 
 	}
 
