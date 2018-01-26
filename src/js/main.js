@@ -11,7 +11,7 @@ var backgroundmusic, pasoDeNivel, explosion, menumusic, daño, gameOverSound, wi
 var bubbles, platforms, players, secondPly,	powerups; // grupos con las burbujas, plataformas, jugadores y powerups
 var vidasPlayers;
 var i;
-var currentLevel = 1;// nivel de juego
+var currentLevel = 0;// nivel de juego
 var currentBack; // label del fondo a cargar
 var timeLeftLevel; // timepo restante para pasarse el nivel // sera timer
 var _timeBetweenLevels = 3; // tiempo entre niveles en segundos (lo que tarda en bailar)
