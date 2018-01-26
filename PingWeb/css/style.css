@@ -236,6 +236,28 @@ nav ul li a:hover
 
 
 /* BUTTONS */
+.bigButton
+{
+        padding:25px 50px;
+        border: 1px solid #c3532e;
+        background-image: linear-gradient(bottom, #E56038 0%, #ff8c66 100%);
+        background-image: linear-gradient(to bottom, #ff8c66 0%, #E56038 100%);
+        background-color: #eb653c;
+        color: #EBE8DE;
+        text-shadow: 1px 1px 0px #ff8155;
+        text-decoration:none;
+        font-size:30px;
+        margin-left: 250px;
+        border-radius:5px;
+        box-shadow: 1px 1px 2px 1px rgba(0, 0, 0, 0.3);
+}
+.bigButton:hover
+{
+        background:none #EBE8DE;
+        border-color: #EBE8DE;
+        text-shadow:none;
+        color: #4A463B;
+}
 
 .button
 {
@@ -419,14 +441,14 @@ footer
         position:relative;
         clear:both;
         width:auto;
-        height:350px;
+        height:400px;
         background:#333333;
 }
 
 footer .wrapper
 {
         line-height:25px;
-        margin: 0 auto;
+        margin: 30px auto;
         padding-top:30px;
         width:auto;
         max-width:900px;
@@ -494,7 +516,7 @@ footer .wrapper .column h4
 #copyright
 {
         background: #1D1D1D;
-        height:70px;
+        height:100px;
         position:absolute;
         bottom:0;
         left:0;
@@ -503,7 +525,7 @@ footer .wrapper .column h4
 #copyright .wrapper
 {
         font-family: 'Open Sans', sans-serif;
-        padding-top:25px;
+        padding-top:15px;
         color: #5e5e5e;
         font-size:14px;
         position:relative;
@@ -512,7 +534,7 @@ footer .wrapper .column h4
 {
         position:absolute;
         right:0;
-        top:25px;
+        top:10px;
 }
 #copyright .wrapper .social a
 {
