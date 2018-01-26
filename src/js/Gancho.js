@@ -74,6 +74,8 @@ class Gancho extends VerticalMovable{
 
 	overlapGanchoPlataforma(gancho,platform){
 		console.log('overlapGanchoPlataforma');
+		if(platform.rompible)
+			platform.break(this.player);
 		gancho.die();
 
 	}

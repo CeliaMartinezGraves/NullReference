@@ -8,7 +8,7 @@ var cursors, cursorsWASD, cursorsCHEATS, fall;
 var mute;
 var submenu;
 var backgroundmusic, pasoDeNivel, explosion, menumusic, daño, gameOverSound, winSound;
-var bubbles, platforms, players, secondPly; // grupos con las burbujas, plataformas y jugadores
+var bubbles, platforms, players, secondPly,	powerups; // grupos con las burbujas, plataformas, jugadores y powerups
 var vidasPlayers;
 var i;
 var currentLevel = 1;// nivel de juego

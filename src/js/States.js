@@ -10,7 +10,6 @@ class Preload extends Phaser.State{
 			//'platform', 'images/sprites/platform.png',
 			'ball', 'images/sprites/blueball.png', 
 			'gball', 'images/sprites/redball.png', 
-			'fall', 'images/sprites/phaser.png',
 			'hook', 'images/sprites/hookTop.png',
 			'backTime', 'images/sprites/backTime.png',
 
@@ -37,7 +36,8 @@ class Preload extends Phaser.State{
 			'button', 'images/botones/buttons.png', 448/2, 84, // boton del menu de inicio
 			'mutebutton', 'images/botones/mutebutton.png', 64/2, 32,
 			'normalBackground', 'images/fondos/backgrounds.jpg', 800, 600,
-			'platform', 'images/sprites/platform.png', 100, 34/2
+			'platform', 'images/sprites/platform.png', 100, 34/2,
+			'vida','images/sprites/vida.png', 44, 120/2
 		];
 
 		// Fondos especiales de un solo "uso"
@@ -255,7 +255,12 @@ class LoadLevel extends Phaser.State{
 			timeLeftLevel = this.level[currentLevel].time; // añade los segundos en los que hay que acabar el nivel
 		    // numero de plataformas 
 		   	for (var i = 0; i < this.level[currentLevel].plat.length; i++) { 
-		    	platforms.push(new Platform(this.level[currentLevel].plat[i].x, this.level[currentLevel].plat[i].y, 'platform', this.level[currentLevel].plat[i].rot)); 
+		   		if(this.level[currentLevel].plat[i].t === 0) 
+		    		platforms.push(new Platform(this.level[currentLevel].plat[i].x, this.level[currentLevel].plat[i].y, 'platform', this.level[currentLevel].plat[i].rot)); 
+		    	else
+		    		platforms.push(new BreakablePlatform(this.level[currentLevel].plat[i].x, this.level[currentLevel].plat[i].y, 'platform', this.level[currentLevel].plat[i].rot)); 
+
+
 		    } 
 		 
 			 // num burbujas
@@ -344,6 +349,9 @@ class Main extends Phaser.State{
 
 	update(){
 
+		if(powerups != null && powerups.length > 0)
+			game.physics.arcade.overlap(players, powerups, this.overlapPlayerPowerUp, null, this);
+
 		if(bubbles.length > 0){ // Si aun quedan burbujas
 		// Colisiones de todas las plataformas con todas las burbujas
 			game.physics.arcade.collide(platforms, bubbles); 
@@ -383,6 +391,11 @@ class Main extends Phaser.State{
 			game.time.events.add(Phaser.Timer.SECOND * 1.5, this.endGame, this);
 
 
+	}
+
+	overlapPlayerPowerUp(player,powerup){
+		console.log("overlapPlayerPowerUp");
+		powerup.powers(player);
 	}
 
 	winLevel(){
@@ -510,7 +523,6 @@ class Death extends Phaser.State{
 		
 
 		game.add.sprite(0,0, 'gameover');
-		mute = game.add.button(10, 10, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
 
 		// Añade los botones y el texto que tienen (el texto es a parte, por eso se ve tan meh)
 		game.add.button((window.innerWidth/3)-(100), (window.innerHeight/2) + 100, 'button', 
@@ -555,7 +567,6 @@ class Win extends Phaser.State{
 		winSound = game.add.audio('winSound');
 
 		game.add.sprite(0,0, 'winner');
-		mute = game.add.button(10, 10, 'mutebutton', this.onMutePressed, this, 0); // 50 e 1/2 del ancho de la imagen utilizada
 		
 		game.add.button((window.innerWidth/2)-(100), (window.innerHeight/2) + 100, 'button', 
 		this.onMenuPressed, this, 0, 1); // 50 e 1/2 del ancho de la imagen utilizada
