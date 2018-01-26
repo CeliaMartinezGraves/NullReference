@@ -11,7 +11,8 @@ class Preload extends Phaser.State{
 			'ball', 'images/sprites/blueball.png', 
 			'gball', 'images/sprites/redball.png', 
 			'fall', 'images/sprites/phaser.png',
-			'hook', 'images/sprites/hookTop.png', 
+			'hook', 'images/sprites/hookTop.png',
+			'backTime', 'images/sprites/backTime.png',
 
 			'blueGhost', 'images/sprites/blueghostball.png', 
 			'orangeGhost', 'images/sprites/orangeghostball.png', 
@@ -26,7 +27,7 @@ class Preload extends Phaser.State{
 			'gameover', 'images/fondos/gameover.png',
 			'winner', 'images/fondos/Winner.png',
 
-			'return', 'images/botones/return.png'
+			'return', 'images/botones/return.png'			
 		];
 
 		this.sheets = [
@@ -306,9 +307,13 @@ class Main extends Phaser.State{
 		this.timer.add(timeLeftLevel*1000, this.loadLevel, this, currentLevel);
 		this.timer.start();
 
+		this.backTime = this.add.sprite((window.innerWidth/2)-(56), 20, 'backTime');
+		this.text = game.add.text((window.innerWidth/2)-(25), 30, Math.trunc(this.timer.duration/1000 +1), {font: "40px Arial", fill: 'black'});
+
 	}
 
 	preload(){
+		
 		console.log('Main preload');
 		
 	}
@@ -338,7 +343,6 @@ class Main extends Phaser.State{
 	}
 
 	update(){
-		//console.log(this.timer);
 
 		if(bubbles.length > 0){ // Si aun quedan burbujas
 		// Colisiones de todas las plataformas con todas las burbujas
@@ -367,6 +371,7 @@ class Main extends Phaser.State{
 	render(){
 		for(i = 0; i < players.length; i++)
 			players[i].gancho.render();
+		this.text.text = Math.trunc(this.timer.duration/1000 +1);
 	}
 
 	overlapPlayerBurbuja(player, burbuja){
