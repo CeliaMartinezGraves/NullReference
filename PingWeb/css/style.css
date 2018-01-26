@@ -3,7 +3,7 @@
 /* GLOBAL */
 body
 {
-        border-top:5px solid #2421e6;
+        border-top:5px solid #ff4600;
         background:#c2e8ff;
         font-family: 'Open Sans', sans-serif;
         color:#333333;
@@ -266,7 +266,7 @@ nav ul li a:hover
 {
         width:auto;
         height:70px;
-        background-color:#e56038;
+        background-color:#ff4600;
         position:relative;
         font-family: 'Open Sans', sans-serif;
         color:#fff;
