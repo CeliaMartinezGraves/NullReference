@@ -22,25 +22,23 @@ To minimize the amount of HTTP requests combine all CSS files into one single fi
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Super Ping (En construcción)</title>
-        <link rel="stylesheet" href="css/reset.css" type="text/css" media="screen" />
-        <link rel="stylesheet" href="css/style.css" type="text/css" media="screen" />
-        <link href="lightbox/css/lightbox.css" rel="stylesheet" />
+        <title>Super Ping</title>
+        <link rel="stylesheet" href="PingWeb/css/reset.css" type="text/css" media="screen" />
+        <link rel="stylesheet" href="PingWeb/css/style.css" type="text/css" media="screen" />
+        <link href="PingWeb/lightbox/css/lightbox.css" rel="stylesheet" />
         <link href='http://fonts.googleapis.com/css?family=Open+Sans|Baumans' rel='stylesheet' type='text/css'>
         
-        <script src="js/vendor/modernizr.min.js"></script>
-        <script src="js/vendor/respond.min.js"></script>
+        <script src="PingWeb/js/vendor/modernizr.min.js"></script>
+        <script src="PingWeb/js/vendor/respond.min.js"></script>
         
         <!-- include extern jQuery file but fall back to local file if extern one fails to load !-->
         <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
-        <script type="text/javascript">window.jQuery || document.write('<script type="text/javascript" src="js\/vendor\/1.7.2.jquery.min.js"><\/script>')</script>
+        <script type="PingWeb/text/javascript">window.jQuery || document.write('<script type="text/javascript" src="js\/vendor\/1.7.2.jquery.min.js"><\/script>')</script>
         
-        <script src="lightbox/js/lightbox.js"></script>
-        <script src="js/vendor/prefixfree.min.js"></script>
-        <script src="js/vendor/jquery.slides.min.js"></script>
-        <script src="js/script.js"></script>
-
-        <script src="../src/index.html"></script>
+        <script src="PingWeb/lightbox/js/lightbox.js"></script>
+        <script src="PingWeb/js/vendor/prefixfree.min.js"></script>
+        <script src="PingWeb/js/vendor/jquery.slides.min.js"></script>
+        <script src="PingWeb/js/script.js"></script>
         
         <!--[if lt IE 9]>
             <style>
@@ -87,6 +85,14 @@ To minimize the amount of HTTP requests combine all CSS files into one single fi
           });
         });
         </script>
+
+        <style>
+        #game {
+          width: 800px;
+          height: 600px;
+        }
+        </style>
+
 	</head>
 
 	<body>
@@ -98,19 +104,19 @@ To minimize the amount of HTTP requests combine all CSS files into one single fi
             </div>
             <div id="mobileMenu">
                 <ul>
-                    <li><a href="../src/index.html">Game</a></li>
+                    <li><a href="javascript:void(0)">Game</a></li>
                     <li><a href="javascript:void(0)">Porfolio</a></li>
                     <li><a href="javascript:void(0)">About</a></li>
                     <li><a href="javascript:void(0)">Contact</a></li>
                 </ul>
             </div>           
-            <h1> <img src="images/web/img/pingLogo.jpg" alt="Super Ping"></h1>
+            <h1> <img src="PingWeb/images/web/img/pingLogo.jpg" alt="Super Ping"></h1>
             <p>The remake you didn't know</p>           
 
             <nav>
             	<h2 class="hidden">Our navigation</h2>
                 <ul>
-                    <li><a href="../src/index.html">Game</a></li>
+                    <li><a href="javascript:void(0)">Game</a></li>
                     <li><a href="javascript:void(0)">Porfolio</a></li>
                     <li><a href="javascript:void(0)">About</a></li>
                     <li><a href="javascript:void(0)">Contact</a></li>
@@ -131,8 +137,8 @@ To minimize the amount of HTTP requests combine all CSS files into one single fi
                 </article>
 
             <div id="slides">
-                <img src="images/web/img/title.jpg" alt="Super Ping">
-                <img src="images/web/img/SuperBusterBros.jpg" alt="Super Buster Bros, 1990">
+                <img src="PingWeb/images/web/img/title.jpg" alt="Super Ping">
+                <img src="PingWeb/images/web/img/SuperBusterBros.jpg" alt="Super Buster Bros, 1990">
             </div>
         </section>
         
@@ -141,7 +147,7 @@ To minimize the amount of HTTP requests combine all CSS files into one single fi
         <section id="boxcontent">
         	<h2 class="hidden">midCols</h2>
             <article>            	               
-                <img src="images/web/icon/redball.png" alt=""/>                
+                <img src="PingWeb/images/web/icon/redball.png" alt=""/>                
                 <h3>The Origin</h3>
                 <p>        	
                     Released on 1990, the Capcom's arcade Super Pang.
@@ -150,7 +156,7 @@ To minimize the amount of HTTP requests combine all CSS files into one single fi
             </article>
             
             <article>            	     
-                <img src="images/web/icon/blueball.png" alt=""/>              
+                <img src="PingWeb/images/web/icon/blueball.png" alt=""/>              
                 <h3>The Game</h3>
                 <p>        	
                    Simple, fun, for everyone at any time.
@@ -158,11 +164,10 @@ To minimize the amount of HTTP requests combine all CSS files into one single fi
             </article>
 
             <article>            	    
-                <img src="images/web/icon/redball.png" alt=""/>                
+                <img src="PingWeb/images/web/icon/redball.png" alt=""/>                
                 <h3>The Present</h3>
                 <p>A new insight to this great classic.</p>
                 <p> New style, same soul.</p>
-                <a class="button" href="../src/index.html" title="Play now">Play</a>
             </article>
             <br class="clear"/>
         </section>
@@ -174,9 +179,9 @@ To minimize the amount of HTTP requests combine all CSS files into one single fi
             <article class="img-item">
             	<h3 class="hidden">Retro View</h3>
                 <figure>  
-                    <a href="images/web/img/originalBig.png" rel="lightbox" title="Super Pang, 1990">
+                    <a href="PingWeb/images/web/img/originalBig.png" rel="lightbox" title="Super Pang, 1990">
                         <span class="thumb-screen"></span>
-                        <img src="images/web/img/original.png" alt=""/>
+                        <img src="PingWeb/images/web/img/original.png" alt=""/>
                     </a>
                     <figcaption>
                         <strong>
@@ -189,9 +194,9 @@ To minimize the amount of HTTP requests combine all CSS files into one single fi
             <article class="img-item">
             	<h3 class="hidden">old Levels</h3>
                 <figure>
-                    <a href="images/web/img/lvl3.png"  rel="lightbox" title="Super Ping, level 3">
+                    <a href="PingWeb/images/web/img/lvl3.png"  rel="lightbox" title="Super Ping, level 3">
                         <span class="thumb-screen"></span>
-                        <img src="images/web/img/lvl3Small.png" alt="Some alt text"/>
+                        <img src="PingWeb/images/web/img/lvl3Small.png" alt=""/>
                     </a>
                     <figcaption>
                         <strong>
@@ -204,9 +209,9 @@ To minimize the amount of HTTP requests combine all CSS files into one single fi
             <article class="img-item">
             	<h3 class="hidden">Pacman level</h3>
                 <figure>
-                    <a href="images/web/img/lvl5.png"  rel="lightbox" title="Super Ping, level 5">
+                    <a href="PingWeb/images/web/img/lvl5.png"  rel="lightbox" title="Super Ping, level 5">
                         <span class="thumb-screen"></span>
-                        <img src="images/web/img/lvl5Small.png" alt="Some alt text"/>
+                        <img src="PingWeb/images/web/img/lvl5Small.png" alt=""/>
                     </a>
                     <figcaption>
                         <strong>
@@ -219,9 +224,9 @@ To minimize the amount of HTTP requests combine all CSS files into one single fi
             <article class="img-item">
             	<h3 class="hidden">bubble bobble</h3>
                 <figure>
-                    <a href="images/web/img/lvl10.png"  rel="lightbox" title="Super Ping, level 10">
+                    <a href="PingWeb/images/web/img/lvl10.png"  rel="lightbox" title="Super Ping, level 10">
                         <span class="thumb-screen"></span>
-                        <img src="images/web/img/lvl10Small.png" alt="Some alt text"/>
+                        <img src="PingWeb/images/web/img/lvl10Small.png" alt=""/>
                     </a>
                     <figcaption>
                         <strong>
@@ -236,7 +241,9 @@ To minimize the amount of HTTP requests combine all CSS files into one single fi
         
         <section id="boxcontent">
             <article>
-                <p><a class="bigButton" href="../src/index.html"title="Play now">Play</a></p>               
+                    <main>
+                        <iframe id="game" src="raw.html"></iframe>
+                    </main>    
             </article>
             
         </section>
@@ -279,9 +286,9 @@ To minimize the amount of HTTP requests combine all CSS files into one single fi
                 <article class="column rightlist">
                     <h4>Follow us!</h4>
                     <ul>
-                        <li><a><img src="images/web/icon/correo_electronico.jpg" width="30" alt="email"/><span>nullReference.pvli@gmail.com</span></a></li>
-                        <li><a href="https://twitter.com/NullReference_0?s=08"><img src="images/web/icon/twitter.jpg" width="30" alt="twitter"/><span>@NullReference_0</span></a></li>
-                        <li><a href="https://www.instagram.com/nullreference_/"><img src="images/web/icon/instagram_logo.jpg" width="30" alt="instagram"/><span>@NullReference_</span></a></li>
+                        <li><a><img src="PingWeb/images/web/icon/correo_electronico.jpg" width="30" alt="email"/><span>nullReference.pvli@gmail.com</span></a></li>
+                        <li><a href="https://twitter.com/NullReference_0?s=08"><img src="PingWeb/images/web/icon/twitter.jpg" width="30" alt="twitter"/><span>@NullReference_0</span></a></li>
+                        <li><a href="https://www.instagram.com/nullreference_/"><img src="PingWeb/images/web/icon/instagram_logo.jpg" width="30" alt="instagram"/><span>@NullReference_</span></a></li>
                     </ul>
                     <br class="clear"/>
                 </article>
