@@ -30,7 +30,7 @@ class VerticalMovable extends collideWorld{
 	}
 
 	update(){
-		game.physics.arcade.collide(platforms, this);
+		//game.physics.arcade.collide(platforms, this);
 	}
 }
 
@@ -40,7 +40,6 @@ class PowerUp extends VerticalMovable{
 
 	constructor (posX, posY, label,speedY){
 		super(posX, posY, label, speedY);
-		this.label = label;// IMPORTANTE ASIGNAR ETIQUETA ANTES DE CREAR O CARGAR
 	}
 
 }
@@ -48,7 +47,6 @@ class PowerUp extends VerticalMovable{
 class Vida extends PowerUp{
 	constructor (posX, posY, label,speedY){
 		super(posX, posY, label, speedY);
-		this.label = label;// IMPORTANTE ASIGNAR ETIQUETA ANTES DE CREAR O CARGAR
 		this.addAnim('changing', [0,1]);
 	}
 
@@ -59,7 +57,7 @@ class Vida extends PowerUp{
 	}
 
 	powers(player){
-		if(player.getVidas() == 3){
+		if(player.getVidas() < 3){
 			console.log("overlapPlayerPowerUp");
 			player.numVidas += 1;
 			this.destroy();
