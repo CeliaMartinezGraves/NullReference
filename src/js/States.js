@@ -304,7 +304,7 @@ class Main extends Phaser.State{
 
 		//this.timer = game.time.events.add(Phaser.Timer.SECOND * timeLeftLevel, this.loadLevel, this, currentLevel);
 		this.timer = game.time.create(false);
-		this.timer.add(timeLeftLevel*1000, this.loadLevel, this, currentLevel);
+		this.timer.add(timeLeftLevel*1000, this.lessLifeByTimer, this, currentLevel);
 		this.timer.start();
 
 		this.backTime = this.add.sprite((window.innerWidth/2)-(56), 20, 'backTime');
@@ -458,6 +458,17 @@ class Main extends Phaser.State{
 
 	endGame(){
 		game.state.start('Death');
+	}
+
+	lessLifeByTimer(){
+		for(i = 0; i < players.length; i++){
+			players[i].lessLife();	
+
+			if(players[i].getVidas() >0)
+				game.time.events.add(Phaser.Timer.SECOND * 1.5, this.loadLevel, this, currentLevel);
+			else
+				game.time.events.add(Phaser.Timer.SECOND * 1.5, this.endGame, this);
+		}
 	}
 	
 }
