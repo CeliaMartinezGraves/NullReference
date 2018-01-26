@@ -172,7 +172,8 @@ nav ul li a:hover
 {
         float:left;
         width:250px;
-        margin-right:45px;
+        margin-left:45px;
+        margin-bottom: 100px;
         font-size:14px;
 }
 
@@ -471,7 +472,7 @@ footer .wrapper .column.midlist ul li
         padding:0 0 10px 25px;
         margin-bottom:10px;
         border-bottom: 1px solid #444444;
-        background:url(img/arrowright2.png) left 6px no-repeat;
+        background:url(img/arrowright.png) left 6px no-repeat;
 }
 
 footer .wrapper .column.midlist ul li a:hover
@@ -623,6 +624,9 @@ footer .wrapper .column h4
           clip: rect(1px, 1px, 1px, 1px);
 }
 
+#game {
+        border: 3px solid rgb(0, 0, 0);
+      }
 
 /* MEDIA QUERIES FOR A RESPONSIVE LAYOUT */
 
