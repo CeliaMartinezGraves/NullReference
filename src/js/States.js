@@ -337,8 +337,8 @@ class Main extends Phaser.State{
 
 			for(var i = 0; i < players.length; i++){
 				for(var j = 0; j < players[i].ganchos.length; j++){
-					if(players[i].ganchos[i].alive){
-						players[i].ganchos[i].handleCollisions(bubbles,platforms);
+					if(players[i].ganchos[j].alive){
+						players[i].ganchos[j].handleCollisions(bubbles,platforms);
 					}
 				}
 			}
